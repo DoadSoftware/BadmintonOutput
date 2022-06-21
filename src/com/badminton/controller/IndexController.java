@@ -94,8 +94,6 @@ public class IndexController
 		this_doad = new Doad();
 		session_selected_broadcaster = select_broadcaster;
 		
-		System.out.println("Broadcaster in IndexController-output:" + select_broadcaster);
-		
 		session_socket = new Socket(vizIPAddresss, Integer.valueOf(vizPortNumber));
 		print_writer = new PrintWriter(session_socket.getOutputStream(), true);
 		session_Configurations = new Configurations(selectedMatch, select_broadcaster, vizIPAddresss, vizPortNumber, vizScene);
@@ -147,11 +145,6 @@ public class IndexController
 						new File(CricketUtil.CRICKET_DIRECTORY + CricketUtil.EVENT_DIRECTORY + session_match.getMatch_file_timestamp()));
 				
 				session_match.setEvents(session_event_file.getEvents());
-				switch(which_graphics_onscreen) {
-				
-					
-				}
-				
 				return JSONObject.fromObject(session_match).toString();
 			}
 			else {
@@ -159,10 +152,8 @@ public class IndexController
 			}*/
 			
 		case "POPULATE-SCOREBUG":
-			System.out.println();
 			viz_scene_path = valueToProcess;
 			new Scene(viz_scene_path).scene_load(print_writer,session_selected_broadcaster,viz_scene_path);
-			System.out.println("Broadcaster in IndexController-scorebug" + session_selected_broadcaster);
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch(whatToProcess.toUpperCase()) {
@@ -174,7 +165,6 @@ public class IndexController
 			}
 			
 		case "ANIMATE-IN-SCOREBUG": case "ANIMATE-OUT":
-			System.out.println("Broadcaster in IndexController-animate-scorebug" + session_selected_broadcaster);
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch (whatToProcess.toUpperCase()) {

@@ -50,7 +50,6 @@ public class Doad extends Scene{
 	}
 	public void processAnimation(PrintWriter print_writer, String animationName,String animationCommand, String which_broadcaster)
 	{
-		System.out.println("Broadcaster in Doad" + which_broadcaster);
 		switch(which_broadcaster) {
 		case "DOAD_In_House_Everest":
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*" + animationName + " " + animationCommand + ";");

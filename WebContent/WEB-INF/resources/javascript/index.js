@@ -40,7 +40,7 @@ function processUserSelection(whichInput)
 		break;
 	case 'populate_scorebug_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
-		alert('Inside populate_scorebug_btn');
+		//alert('Inside populate_scorebug_btn');
 		processBadmintonProcedures('POPULATE-SCOREBUG');
 		break;
 		
@@ -50,12 +50,12 @@ function processUserSelection(whichInput)
 		$("#captions_div").show();
 		break;
 	case 'select_broadcaster':
-		//switch ($('#select_broadcaster :selected').val().toUpperCase()) {
-		//case 'DOAD_IN_HOUSE_EVEREST':
+		switch ($('#select_broadcaster :selected').val()) {
+		case 'DOAD_In_House_Everest':
 			$('#vizPortNumber').attr('value','1980');
 			$('label[for=vizScene], input#vizScene').hide();
-			//break;
-		//}
+			break;
+		}
 		break;
 	case 'load_scene_btn':
 		if(checkEmpty($('#vizIPAddress'),'IP Address Blank') == false
@@ -75,11 +75,11 @@ function processBadmintonProcedures(whatToProcess)
 		valueToProcess = $('#matchFileTimeStamp').val();
 		break;
 	case 'POPULATE-SCOREBUG': 
-		//switch ($('#selected_broadcaster').val().toUpperCase()) {
-		//case 'DOAD_IN_HOUSE_EVEREST':
-			valueToProcess = $('#bugScene').val();
-			//break;	
-		//}
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#scorebugScene').val();
+			break;	
+		}
 		break;
 	}
 
@@ -135,8 +135,8 @@ function addItemsToList(whatToProcess, dataToProcess)
 
 	switch (whatToProcess) {
 	case 'SCOREBUG-OPTIONS': 
-		//switch ($('#selected_broadcaster').val().toUpperCase()) {
-		//case 'DOAD_IN_HOUSE_EVEREST':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
 
 			$('#select_graphic_options_div').empty();
 	
@@ -161,8 +161,8 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case 'SCOREBUG-OPTIONS':
 				select = document.createElement('input');
 				select.type = "text";
-				select.id = 'bugScene';
-				select.value = 'D:/Everest_GBPL/Scenes/Scorebug.sum';
+				select.id = 'scorebugScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Scorebug.sum';
 				
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
@@ -191,8 +191,8 @@ function addItemsToList(whatToProcess, dataToProcess)
 		    
 			document.getElementById('select_graphic_options_div').style.display = '';
 
-			//break;
-		//}
+			break;
+		}
 		break;
 	}
 	
