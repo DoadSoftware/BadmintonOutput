@@ -14,12 +14,12 @@
   
   <link rel="stylesheet" href="<c:url value="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"/>"/>  
   <link href="<c:url value="/webjars/font-awesome/6.0.0/css/all.css"/>" rel="stylesheet">
-  <script type="text/javascript">
+  <!--<script type="text/javascript">
   	setInterval(() => {
   		processBadmintonProcedures('READ-MATCH-AND-POPULATE');		
 	}, 1000);
   </script>
-  <!-- <script type="text/javascript">
+   <script type="text/javascript">
   	setInterval(() => {
   		processCricketProcedures('AUTO-UPDATE-GRAPHICS');		
 	}, 1000);
@@ -45,11 +45,11 @@
 			    <label class="col-sm-4 col-form-label text-left">Match: ${selectedMatch} </label>
 			    <label class="col-sm-4 col-form-label text-left">IP Address: ${session_viz_ip_address} </label>
 			    <label class="col-sm-4 col-form-label text-left">Port Number: ${session_viz_port_number} </label>
-			    <label class="col-sm-4 col-form-label text-left">Broadcaster: ${selectedBroadcaster} </label>
+			    <label class="col-sm-4 col-form-label text-left">Broadcaster: ${session_selected_broadcaster} </label>
 			    
 				<div class="left">
 				<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="scorebug_graphic_btn" id="scorebug_graphic_btn" onclick="processUserSelection(this)"> ScoreBug </button>
+			  		name="scorebug_graphic_btn" id="scorebug_graphic_btn" onclick="processUserSelection(this)"> Scorebug </button>
 			  	
 			  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
@@ -61,7 +61,7 @@
     </div>
   </div>
 </div>
-<input type="hidden" name="selected_broadcaster" id="selected_broadcaster" value="${selectedBroadcaster}"/>
+<input type="hidden" name="select_broadcaster" id="select_broadcaster" value="${session_selected_broadcaster}"/>
 <input type="hidden" id="match_file_timestamp" name="match_file_timestamp" value="${session_match.match_file_timestamp}"></input>
 </form:form>
 </body>

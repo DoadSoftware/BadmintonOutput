@@ -42,8 +42,8 @@
 			  <div class="form-group row row-bottom-margin ml-2" style="margin-bottom:5px;">
 			    <label for="select_broadcaster" class="col-sm-4 col-form-label text-left">Select Broadcaster </label>
 			    <div class="col-sm-6 col-md-6">
-			      <select id="select_broadcaster" name="select_broadcaster" 
-			      		class="browser-default custom-select custom-select-sm" onchange="processUserSelection(this)">
+			      <select id="select_broadcaster" name="select_broadcaster" class="browser-default custom-select custom-select-sm"
+			      		onchange="processUserSelection(this)">
 			          <option value="DOAD_In_House_Everest">DOAD In House Everest</option>
 			      </select>
 			    </div>			  <div class="form-group row row-bottom-margin ml-2" style="margin-bottom:5px;">

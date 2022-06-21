@@ -44,7 +44,7 @@ public class IndexController
 	public static Doad this_doad;
 	public static PrintWriter print_writer;
 	//string static png_extension = '.png';
-	String selectedBroadcaster,which_graphics_onscreen,viz_scene_path;
+	String session_selected_broadcaster,which_graphics_onscreen,viz_scene_path;
 	boolean is_ScoreBug_on_Screen = false;
 	
 	@RequestMapping(value = {"/","/initialise"}, method={RequestMethod.GET,RequestMethod.POST}) 
@@ -84,7 +84,6 @@ public class IndexController
 	public String outputPage(ModelMap model,
 			@RequestParam(value = "select_broadcaster", required = false, defaultValue = "") String select_broadcaster,
 			@RequestParam(value = "selectedMatch", required = false, defaultValue = "") String selectedMatch,
-			@RequestParam(value = "session_socket", required = false, defaultValue = "") String Socket,
 			@RequestParam(value = "vizIPAddress", required = false, defaultValue = "") String vizIPAddresss,
 			@RequestParam(value = "vizPortNumber", required = false, defaultValue = "") int vizPortNumber,
 			@RequestParam(value = "vizScene", required = false, defaultValue = "") String vizScene) 
@@ -93,7 +92,7 @@ public class IndexController
 		which_graphics_onscreen = "";
 		is_ScoreBug_on_Screen = false;
 		this_doad = new Doad();
-		selectedBroadcaster = select_broadcaster;
+		session_selected_broadcaster = select_broadcaster;
 		
 		System.out.println("Broadcaster in IndexController-output:" + select_broadcaster);
 		
@@ -115,8 +114,7 @@ public class IndexController
 		//session_match.setEvents(session_event_file.getEvents());
 		
 		model.addAttribute("session_match", session_match);
-		model.addAttribute("session_socket", session_socket);
-		model.addAttribute("selectedBroadcaster", selectedBroadcaster);
+		model.addAttribute("session_selected_broadcaster", session_selected_broadcaster);
 		
 		return "output";
 	}
@@ -128,8 +126,7 @@ public class IndexController
 					throws IOException, IllegalAccessException, InvocationTargetException, JAXBException, InterruptedException 
 	{
 		
-		viz_scene_path = valueToProcess;
-		new Scene(viz_scene_path).scene_load(new PrintWriter(session_socket.getOutputStream(),true),selectedBroadcaster,viz_scene_path);
+		
 		
 		switch (whatToProcess.toUpperCase()) {
 		
@@ -160,32 +157,36 @@ public class IndexController
 			else {
 				return JSONObject.fromObject(null).toString();
 			}*/
+			
 		case "POPULATE-SCOREBUG":
-			System.out.println("Broadcaster in IndexController-scorebug" + selectedBroadcaster);
-			switch(selectedBroadcaster) {
+			System.out.println();
+			viz_scene_path = valueToProcess;
+			new Scene(viz_scene_path).scene_load(print_writer,session_selected_broadcaster,viz_scene_path);
+			System.out.println("Broadcaster in IndexController-scorebug" + session_selected_broadcaster);
+			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch(whatToProcess.toUpperCase()) {
 				case "POPULATE-SCOREBUG":
-					this_doad.populateScoreBug(print_writer, viz_scene_path, session_match, selectedBroadcaster);
+					this_doad.populateScoreBug(print_writer, viz_scene_path, session_match, session_selected_broadcaster);
 					break;
 				}
 				return JSONObject.fromObject(this_doad).toString();
 			}
 			
 		case "ANIMATE-IN-SCOREBUG": case "ANIMATE-OUT":
-			System.out.println("Broadcaster in IndexController-animate-scorebug" + selectedBroadcaster);
-			switch(selectedBroadcaster) {
+			System.out.println("Broadcaster in IndexController-animate-scorebug" + session_selected_broadcaster);
+			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch (whatToProcess.toUpperCase()) {
 				case "ANIMATE-IN-SCOREBUG":
-					this_doad.processAnimation(print_writer, "In", "START", selectedBroadcaster);
+					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 					is_ScoreBug_on_Screen = true;
 					break;
 					
 				case "ANIMATE-OUT":
 					switch(which_graphics_onscreen) {
 					case "SCOREBUG":
-						this_doad.processAnimation(print_writer, "In", "CONTINUE", selectedBroadcaster);
+						this_doad.processAnimation(print_writer, "In", "CONTINUE", session_selected_broadcaster);
 						is_ScoreBug_on_Screen = false;
 						break;
 					}
