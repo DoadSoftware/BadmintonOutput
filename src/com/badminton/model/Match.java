@@ -37,6 +37,18 @@ public class Match {
   
   @Column(name = "numberOfSets")
   private Integer numberOfSets;
+  
+  @Column(name = "categoryId")
+  private Integer categoryId;
+  
+  @Column(name = "superMatch")
+  private Integer superMatch;
+  
+  @Column(name = "trumpHomeMatch")
+  private Integer trumpHomeMatch;
+  
+  @Column(name = "trumpAwayMatch")
+  private Integer trumpAwayMatch;
 
   @Transient
   private Team homeTeam;
@@ -137,6 +149,38 @@ public Integer getNumberOfSets() {
 
 public void setNumberOfSets(Integer numberOfSets) {
 	this.numberOfSets = numberOfSets;
+}
+
+public Integer getCategoryId() {
+	return categoryId;
+}
+
+public void setCategoryId(Integer categoryId) {
+	this.categoryId = categoryId;
+}
+
+public Integer getSuperMatch() {
+	return superMatch;
+}
+
+public void setSuperMatch(Integer superMatch) {
+	this.superMatch = superMatch;
+}
+
+public Integer getTrumpHomeMatch() {
+	return trumpHomeMatch;
+}
+
+public void setTrumpHomeMatch(Integer trumpHomeMatch) {
+	this.trumpHomeMatch = trumpHomeMatch;
+}
+
+public Integer getTrumpAwayMatch() {
+	return trumpAwayMatch;
+}
+
+public void setTrumpAwayMatch(Integer trumpAwayMatch) {
+	this.trumpAwayMatch = trumpAwayMatch;
 }
 
 public List<Player> getHomePlayers() {

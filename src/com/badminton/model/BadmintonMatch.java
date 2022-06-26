@@ -16,7 +16,13 @@ public class BadmintonMatch {
   private Match match;
   
   @XmlElement
+  private String match_file_name;
+  
+  @XmlElement
   private int onStrikePlayerId;
+  
+  @XmlElement
+  private int goldenPointsPlayerId;
 
   @XmlElement
   private int homeTeamSetsWon;
@@ -87,6 +93,14 @@ public void setMatch(Match match) {
 	this.match = match;
 }
 
+public String getMatch_file_name() {
+	return match_file_name;
+}
+
+public void setMatch_file_name(String match_file_name) {
+	this.match_file_name = match_file_name;
+}
+
 public List<Stats> getStats() {
 	return stats;
 }
@@ -109,6 +123,14 @@ public int getOnStrikePlayerId() {
 
 public void setOnStrikePlayerId(int onStrikePlayerId) {
 	this.onStrikePlayerId = onStrikePlayerId;
+}
+
+public int getGoldenPointsPlayerId() {
+	return goldenPointsPlayerId;
+}
+
+public void setGoldenPointsPlayerId(int goldenPointsPlayerId) {
+	this.goldenPointsPlayerId = goldenPointsPlayerId;
 }
 
 }
