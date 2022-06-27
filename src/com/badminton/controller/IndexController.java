@@ -167,11 +167,10 @@ public class IndexController
 				return JSONObject.fromObject(null).toString();
 			}
 		
-		case "SCOREBUG_GRAPHICS-OPTIONS": 
+		case "SCOREBUG_GRAPHICS-OPTIONS": case "SCOREBUGSTAT_GRAPHICS-OPTIONS": case "SUPER_GRAPHICS-OPTIONS":
 			return JSONObject.fromObject(session_match).toString();
 			
-		case "SCOREBUGSTAT_GRAPHICS-OPTIONS":
-			return JSONObject.fromObject(session_match).toString();
+		
 			
 		case "POPULATE-SCOREBUG": case "POPULATE-SCOREBUGSTATS": case "POPULATE-SINGLE-L3-MATCHID": case "POPULATE-SINGLE-FF-MATCHID": case "POPULATE-DOUBLE-L3_MATCHID":
 		case "POPULATE-DOUBLE-FF-MATCHID": case "POPULATE-L3-TIEID": case "POPULATE-FF-TIEID": case "POPULATE-SIDES":
@@ -209,7 +208,10 @@ public class IndexController
 					this_doad.populateFFTieId(print_writer, viz_scene_path, session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-SIDES":
-					this_doad.populateSides(print_writer, viz_scene_path, session_match, session_selected_broadcaster);
+					this_doad.populateSides(print_writer, viz_scene_path ,valueToProcess.split(",")[1],valueToProcess.split(",")[2], session_match, session_selected_broadcaster);
+					break;
+				case "POPULATE-SUPER":
+					this_doad.populateSuper(print_writer, viz_scene_path,valueToProcess.split(",")[1], session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-SCOREBUGSTATS":
 					switch(valueToProcess.toUpperCase()) {
@@ -242,7 +244,7 @@ public class IndexController
 			}
 			
 		case "ANIMATE-IN-SCOREBUG": case "ANIMATE-IN-SINGLE-L3_MATCHID": case "ANIMATE-IN-SINGLE-FF_MATCHID": case "ANIMATE-IN-DOUBLE-L3_MATCHID": case "ANIMATE-IN-DOUBLE-FF_MATCHID": case "ANIMATE-IN-L3_TIEID": case "ANIMATE-IN-FF_TIEID": 
-		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES":
+		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES": case "ANIMATE-IN-SUPER":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				//System.out.println("whatToProcess = "+ whatToProcess);
@@ -290,37 +292,15 @@ public class IndexController
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 					which_graphics_onscreen = "SIDES";
 					break;
+				case "ANIMATE-IN-SUPER":
+					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					which_graphics_onscreen = "SUPER";
+					break;
 				case "ANIMATE-OUT": 
 					switch(which_graphics_onscreen) {
-					case "SCOREBUG":
-						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
-						break;
-					case "SINGLE_L3_MATCHID":
-						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
-						break;
-					case "SINGLE_FF_MATCHID":
-						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
-						break;
-					case "DOUBLE_L3_MATCHID":
-						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
-						break;
-					case "DOUBLE_FF_MATCHID":
-						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
-						break;
-					case "L3_TIEID":
-						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
-						break;
-					case "FF_TIEID":
-						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
-						break;
-					case "SIDES":
+					case "SCOREBUG": case "SINGLE_L3_MATCHID": case "SINGLE_FF_MATCHID": case "DOUBLE_L3_MATCHID": case "DOUBLE_FF_MATCHID": case "L3_TIEID": case "FF_TIEID":
+					case "SIDES": case "SUPER":
+						
 						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
 						which_graphics_onscreen = "";
 						break;

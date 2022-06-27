@@ -33,7 +33,7 @@ function processUserSelection(whichInput)
 		processBadmintonProcedures('ANIMATE-OUT-STAT');
 		break;
 	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn':
-	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn':
+	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn': case 'super_graphic_btn':
 		$("#captions_div").hide();
 		switch ($(whichInput).attr('name')) {
 		case 'scorebug_graphic_btn':
@@ -63,10 +63,14 @@ function processUserSelection(whichInput)
 		case 'sides_graphic_btn':
 			addItemsToList('SIDES-OPTIONS',null);
 			break;
+		case 'super_graphic_btn':
+			processBadmintonProcedures('SUPER_GRAPHICS-OPTIONS');
+			
+			break;
 		}
 		break;
 	case 'populate_scorebug_btn': case 'populate_scorebugstat_btn': case 'populate_singlel3matchid_btn': case 'populate_singleffmatchid_btn': case 'populate_doublel3matchid_btn':
-	case 'populate_doubleffmatchid_btn': case 'populate_l3tieid_btn': case 'populate_fftieid_btn': case 'populate_sides_btn':
+	case 'populate_doubleffmatchid_btn': case 'populate_l3tieid_btn': case 'populate_fftieid_btn': case 'populate_sides_btn': case 'populate_super_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_scorebug_btn':
@@ -96,10 +100,22 @@ function processUserSelection(whichInput)
 		case 'populate_sides_btn':
 			if($('#selectSide1 option:selected').val() == "Select_Top_Side" && $('#selectSide2 option:selected').val() == "Select_Bottom_Side"){
 				alert("Select Side First!!");
+				addItemsToList('SIDES-OPTIONS',null);
+			}
+			else if($('#selectSide1 option:selected').val() == "Select_Top_Side" || $('#selectSide2 option:selected').val() == "Select_Bottom_Side"){
+				alert("Select Side First!!");
+				addItemsToList('SIDES-OPTIONS',null);
+			}
+			else if($('#selectSide1 option:selected').val() == $('#selectSide2 option:selected').val()){
+				alert("Both Side Same Please Select Different Side!!");
+				addItemsToList('SIDES-OPTIONS',null);
 			}
 			else{
 				processBadmintonProcedures('POPULATE-SIDES');
 			}
+			break;
+		case 'populate_super_btn':
+			processBadmintonProcedures('POPULATE-SUPER');
 			break;
 		}
 		
@@ -195,7 +211,14 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-SIDES':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#sidesScene').val();
+			valueToProcess = $('#sidesScene').val() + ',' + $('#selectSide1 option:selected').val() + ',' + $('#selectSide2 option:selected').val();
+			break;
+		}
+		break;
+	case 'POPULATE-SUPER':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#superScene').val() + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
@@ -225,9 +248,14 @@ function processBadmintonProcedures(whatToProcess)
 				//addItemsToList('SCOREBUG-OPTIONS',data);
 				match_data = data;
 				break;
+			case 'SUPER_GRAPHICS-OPTIONS':
+				addItemsToList('SUPER-OPTIONS',data);
+				//addItemsToList('SCOREBUG-OPTIONS',data);
+				match_data = data;
+				break;
 			
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
-			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES':
+			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER':
 				if (data.status.toUpperCase() == 'SUCCESSFUL') {
 					if(confirm('Animate In?') == true){
 						     
@@ -260,6 +288,9 @@ function processBadmintonProcedures(whatToProcess)
 						case 'POPULATE-SIDES': 
 							processBadmintonProcedures('ANIMATE-IN-SIDES');
 							break;
+						case 'POPULATE-SUPER': 
+							processBadmintonProcedures('ANIMATE-IN-SUPER');
+							break;
 						}
 					}
 				} else {
@@ -280,7 +311,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 	var cellCount = 0;
 
 	switch (whatToProcess) {
-	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS':
+	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -350,7 +381,14 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 			
 			case 'SIDES-OPTIONS':
-			
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'sidesScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Sides.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
 				select = document.createElement('select');
 				select.id = 'selectSide1';
 				select.name = select.id;
@@ -395,6 +433,36 @@ function addItemsToList(whatToProcess, dataToProcess)
 				row.insertCell(cellCount).appendChild(select);
 				
 				cellCount = cellCount + 1;
+				break;
+				
+			case 'SUPER-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'superScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Sides.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('select');
+				select.id = 'selectTeam';
+				select.name = select.id;
+				
+				option = document.createElement('option');
+				option.value = dataToProcess.match.homePlayers.team.teamId;
+				option.text = dataToProcess.match.homePlayers.team.shortname;
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = dataToProcess.match.awayPlayers.team.teamId;
+				option.text = dataToProcess.match.awayPlayers.team.shortname;
+				select.appendChild(option);
+			
+				//select.setAttribute('onchange',"processUserSelection(this)");
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				
 				break;
 			}
 			option = document.createElement('input');
@@ -469,6 +537,33 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case'SIDES-OPTIONS':
 			    option.name = 'populate_sides_btn';
 			    option.value = 'Populate Sides';
+			    
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+			    
+				break;
+				
+			case'SUPER-OPTIONS':
+			    option.name = 'populate_super_btn';
+			    option.value = 'Populate Super';
 			    
 			    option.id = option.name;
 			    

@@ -96,7 +96,13 @@ public void setMatchId(Integer matchId) {
 }
 
 public Integer getHomeFirstPlayerId() {
+	/*if(homeFirstPlayerId == null) {
+		return 0;
+	}else {
+		return homeFirstPlayerId;
+	}*/
 	return homeFirstPlayerId;
+	
 }
 
 public void setHomeFirstPlayerId(Integer homeFirstPlayerId) {
@@ -104,7 +110,12 @@ public void setHomeFirstPlayerId(Integer homeFirstPlayerId) {
 }
 
 public Integer getHomeSecondPlayerId() {
-	return homeSecondPlayerId;
+	if(homeSecondPlayerId == null) {
+		return 0;
+	}else {
+		return homeSecondPlayerId;
+	}
+	
 }
 
 public void setHomeSecondPlayerId(Integer homeSecondPlayerId) {
@@ -112,7 +123,12 @@ public void setHomeSecondPlayerId(Integer homeSecondPlayerId) {
 }
 
 public Integer getHomeThirdPlayerId() {
-	return homeThirdPlayerId;
+	if(homeThirdPlayerId == null) {
+		return 0;
+	}else {
+		return homeThirdPlayerId;
+	}
+	
 }
 
 public void setHomeThirdPlayerId(Integer homeThirdPlayerId) {
@@ -120,7 +136,12 @@ public void setHomeThirdPlayerId(Integer homeThirdPlayerId) {
 }
 
 public Integer getAwayFirstPlayerId() {
-	return awayFirstPlayerId;
+	if(awayFirstPlayerId == null) {
+		return 0;
+	}else {
+		return awayFirstPlayerId;
+	}
+	
 }
 
 public void setAwayFirstPlayerId(Integer awayFirstPlayerId) {
@@ -128,7 +149,12 @@ public void setAwayFirstPlayerId(Integer awayFirstPlayerId) {
 }
 
 public Integer getAwaySecondPlayerId() {
-	return awaySecondPlayerId;
+	if(awaySecondPlayerId == null) {
+		return 0;
+	}else {
+		return awaySecondPlayerId;
+	}
+	
 }
 
 public void setAwaySecondPlayerId(Integer awaySecondPlayerId) {
@@ -136,7 +162,12 @@ public void setAwaySecondPlayerId(Integer awaySecondPlayerId) {
 }
 
 public Integer getAwayThirdPlayerId() {
-	return awayThirdPlayerId;
+	if(awayThirdPlayerId == null) {
+		return 0;
+	}else {
+		return awayThirdPlayerId;
+	}
+	
 }
 
 public void setAwayThirdPlayerId(Integer awayThirdPlayerId) {
