@@ -18,7 +18,7 @@
   setInterval(() => {
 	  processBadmintonProcedures('READ-MATCH-AND-POPULATE');		
 	}, 1000);
-  </script> 
+  </script>
 
 </head>
 <body>

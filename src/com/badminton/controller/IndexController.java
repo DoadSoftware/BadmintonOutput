@@ -42,11 +42,9 @@ public class IndexController
 	public static Configurations session_Configurations;
 	public static BadmintonMatch session_match;
 	public static String selectedmatch;
-	//public static EventFile session_event_file;
 	public static Socket session_socket;
 	public static Doad this_doad;
 	public static PrintWriter print_writer;
-	//string static png_extension = '.png';
 	String session_selected_broadcaster,session_selected_ip,which_graphics_onscreen,viz_scene_path,stat;
 	int session_selected_port ;
 	boolean is_ScoreBug_on_Screen = false;
@@ -108,21 +106,16 @@ public class IndexController
 		
 		JAXBContext.newInstance(Configurations.class).createMarshaller().marshal(session_Configurations, 
 				new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.CONFIGURATIONS_DIRECTORY + BadmintonUtil.OUTPUT_XML));
-
-		/*session_event_file = (EventFile) JAXBContext.newInstance(EventFile.class).createUnmarshaller().unmarshal(
-				new File(CricketUtil.CRICKET_DIRECTORY + CricketUtil.EVENT_DIRECTORY + selectedMatch));*/
 		
 		session_match = (BadmintonMatch) JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
 				new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + selectedmatch));
-		//session_match.setMatchFileName(selectedMatch);
+		
 		session_match.setMatch_file_timestamp(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
 		
-		//session_match.setEvents(session_event_file.getEvents());
 		
 		model.addAttribute("session_match", session_match);
 		model.addAttribute("session_selected_broadcaster", session_selected_broadcaster);
 		model.addAttribute("session_selected_port", session_selected_port);
-		//model.addAttribute("session_selected_ip", session_selected_ip);
 		
 		return "output";
 	}
@@ -138,29 +131,24 @@ public class IndexController
 		switch (whatToProcess.toUpperCase()) {
 		
 		case "READ-MATCH-AND-POPULATE":
-			System.out.println("name= " + selectedmatch);
 			
 			if(!valueToProcess.equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(
-					new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + session_match.getMatch_file_name()).lastModified())))
+					new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + selectedmatch).lastModified())))
 			{
 				session_match = populateMatchVariables((BadmintonMatch) JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
 						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + selectedmatch)));
 				
 				session_match.setMatch_file_timestamp(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(
-						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + session_match.getMatch_file_name()).lastModified()));
-				//session_event_file = (EventFile) JAXBContext.newInstance(EventFile.class).createUnmarshaller().unmarshal(
-					//	new File(CricketUtil.CRICKET_DIRECTORY + CricketUtil.EVENT_DIRECTORY + session_match.getMatchFileName()));
-				//System.out.println("name= " + session_match.getMatch_file_name()).lastModified());
-				//session_match.setEvents(session_event_file.getEvents());
-				System.out.println("which_graphics_onscreen= " + which_graphics_onscreen);
+						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + selectedmatch).lastModified()));
+				
+				
 				switch(which_graphics_onscreen) {
 				case "SCOREBUG":
+					//this_doad.processAnimation(print_writer, "ScoreIn", "START", session_selected_broadcaster);
 					this_doad.populateScoreBugName(true,print_writer, viz_scene_path, session_match, session_selected_broadcaster);
 					break;
 				
-					
 				}
-				//System.out.println("Inning ="+ whichInning);
 				return JSONObject.fromObject(session_match).toString();
 			}
 			else {
@@ -180,7 +168,7 @@ public class IndexController
 				case "POPULATE-SCOREBUGSTATS":
 					break;
 				default:
-					viz_scene_path = valueToProcess;
+					viz_scene_path = valueToProcess.split(",")[0];
 					new Scene(viz_scene_path).scene_load(print_writer,session_selected_broadcaster,viz_scene_path);
 					break;
 				}
@@ -216,23 +204,42 @@ public class IndexController
 				case "POPULATE-SCOREBUGSTATS":
 					switch(valueToProcess.toUpperCase()) {
 					case "TEAM_NAME":
-						stat = valueToProcess;
-						this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
-						
-						this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
-						
-						this_doad.processAnimation(print_writer, "TeamIn", "COUNTINUE_REVERSE", session_selected_broadcaster);
-						which_graphics_onscreen = "TEAM_NAME";
-						//System.out.println(valueToProcess);
+						if(which_graphics_onscreen.equalsIgnoreCase("FOREHAND_WINNER" ) || which_graphics_onscreen.equalsIgnoreCase("FOREHAND_ERROR")  || which_graphics_onscreen.equalsIgnoreCase("BACKHAND_WINNER") || which_graphics_onscreen.equalsIgnoreCase("BACKHAND_ERROR")) {
+							stat = valueToProcess;
+							this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
+							
+							this_doad.processAnimation(print_writer, "TeamIn", "START", session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
+							
+							which_graphics_onscreen = "TEAM_NAME";
+						}
+						else {
+							stat = valueToProcess;
+							this_doad.processAnimation(print_writer, "TeamIn", "START", session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
+							
+							
+							which_graphics_onscreen = "TEAM_NAME";
+						}
 						break;
 					default:
-						stat = valueToProcess;
-						this_doad.processAnimation(print_writer, "TeamOut", "START", session_selected_broadcaster);
+						if(which_graphics_onscreen.equalsIgnoreCase("TEAM_NAME")) {
+							stat = valueToProcess;
+							this_doad.processAnimation(print_writer, "TeamOut", "START", session_selected_broadcaster);
+							
+							this_doad.processAnimation(print_writer, "OtherInfoIn", "START", session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
+							
+							which_graphics_onscreen = valueToProcess.toUpperCase();
+						}
+						else {
+							stat = valueToProcess;
+							this_doad.processAnimation(print_writer, "OtherInfoIn", "START", session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
+							
+							which_graphics_onscreen = valueToProcess.toUpperCase();
+						}
 						
-						this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
-						
-						this_doad.processAnimation(print_writer, "OtherInfoIn", "START", session_selected_broadcaster);
-						which_graphics_onscreen = valueToProcess.toUpperCase();
 						break;
 				
 					}
@@ -326,12 +333,12 @@ public class IndexController
 			return JSONObject.fromObject(null).toString();
 		}
 	}
-	public BadmintonMatch populateMatchVariables(BadmintonMatch match)
+	public BadmintonMatch populateMatchVariables(BadmintonMatch Badmatch)
 	{
-		if(match.getMatch() != null && match.getMatch().getMatchId() > 0) {
-			match.setMatch(populateMatchVariables(match.getMatch()));
+		if(Badmatch.getMatch() != null && Badmatch.getMatch().getMatchId() > 0) {
+			Badmatch.setMatch(populateMatchVariables(Badmatch.getMatch()));
 		}
-		return match;
+		return Badmatch;
 	}
 	public Match populateMatchVariables(Match match)
 	{
@@ -339,7 +346,7 @@ public class IndexController
 			
 			List<Player> players = new ArrayList<Player>();
 			Team team = null;
-			match = badmintonService.getMatch(match.getMatchId());
+			
 			
 			if(match.getHomeFirstPlayerId() > 0) {
 				players.add(badmintonService.getPlayer(match.getHomeFirstPlayerId()));
