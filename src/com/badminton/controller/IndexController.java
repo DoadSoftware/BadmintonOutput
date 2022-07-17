@@ -32,6 +32,7 @@ import com.badminton.model.*;
 import com.badminton.service.BadmintonService;
 import com.badminton.util.BadmintonUtil;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -45,6 +46,9 @@ public class IndexController
 	public static Socket session_socket;
 	public static Doad this_doad;
 	public static PrintWriter print_writer;
+	List<Player> player = new ArrayList<Player>();
+	List<Team> team = new ArrayList<Team>();
+	List<NameSuper> namesuper = new ArrayList<NameSuper>();
 	String session_selected_broadcaster,session_selected_ip,which_graphics_onscreen,viz_scene_path,stat;
 	int session_selected_port ;
 	boolean is_ScoreBug_on_Screen = false;
@@ -155,13 +159,19 @@ public class IndexController
 				return JSONObject.fromObject(null).toString();
 			}
 		
-		case "SCOREBUG_GRAPHICS-OPTIONS": case "SCOREBUGSTAT_GRAPHICS-OPTIONS": case "SUPER_GRAPHICS-OPTIONS":
+		case "SCOREBUG_GRAPHICS-OPTIONS": case "SCOREBUGSTAT_GRAPHICS-OPTIONS": 
 			return JSONObject.fromObject(session_match).toString();
 			
-		
+		case "PLAYER_PROFILE_GRAPHICS-OPTIONS":	
+			player = badmintonService.getAllPlayer();
+            return JSONArray.fromObject(player).toString();
+            
+		case "NAMESUPER_GRAPHICS-OPTIONS": 
+			namesuper = badmintonService.getNameSupers();
+			return JSONArray.fromObject(namesuper).toString();
 			
 		case "POPULATE-SCOREBUG": case "POPULATE-SCOREBUGSTATS": case "POPULATE-SINGLE-L3-MATCHID": case "POPULATE-SINGLE-FF-MATCHID": case "POPULATE-DOUBLE-L3_MATCHID":
-		case "POPULATE-DOUBLE-FF-MATCHID": case "POPULATE-L3-TIEID": case "POPULATE-FF-TIEID": case "POPULATE-SIDES":
+		case "POPULATE-DOUBLE-FF-MATCHID": case "POPULATE-L3-TIEID": case "POPULATE-FF-TIEID": case "POPULATE-SIDES": case "POPULATE-PLAYER_PROFILE": case "POPULATE-SUPER":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch(whatToProcess.toUpperCase()) {
@@ -199,7 +209,24 @@ public class IndexController
 					this_doad.populateSides(print_writer, viz_scene_path ,valueToProcess.split(",")[1],valueToProcess.split(",")[2], session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-SUPER":
-					this_doad.populateSuper(print_writer, viz_scene_path,valueToProcess.split(",")[1], session_match, session_selected_broadcaster);
+					for(NameSuper ns : namesuper) {
+						  
+						  if(ns.getNamesuperId() == Integer.valueOf(valueToProcess.split(",")[1])) {
+							  this_doad.populateSuper(print_writer, viz_scene_path, ns, session_match, session_selected_broadcaster);
+						  }
+						}
+					break;
+				case "POPULATE-PLAYER_PROFILE":
+					for(Player pp : player) {
+						  team = badmintonService.getAllTeam();
+						  
+	                      if(pp.getPlayerId() == Integer.valueOf(valueToProcess.split(",")[1])) {
+	                    	  for(Team tm : team) {
+	                    		  this_doad.populatePlayerProfile(print_writer, viz_scene_path, pp, tm, session_match, session_selected_broadcaster);
+							  }
+	                          
+	                      }
+	                    }
 					break;
 				case "POPULATE-SCOREBUGSTATS":
 					switch(valueToProcess.toUpperCase()) {
@@ -251,7 +278,7 @@ public class IndexController
 			}
 			
 		case "ANIMATE-IN-SCOREBUG": case "ANIMATE-IN-SINGLE-L3_MATCHID": case "ANIMATE-IN-SINGLE-FF_MATCHID": case "ANIMATE-IN-DOUBLE-L3_MATCHID": case "ANIMATE-IN-DOUBLE-FF_MATCHID": case "ANIMATE-IN-L3_TIEID": case "ANIMATE-IN-FF_TIEID": 
-		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES": case "ANIMATE-IN-SUPER":
+		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES": case "ANIMATE-IN-SUPER": case "ANIMATE-IN-PLAYER_PROFILE":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				//System.out.println("whatToProcess = "+ whatToProcess);
@@ -303,10 +330,14 @@ public class IndexController
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 					which_graphics_onscreen = "SUPER";
 					break;
+				case "ANIMATE-IN-PLAYER_PROFILE":
+					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					which_graphics_onscreen = "PLAYER_PROFILE";
+					break;
 				case "ANIMATE-OUT": 
 					switch(which_graphics_onscreen) {
 					case "SCOREBUG": case "SINGLE_L3_MATCHID": case "SINGLE_FF_MATCHID": case "DOUBLE_L3_MATCHID": case "DOUBLE_FF_MATCHID": case "L3_TIEID": case "FF_TIEID":
-					case "SIDES": case "SUPER":
+					case "SIDES": case "SUPER": case "PLAYER_PROFILE":
 						
 						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
 						which_graphics_onscreen = "";

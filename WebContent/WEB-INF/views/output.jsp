@@ -41,7 +41,33 @@
 			    <label class="col-sm-4 col-form-label text-left">IP Address: ${session_viz_ip_address} </label>
 			    <label class="col-sm-4 col-form-label text-left">Port Number: ${session_selected_port} </label>
 			    <label class="col-sm-4 col-form-label text-left">Broadcaster: ${session_selected_broadcaster} </label>
-			    
+			    <label class="col-sm-4 col-form-label text-left" >Home Team: ${session_match.match.homeTeam.fullname}</label>
+				<label class="col-sm-4 col-form-label text-left" >Away Team: ${session_match.match.awayTeam.fullname}</label>
+				
+				<c:forEach var="homeplayers" items="${session_match.match.homePlayers}">
+					<label class="col-sm-4 col-form-label text-left" >Home player: ${homeplayers.full_name}</label>
+				</c:forEach>
+				<c:forEach var="awayplayers" items="${session_match.match.awayPlayers}">
+					<label class="col-sm-4 col-form-label text-left" >Away player: ${awayplayers.full_name}</label>
+				</c:forEach>
+				
+				<label id="home_team_set_won" class="col-sm-4 col-form-label text-left">Home Team Set Won: ${session_match.homeTeamSetsWon} </label>
+				<label id="away_team_set_won" class="col-sm-4 col-form-label text-left">Away Team Set Won: ${session_match.awayTeamSetsWon} </label>
+				
+				<!-- <c:forEach var="set" items="${session_match.sets}">
+					<c:if test="${(set.setNumber == 1)}">
+						<label class="col-sm-4 col-form-label text-left" >Set1: ${set.homeTeamTotalScore}-${set.awayTeamTotalScore}  </label>
+					</c:if>
+					<c:if test="${(set.setNumber == 2)}">
+						<label class="col-sm-4 col-form-label text-left" >Set2: ${set.homeTeamTotalScore}-${set.awayTeamTotalScore}  </label>
+					</c:if>
+					<c:if test="${(set.setNumber == 3)}">
+						<label class="col-sm-4 col-form-label text-left" >Set3: ${set.homeTeamTotalScore}-${set.awayTeamTotalScore}  </label>
+					</c:if>
+					
+				</c:forEach> -->
+				
+				
 				<div class="left">
 				<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="scorebug_graphic_btn" id="scorebug_graphic_btn" onclick="processUserSelection(this)"> Scorebug </button>
@@ -62,7 +88,9 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="sides_graphic_btn" id="sides_graphic_btn" onclick="processUserSelection(this)"> Sides  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-			  		name="super_graphic_btn" id="super_graphic_btn" onclick="processUserSelection(this)"> Super  </button>
+			  		name="super_graphic_btn" id="super_graphic_btn" onclick="processUserSelection(this)"> Name Super  </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> Player Profile  </button>
 			  	
 			  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>

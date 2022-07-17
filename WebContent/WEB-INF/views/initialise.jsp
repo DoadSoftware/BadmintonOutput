@@ -16,7 +16,7 @@
   <link href="<c:url value="/webjars/font-awesome/6.0.0/css/all.css"/>" rel="stylesheet">
 		
 </head>
-<body onload="initialisePage('initialise')">
+<body onload="initialiseForm('initialise')">
 <form:form name="initialise_form" autocomplete="off" action="output" method="POST">
 <div class="content py-5" style="background-color: #EAE8FF; color: #2E008B">
   <div class="container">
@@ -50,7 +50,7 @@
 			    <label for="vizIPAddress" class="col-sm-4 col-form-label text-left">Viz IP Address 
 			    	<i class="fas fa-asterisk fa-sm text-danger" style="font-size: 7px;"></i></label>
 			    <div class="col-sm-6 col-md-6">
-		             <input type="text" id="vizIPAddress" name="vizIPAddress" 
+		             <input type="text" id="vizIPAddress" name="vizIPAddress" autocomplete="on"
 		             		class="form-control form-control-sm floatlabel" value="localhost"></input>
 		              <label id="vizIPAddress-validation" style="color:red; display: none;"></label> 
 			    </div>
@@ -82,6 +82,7 @@
        </div>
     </div>
   </div>
+</div>
 </div>
 </form:form>
 </body>

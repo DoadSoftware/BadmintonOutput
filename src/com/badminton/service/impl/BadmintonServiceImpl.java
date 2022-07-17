@@ -11,6 +11,7 @@ import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
 import com.badminton.service.BadmintonService;
+import com.badminton.model.NameSuper;
 
 @Service("badmintonService")
 @Transactional
@@ -37,6 +38,21 @@ public List<Match> getAllMatches() {
 @Override
 public Match getMatch(int matchID) {
 	return badmintonDao.getMatch(matchID);
+}
+
+@Override
+public List<Player> getAllPlayer() {
+	return badmintonDao.getAllPlayer();
+}
+
+@Override
+public List<Team> getAllTeam() {
+	return badmintonDao.getAllTeam();
+}
+
+@Override
+public List<NameSuper> getNameSupers() {
+	return badmintonDao.getNameSupers();
 }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.badminton.dao.BadmintonDao;
+import com.badminton.model.NameSuper;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
@@ -37,6 +38,21 @@ public List<Match> getAllMatches() {
 @Override
 public Match getMatch(int matchID) {
 	return (Match) sessionFactory.getCurrentSession().createQuery("from Match WHERE matchId = " + String.valueOf(matchID)).uniqueResult();
+}
+
+@Override
+public List<Player> getAllPlayer() {
+	return sessionFactory.getCurrentSession().createQuery("from Player").list();
+}
+
+@Override
+public List<Team> getAllTeam() {
+	return sessionFactory.getCurrentSession().createQuery("from Team").list();
+}
+
+@Override
+public List<NameSuper> getNameSupers() {
+	return sessionFactory.getCurrentSession().createQuery("from NameSuper").list();
 }
 
 }
