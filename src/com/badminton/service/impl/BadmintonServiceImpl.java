@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.badminton.dao.BadmintonDao;
+import com.badminton.model.Fixture;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
+import com.badminton.model.TeamColor;
 import com.badminton.service.BadmintonService;
 import com.badminton.model.NameSuper;
 
@@ -53,6 +55,16 @@ public List<Team> getAllTeam() {
 @Override
 public List<NameSuper> getNameSupers() {
 	return badmintonDao.getNameSupers();
+}
+
+@Override
+public List<TeamColor> getTeamColors() {
+	return badmintonDao.getTeamColors();
+}
+
+@Override
+public List<Fixture> getFixtures() {
+	return badmintonDao.getFixtures();
 }
 
 }

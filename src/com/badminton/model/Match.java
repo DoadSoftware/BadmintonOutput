@@ -16,6 +16,9 @@ public class Match {
   @Id
   @Column(name = "matchId")
   private Integer matchId;
+  
+  @Column(name = "GROUPNAME")
+  private String groupname;
 	
   @Column(name = "homeFirstPlayerId")
   private Integer homeFirstPlayerId ;
@@ -93,6 +96,14 @@ public Integer getMatchId() {
 
 public void setMatchId(Integer matchId) {
 	this.matchId = matchId;
+}
+
+public String getGroupname() {
+	return groupname;
+}
+
+public void setGroupname(String groupname) {
+	this.groupname = groupname;
 }
 
 public Integer getHomeFirstPlayerId() {

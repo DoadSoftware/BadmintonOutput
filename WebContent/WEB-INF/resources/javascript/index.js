@@ -29,6 +29,17 @@ function initialiseForm(whatToProcess,dataToProcess)
 function processUserSelection(whichInput)
 {	
 	switch ($(whichInput).attr('name')) {
+	case 'selectscorebugStat':
+		switch ($('#selectscorebugStat :selected').val().toUpperCase()) {
+		case 'SET_POINT':  
+			processBadmintonProcedures('POINT_GRAPHICS-OPTIONS');
+			break;
+		case 'MATCH_POINT': 
+			processBadmintonProcedures('MATCH_POINT_GRAPHICS-OPTIONS');
+			break;
+		}
+		break;	
+	
 	case 'animateout_graphic_btn':
 		if(confirm('It will Also Delete Your Preview from Directory...\r\n \r\nAre You Sure To Animate Out? ') == true){
 			processBadmintonProcedures('ANIMATE-OUT');	
@@ -37,8 +48,9 @@ function processUserSelection(whichInput)
 	case 'animateout_scorebugstat_btn':
 		processBadmintonProcedures('ANIMATE-OUT-STAT');
 		break;
-	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn':
+	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn': case 'cancel_btn':
 	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn': case 'super_graphic_btn': case 'playerprofile_graphic_btn':
+	case 'orderofplay_graphic_btn':
 		$("#captions_div").hide();
 		switch ($(whichInput).attr('name')) {
 		case 'scorebug_graphic_btn':
@@ -74,10 +86,17 @@ function processUserSelection(whichInput)
 		case 'playerprofile_graphic_btn':
 			processBadmintonProcedures('PLAYER_PROFILE_GRAPHICS-OPTIONS');
 			break;
+		case 'orderofplay_graphic_btn':
+			processBadmintonProcedures('ORDER_OF_PLAY_GRAPHICS-OPTIONS');
+			break;
+		case 'cancel_btn':
+			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
+			break;
 		}
 		break;
 	case 'populate_scorebug_btn': case 'populate_scorebugstat_btn': case 'populate_singlel3matchid_btn': case 'populate_singleffmatchid_btn': case 'populate_doublel3matchid_btn':
 	case 'populate_doubleffmatchid_btn': case 'populate_l3tieid_btn': case 'populate_fftieid_btn': case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn':
+	case 'populate_order_of_play_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_scorebug_btn':
@@ -126,6 +145,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_player_profile_btn':
 			processBadmintonProcedures('POPULATE-PLAYER_PROFILE');
+			break;
+		case 'populate_order_of_play_btn':
+			processBadmintonProcedures('POPULATE-ORDER_OF_PLAY');
 			break;
 		}
 		
@@ -239,6 +261,13 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'POPULATE-ORDER_OF_PLAY':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam option:selected').val();
+			break;
+		}
+		break;
 	}
 
 	$.ajax({    
@@ -275,9 +304,21 @@ function processBadmintonProcedures(whatToProcess)
 				addItemsToList('PLAYER_PROFILE-OPTIONS',data);
 				match_data = data;
 				break;
+			case 'POINT_GRAPHICS-OPTIONS':
+				addItemsToList('POINT-OPTIONS',data);
+				match_data = data;
+				break;
+			case 'MATCH_POINT_GRAPHICS-OPTIONS':
+				addItemsToList('MATCH_POINT-OPTIONS',data);
+				match_data = data;
+				break;
+			case 'ORDER_OF_PLAY_GRAPHICS-OPTIONS':
+				addItemsToList('ORDER_OF_PLAY-OPTIONS',data);
+				match_data = data;
+				break;
 			
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
-			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE':
+			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY':
 			
 				if (data.status.toUpperCase() == 'SUCCESSFUL') {
 					if(confirm('Animate In?') == true){
@@ -317,6 +358,9 @@ function processBadmintonProcedures(whatToProcess)
 						case 'POPULATE-PLAYER_PROFILE': 
 							processBadmintonProcedures('ANIMATE-IN-PLAYER_PROFILE');
 							break;
+						case 'POPULATE-ORDER_OF_PLAY': 
+							processBadmintonProcedures('ANIMATE-IN-ORDER_OF_PLAY');
+							break;
 						}
 					}
 				} else {
@@ -337,7 +381,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 	var cellCount = 0;
 
 	switch (whatToProcess) {
-	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS':
+	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -358,6 +402,46 @@ function addItemsToList(whatToProcess, dataToProcess)
 			row = tbody.insertRow(tbody.rows.length);
 		    
 			switch (whatToProcess) {
+			case'POINT-OPTIONS':
+				select = document.createElement('select');
+				select.id = 'selectscorebugStat';
+				select.name = select.id;
+				
+				
+				option = document.createElement('option');
+				option.value = 'home';
+				option.text = 'Home Player' ;
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = 'away';
+				option.text = 'Away Player' ;
+				select.appendChild(option);
+				
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				break;
+			case'MATCH_POINT-OPTIONS':
+				select = document.createElement('select');
+				select.id = 'selectscorebugStat';
+				select.name = select.id;
+				
+				
+				option = document.createElement('option');
+				option.value = 'match_home';
+				option.text = 'Home Player' ;
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = 'match_away';
+				option.text = 'Away Player' ;
+				select.appendChild(option);
+				
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				break;
 			case 'SCOREBUG-OPTIONS':
 				select = document.createElement('input');
 				select.type = "text";
@@ -400,7 +484,18 @@ function addItemsToList(whatToProcess, dataToProcess)
 				option.text = 'Team_Name';
 				select.appendChild(option);
 				
-				//select.setAttribute('onchange',"processUserSelection(this)");
+				option = document.createElement('option');
+				option.value = 'set_point';
+				option.text = 'Set Point';
+				select.appendChild(option);
+				select.setAttribute('onclick','processUserSelection(this);');
+				
+				option = document.createElement('option');
+				option.value = 'match_point';
+				option.text = 'Match Point';
+				select.appendChild(option);
+				
+				select.setAttribute('onchange',"processUserSelection(this)");
 				row.insertCell(cellCount).appendChild(select);
 				
 				cellCount = cellCount + 1;
@@ -475,10 +570,12 @@ function addItemsToList(whatToProcess, dataToProcess)
 				select.name = select.id;
 				
 				dataToProcess.forEach(function(pp,index,arr1){
-                    option = document.createElement('option');
+						
+					option = document.createElement('option');
                     option.value = pp.playerId;
                     option.text = pp.ticker_name ;
                     select.appendChild(option);
+						
                 });
 				
 				row.insertCell(cellCount).appendChild(select);
@@ -570,6 +667,45 @@ function addItemsToList(whatToProcess, dataToProcess)
 				option = document.createElement('input');
 				option.type = 'button';
 				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+			    
+				break;
+				
+			case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
+			    option.name = 'populate_scorebugstat_btn';
+			    option.value = 'Populate ScorebugStat';
+			    
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'animateout_scorebugstat_btn';
+				option.id = option.name;
+				option.value = 'Animate out ';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_btn';
 				option.id = option.name;
 				option.value = 'Cancel';
 				option.setAttribute('onclick','processUserSelection(this)');
@@ -890,6 +1026,94 @@ function addItemsToList(whatToProcess, dataToProcess)
 				
 			    option.name = 'populate_fftieid_btn';
 			    option.value = 'Populate FF TieId';
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+			}
+		    
+			break;
+		}
+		break;
+	}
+	
+	switch (whatToProcess) {
+	
+	case 'ORDER_OF_PLAY-OPTIONS':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+
+			$('#select_graphic_options_div').empty();
+	
+			header_text = document.createElement('h6');
+			header_text.innerHTML = 'Select Graphic Options';
+			document.getElementById('select_graphic_options_div').appendChild(header_text);
+			
+			table = document.createElement('table');
+			table.setAttribute('class', 'table table-bordered');
+					
+			tbody = document.createElement('tbody');
+	
+			table.appendChild(tbody);
+			document.getElementById('select_graphic_options_div').appendChild(table);
+			
+			row = tbody.insertRow(tbody.rows.length);
+		    
+			switch (whatToProcess) {
+			case 'ORDER_OF_PLAY-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'orderofplayScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Order_Of_Play.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('select');
+				select.id = 'selectTeam';
+				select.name = select.id;
+				
+				dataToProcess.forEach(function(oop,index,arr1){
+						
+					option = document.createElement('option');
+                    option.value = oop.matchnumber;
+                    option.text = oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
+                    select.appendChild(option);
+						
+                });
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				//select.setAttribute('onchange',"processUserSelection(this)");
+				break;
+			}
+			option = document.createElement('input');
+		    option.type = 'button';
+		    
+			switch (whatToProcess) {
+			
+			case 'ORDER_OF_PLAY-OPTIONS':
+				
+			    option.name = 'populate_order_of_play_btn';
+			    option.value = 'Populate Order Of Play';
 			    option.id = option.name;
 			    
 			    option.setAttribute('onclick',"processUserSelection(this)");
