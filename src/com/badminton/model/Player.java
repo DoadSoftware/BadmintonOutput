@@ -32,9 +32,6 @@ public class Player
   @Column(name = "TEXT2")
   private String text2;
   
-  @Column(name = "RANK")
-  private String rank;
-  
   @Transient
   private Team team;
   
@@ -92,14 +89,6 @@ public String getText2() {
 
 public void setText2(String text2) {
 	this.text2 = text2;
-}
-
-public String getRank() {
-	return rank;
-}
-
-public void setRank(String rank) {
-	this.rank = rank;
 }
 
 public Team getTeam() {

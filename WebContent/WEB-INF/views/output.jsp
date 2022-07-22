@@ -97,6 +97,14 @@
 			  		name="ff_tie_graphic_btn" id="ff_tie_graphic_btn" onclick="processUserSelection(this)"> FF-Next Tie Promo  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="l3_tie_graphic_btn" id="l3_tie_graphic_btn" onclick="processUserSelection(this)"> LT-Next Tie Promo  </button>
+				<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="teamslogo_graphic_btn" id="teamslogo_graphic_btn" onclick="processUserSelection(this)"> Teams  </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="supermatch_graphic_btn" id="supermatch_graphic_btn" onclick="processUserSelection(this)"> Super MatchFF  </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="supermatch1_graphic_btn" id="supermatch1_graphic_btn" onclick="processUserSelection(this)"> Super Match1  </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="supermatch2_graphic_btn" id="supermatch2_graphic_btn" onclick="processUserSelection(this)"> Super Match2  </button>
 			  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
 			  </div>

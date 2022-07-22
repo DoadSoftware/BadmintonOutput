@@ -50,7 +50,8 @@ function processUserSelection(whichInput)
 		break;
 	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn': case 'cancel_btn':
 	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn': case 'super_graphic_btn': case 'playerprofile_graphic_btn':
-	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn':
+	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn': case 'teamslogo_graphic_btn': case 'supermatch_graphic_btn': case 'supermatch1_graphic_btn': case 'supermatch2_graphic_btn':
+
 		$("#captions_div").hide();
 		switch ($(whichInput).attr('name')) {
 		case 'scorebug_graphic_btn':
@@ -94,6 +95,17 @@ function processUserSelection(whichInput)
 			break;
 		case 'l3_tie_graphic_btn':
 			processBadmintonProcedures('L3-TIE_GRAPHICS-OPTIONS');
+		case 'teamslogo_graphic_btn':
+			addItemsToList('TEAMS_LOGO-OPTIONS',null);
+			break;
+		case 'supermatch_graphic_btn':
+			addItemsToList('SUPER_MATCH-OPTIONS',null);
+			break;
+		case 'supermatch1_graphic_btn':
+			addItemsToList('SUPER_MATCH1-OPTIONS',null);
+			break;
+		case 'supermatch2_graphic_btn':
+			addItemsToList('SUPER_MATCH2-OPTIONS',null);
 			break;
 		case 'cancel_btn':
 			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
@@ -103,6 +115,7 @@ function processUserSelection(whichInput)
 	case 'populate_scorebug_btn': case 'populate_scorebugstat_btn': case 'populate_singlel3matchid_btn': case 'populate_singleffmatchid_btn': case 'populate_doublel3matchid_btn':
 	case 'populate_doubleffmatchid_btn': case 'populate_l3tieid_btn': case 'populate_fftieid_btn': case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn':
 	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn':
+	case 'populate_teamslogo_btn': case 'populate_supermatch_btn': case 'populate_supermatch1_btn': case 'populate_supermatch2_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_scorebug_btn':
@@ -160,6 +173,17 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_l3_tie_promo_btn':
 			processBadmintonProcedures('POPULATE-L3_TIE_PROMO');
+		case 'populate_teamslogo_btn':
+			processBadmintonProcedures('POPULATE-TEAMS_LOGO');
+			break;
+		case 'populate_supermatch_btn':
+			processBadmintonProcedures('POPULATE-SUPER_MATCH');
+			break;
+		case 'populate_supermatch1_btn':
+			processBadmintonProcedures('POPULATE-SUPER_MATCH1');
+			break;
+		case 'populate_supermatch2_btn':
+			processBadmintonProcedures('POPULATE-SUPER_MATCH2');
 			break;
 		}
 		
@@ -294,6 +318,34 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'POPULATE-TEAMS_LOGO':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#teamslogoScene').val();
+			break;
+		}
+		break;
+	case 'POPULATE-SUPER_MATCH':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#supermatchScene').val();
+			break;
+		}
+		break;
+	case 'POPULATE-SUPER_MATCH1':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#supermatch1Scene').val();
+			break;
+		}
+		break;
+	case 'POPULATE-SUPER_MATCH2':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#supermatch2Scene').val();
+			break;
+		}
+		break;
 	}
 
 	$.ajax({    
@@ -352,7 +404,8 @@ function processBadmintonProcedures(whatToProcess)
 				break;
 			
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
-			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-FF_TIE_PROMO': case 'POPULATE-L3_TIE_PROMO':
+			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-TEAMS_LOGO': case 'POPULATE-SUPER_MATCH':
+			case 'POPULATE-SUPER_MATCH1': case 'POPULATE-SUPER_MATCH2': case 'POPULATE-FF_TIE_PROMO': case 'POPULATE-L3_TIE_PROMO':
 			
 				if (data.status.toUpperCase() == 'SUCCESSFUL') {
 					if(confirm('Animate In?') == true){
@@ -401,8 +454,20 @@ function processBadmintonProcedures(whatToProcess)
 						case 'POPULATE-L3_TIE_PROMO':
 							processBadmintonProcedures('ANIMATE-IN-L3_TIE_PROMO');
 							break;
-							}
+						case 'POPULATE-TEAMS_LOGO': 
+							processBadmintonProcedures('ANIMATE-IN-TEAMS_LOGO');
+							break;
+						case 'POPULATE-SUPER_MATCH': 
+							processBadmintonProcedures('ANIMATE-IN-SUPER_MATCH');
+							break;
+						case 'POPULATE-SUPER_MATCH1': 
+							processBadmintonProcedures('ANIMATE-IN-SUPER_MATCH1');
+							break;
+						case 'POPULATE-SUPER_MATCH2': 
+							processBadmintonProcedures('ANIMATE-IN-SUPER_MATCH2');
+							break;
 						}
+					}
 					
 				} else {
 					alert(data.status);
@@ -423,6 +488,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 
 	switch (whatToProcess) {
 	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
+	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -488,6 +554,47 @@ function addItemsToList(whatToProcess, dataToProcess)
 				select.type = "text";
 				select.id = 'scorebugScene';
 				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Scorebug.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				 
+				break;
+			case 'TEAMS_LOGO-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'teamslogoScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Teams.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				 
+				break;
+				
+			case 'SUPER_MATCH-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'supermatchScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/FF_SuperMatch.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				 
+				break;
+			case 'SUPER_MATCH1-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'supermatch1Scene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_MatchID_Score_Single.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				 
+				break;
+			case 'SUPER_MATCH2-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'supermatch2Scene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_MatchID_Score_Double.sum';
 				
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
@@ -660,6 +767,106 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case'SCOREBUG-OPTIONS':
 			    option.name = 'populate_scorebug_btn';
 			    option.value = 'Populate Scorebug';
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+				
+			case'TEAMS_LOGO-OPTIONS':
+			    option.name = 'populate_teamslogo_btn';
+			    option.value = 'Populate Team Logo';
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+				
+			case'SUPER_MATCH-OPTIONS':
+			    option.name = 'populate_supermatch_btn';
+			    option.value = 'Populate Super Match';
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+				
+			case'SUPER_MATCH1-OPTIONS':
+			    option.name = 'populate_supermatch1_btn';
+			    option.value = 'Populate Super Match1';
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+				
+			case'SUPER_MATCH2-OPTIONS':
+			    option.name = 'populate_supermatch2_btn';
+			    option.value = 'Populate Super Match2';
 			    option.id = option.name;
 			    
 			    option.setAttribute('onclick',"processUserSelection(this)");
