@@ -17,6 +17,9 @@ public class Match {
   @Column(name = "matchId")
   private Integer matchId;
   
+  @Column(name = "MATCHIDENT")
+  private String matchIdent;
+  
   @Column(name = "GROUPNAME")
   private String groupname;
 	
@@ -96,6 +99,14 @@ public Integer getMatchId() {
 
 public void setMatchId(Integer matchId) {
 	this.matchId = matchId;
+}
+
+public String getMatchIdent() {
+	return matchIdent;
+}
+
+public void setMatchIdent(String matchIdent) {
+	this.matchIdent = matchIdent;
 }
 
 public String getGroupname() {

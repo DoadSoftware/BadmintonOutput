@@ -15,7 +15,7 @@ public interface BadmintonDao {
   List<Match> getAllMatches();
   Match getMatch(int matchID);
   List<Player> getAllPlayer();
-  List<Player> getCurrPlayer(Match match);
+  List<Player> getCurrentMatchPlayer(Match match);
   List<Team> getAllTeam();
   List<NameSuper> getNameSupers();
   List<TeamColor> getTeamColors();

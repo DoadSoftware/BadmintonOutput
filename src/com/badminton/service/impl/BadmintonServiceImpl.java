@@ -68,8 +68,8 @@ public List<Fixture> getFixtures() {
 }
 
 @Override
-public List<Player> getCurrPlayer(Match match) {
-	return badmintonDao.getCurrPlayer(match);
+public List<Player> getCurrentMatchPlayer(Match match) {
+	return badmintonDao.getCurrentMatchPlayer(match);
 }
 
 }

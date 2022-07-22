@@ -68,8 +68,9 @@ public List<Fixture> getFixtures() {
 }
 
 @Override
-public List<Player> getCurrPlayer(Match match) {
-	return (List<Player>) sessionFactory.getCurrentSession().createQuery("from Player WHERE HomeTeamId=" + String.valueOf(match.getHomeTeam().getTeamId()) + " OR " + "from Player WHERE AwayTeamId=" + String.valueOf(match.getAwayTeam().getTeamId())).uniqueResult(); 
+public List<Player> getCurrentMatchPlayer(Match match) {
+	return sessionFactory.getCurrentSession().createQuery("from Player WHERE teamId=" + String.valueOf(match.getHomeTeam().getTeamId()) + 
+			" OR teamId=" + String.valueOf(match.getAwayTeam().getTeamId())).list(); 
 }
 
 }

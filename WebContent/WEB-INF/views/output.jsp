@@ -97,6 +97,17 @@
 			  		name="ff_tie_graphic_btn" id="ff_tie_graphic_btn" onclick="processUserSelection(this)"> FF-Next Tie Promo  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="l3_tie_graphic_btn" id="l3_tie_graphic_btn" onclick="processUserSelection(this)"> LT-Next Tie Promo  </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="ff_single_match_graphic_btn" id="ff_single_match_graphic_btn" onclick="processUserSelection(this)"> Next Match Promo - FF-Single  </button>	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="ff_double_match_graphic_btn" id="ff_double_match_graphic_btn" onclick="processUserSelection(this)"> Next Match Promo -  FF-Double  </button>
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="l3_single_match_graphic_btn" id="l3_single_match_graphic_btn" onclick="processUserSelection(this)"> Next Match Promo - LT-Single  </button>
+			  	
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="l3_double_match_graphic_btn" id="l3_double_match_graphic_btn" onclick="processUserSelection(this)"> Next Match Promo - LT-Double  </button>
+			  		
 				<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="teamslogo_graphic_btn" id="teamslogo_graphic_btn" onclick="processUserSelection(this)"> Teams  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
