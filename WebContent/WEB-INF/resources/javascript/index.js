@@ -173,6 +173,7 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_l3_tie_promo_btn':
 			processBadmintonProcedures('POPULATE-L3_TIE_PROMO');
+			break;
 		case 'populate_teamslogo_btn':
 			processBadmintonProcedures('POPULATE-TEAMS_LOGO');
 			break;
