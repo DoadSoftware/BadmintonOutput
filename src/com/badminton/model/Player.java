@@ -33,10 +33,10 @@ public class Player
   private String text2;
   
   @Column(name = "BAIRANKING")
-  private String baiRanking;
+  private Integer baiRanking;
   
   @Column(name = "BWFRANKING")
-  private String bwfRanking;
+  private Integer bwfRanking;
   
   @Column(name = "ICONPLAYER")
   private String iconPlayer;
@@ -103,19 +103,19 @@ public void setText2(String text2) {
 	this.text2 = text2;
 }
 
-public String getBaiRanking() {
+public Integer getBaiRanking() {
 	return baiRanking;
 }
 
-public void setBaiRanking(String baiRanking) {
+public void setBaiRanking(Integer baiRanking) {
 	this.baiRanking = baiRanking;
 }
 
-public String getBwfRanking() {
+public Integer getBwfRanking() {
 	return bwfRanking;
 }
 
-public void setBwfRanking(String bwfRanking) {
+public void setBwfRanking(Integer bwfRanking) {
 	this.bwfRanking = bwfRanking;
 }
 

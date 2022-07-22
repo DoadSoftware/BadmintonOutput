@@ -326,7 +326,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-ORDER_OF_PLAY':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam1 option:selected').val() + ',' + $('#selectTeam2 option:selected').val();
 			break;
 		}
 		break;
@@ -1418,14 +1418,30 @@ function addItemsToList(whatToProcess, dataToProcess)
 				cellCount = cellCount + 1;
 				
 				select = document.createElement('select');
-				select.id = 'selectTeam';
+				select.id = 'selectTeam1';
 				select.name = select.id;
 				
 				dataToProcess.forEach(function(oop,index,arr1){
 						
 					option = document.createElement('option');
-                    option.value = oop.matchnumber;
-                    option.text = oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
+                    option.value = oop.home_Team.teamId;
+                    option.text = oop.home_Team.fullname;
+                    select.appendChild(option);
+						
+                });
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('select');
+				select.id = 'selectTeam2';
+				select.name = select.id;
+				
+				dataToProcess.forEach(function(oop,index,arr1){
+						
+					option = document.createElement('option');
+                    option.value = oop.away_Team.teamId;
+                    option.text = oop.away_Team.fullname;
                     select.appendChild(option);
 						
                 });
