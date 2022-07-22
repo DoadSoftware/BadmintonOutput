@@ -93,6 +93,10 @@
 			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> Player Profile  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="orderofplay_graphic_btn" id="orderofplay_graphic_btn" onclick="processUserSelection(this)"> Order Of Play  </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="ff_tie_graphic_btn" id="ff_tie_graphic_btn" onclick="processUserSelection(this)"> FF-Next Tie Promo  </button>
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="l3_tie_graphic_btn" id="l3_tie_graphic_btn" onclick="processUserSelection(this)"> LT-Next Tie Promo  </button>
 			  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
 			  </div>
