@@ -51,7 +51,7 @@ function processUserSelection(whichInput)
 	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn': case 'cancel_btn':
 	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn': case 'super_graphic_btn': case 'playerprofile_graphic_btn':
 	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn': case 'teamslogo_graphic_btn': case 'supermatch_graphic_btn': case 'supermatch1_graphic_btn': case 'supermatch2_graphic_btn':
-	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': case 'l3_double_match_graphic_btn': case 'squads_graphic_btn':
+	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': case 'l3_double_match_graphic_btn': case 'squads_graphic_btn': case 'namesuper_player_graphic_btn':
 		$("#captions_div").hide();
 		switch ($(whichInput).attr('name')) {
 		case 'scorebug_graphic_btn':
@@ -83,6 +83,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'super_graphic_btn':
 			processBadmintonProcedures('NAMESUPER_GRAPHICS-OPTIONS');
+			break;
+		case 'namesuper_player_graphic_btn':
+			processBadmintonProcedures('NAMESUPER_PLAYER_GRAPHICS-OPTIONS');
 			break;
 		case 'playerprofile_graphic_btn':
 			processBadmintonProcedures('PLAYER_PROFILE_GRAPHICS-OPTIONS');
@@ -131,7 +134,7 @@ function processUserSelection(whichInput)
 	case 'populate_doubleffmatchid_btn': case 'populate_l3tieid_btn': case 'populate_fftieid_btn': case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn':
 	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn': case 'populate_teamslogo_btn': case 'populate_supermatch_btn': 
 	case 'populate_supermatch1_btn': case 'populate_supermatch2_btn': case 'populate_ff_single_match_promo_btn': case 'populate_ff_double_match_promo_btn': case 'populate_l3_single_match_promo_btn':
-	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn':
+	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn': case 'populate_namesuper_player_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_scorebug_btn':
@@ -177,6 +180,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_super_btn':
 			processBadmintonProcedures('POPULATE-SUPER');
+			break;
+		case 'populate_namesuper_player_btn':
+			processBadmintonProcedures('POPULATE-NAMESUPER_PLAYER');
 			break;
 		case 'populate_player_profile_btn':
 			processBadmintonProcedures('POPULATE-PLAYER_PROFILE');
@@ -322,6 +328,13 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'POPULATE-NAMESUPER_PLAYER':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#namesuperplayerScene').val() + ',' + $('#selectNameSuperPlayer option:selected').val() + ',' + $('#selectSponsor option:selected').val(); 
+			break;
+		}
+		break;
 	case 'POPULATE-PLAYER_PROFILE':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
@@ -445,6 +458,10 @@ function processBadmintonProcedures(whatToProcess)
 				//addItemsToList('SCOREBUG-OPTIONS',data);
 				match_data = data;
 				break;
+			case 'NAMESUPER_PLAYER_GRAPHICS-OPTIONS':
+				addItemsToList('NAMESUPER_PLAYER-OPTIONS',data);
+				match_data = data;
+				break;
 			case 'PLAYER_PROFILE_GRAPHICS-OPTIONS':
 				addItemsToList('PLAYER_PROFILE-OPTIONS',data);
 				match_data = data;
@@ -493,7 +510,7 @@ function processBadmintonProcedures(whatToProcess)
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
 			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-TEAMS_LOGO': case 'POPULATE-SUPER_MATCH':
 			case 'POPULATE-SUPER_MATCH1': case 'POPULATE-SUPER_MATCH2': case 'POPULATE-FF_TIE_PROMO': case 'POPULATE-L3_TIE_PROMO': case 'POPULATE-SINGLE_MATCH_PROMO': case 'POPULATE-DOUBLE_MATCH_PROMO':
-			case 'POPULATE-LT_SINGLE_MATCH_PROMO': case 'POPULATE-LT_DOUBLE_MATCH_PROMO': case 'POPULATE-SQUADS':
+			case 'POPULATE-LT_SINGLE_MATCH_PROMO': case 'POPULATE-LT_DOUBLE_MATCH_PROMO': case 'POPULATE-SQUADS': case 'POPULATE-NAMESUPER_PLAYER':
 				if (data.status.toUpperCase() == 'SUCCESSFUL') {
 					if(confirm('Animate In?') == true){
 						     
@@ -528,6 +545,9 @@ function processBadmintonProcedures(whatToProcess)
 							break;
 						case 'POPULATE-SUPER': 
 							processBadmintonProcedures('ANIMATE-IN-SUPER');
+							break;
+						case 'POPULATE-NAMESUPER_PLAYER':
+							processBadmintonProcedures('ANIMATE-IN-NAMESUPER_PLAYER');
 							break;
 						case 'POPULATE-PLAYER_PROFILE': 
 							processBadmintonProcedures('ANIMATE-IN-PLAYER_PROFILE');
@@ -590,7 +610,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 
 	switch (whatToProcess) {
 	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
-	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS':
+	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -855,6 +875,52 @@ function addItemsToList(whatToProcess, dataToProcess)
 					option.text = ns.firstname + ' ' + ns.surname ;
 					select.appendChild(option);
 				});
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				break;
+				
+			case 'NAMESUPER_PLAYER-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'namesuperplayerScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Super.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				
+				select = document.createElement('select');
+				select.style = 'width:130px';
+				select.id = 'selectNameSuperPlayer';
+				select.name = select.id;
+				
+				dataToProcess.forEach(function(plyr,index,arr1){
+					option = document.createElement('option');
+					option.value = plyr.playerId;
+					option.text = plyr.full_name;
+					select.appendChild(option);
+				});
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('select');
+				select.style = 'width:130px';
+				select.id = 'selectSponsor';
+				select.name = select.id;
+				
+				
+				option = document.createElement('option');
+				option.value = 0;
+				option.text = 'Without Sponsor';
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = 1;
+				option.text = 'With Sponsor';
+				select.appendChild(option);
 				
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
@@ -1126,6 +1192,33 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case'SUPER-OPTIONS':
 			    option.name = 'populate_super_btn';
 			    option.value = 'Populate Super';
+			    
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+			    
+				break;
+				
+			case 'NAMESUPER_PLAYER-OPTIONS':
+				  option.name = 'populate_namesuper_player_btn';
+			    option.value = 'Populate NameSuper Player';
 			    
 			    option.id = option.name;
 			    

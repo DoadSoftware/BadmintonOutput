@@ -87,8 +87,13 @@
 			  		name="fftieid_graphic_btn" id="fftieid_graphic_btn" onclick="processUserSelection(this)"> FF TieId  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="sides_graphic_btn" id="sides_graphic_btn" onclick="processUserSelection(this)"> Sides  </button>
+			  	
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="super_graphic_btn" id="super_graphic_btn" onclick="processUserSelection(this)"> Name Super  </button>
+			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="namesuper_player_graphic_btn" id="namesuper_player_graphic_btn" onclick="processUserSelection(this)"> NameSuper-Player  </button>
+			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> Player Profile  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
