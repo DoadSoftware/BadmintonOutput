@@ -117,16 +117,6 @@ public class IndexController
 		print_writer = new PrintWriter(session_socket.getOutputStream(), true);
 		session_Configurations = new Configurations(selectedmatch, select_broadcaster, vizIPAddresss, vizPortNumber, vizScene);
 		
-		
-		/*for (Match mtch : badmintonService.getAllMatches())
-		{
-			mtch = populateMatchVariables(mtch);
-			if(mtch.getHomeTeam().getTeamId() == fixture.getHomeTeamId) {
-				badmin_matches.add(populateMatchVariables(JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
-						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + file.getName())));
-			}
-		}*/
-		
 		JAXBContext.newInstance(Configurations.class).createMarshaller().marshal(session_Configurations, 
 				new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.CONFIGURATIONS_DIRECTORY + BadmintonUtil.OUTPUT_XML));
 		
@@ -529,10 +519,12 @@ public class IndexController
 						else {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "0" +";");
 						}
-						
+						//if(session_match.getSets().get(0).get)
 						
 						
 						this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
+						this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
+						this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
 						//TimeUnit.SECONDS.sleep(5);
 						//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
 						is_ScoreBug_on_Screen = true;
