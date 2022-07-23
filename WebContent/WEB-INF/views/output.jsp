@@ -108,6 +108,9 @@
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="l3_double_match_graphic_btn" id="l3_double_match_graphic_btn" onclick="processUserSelection(this)"> Next Match Promo - LT-Double  </button>
 			  		
+			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+			  		name="squads_graphic_btn" id="squads_graphic_btn" onclick="processUserSelection(this)"> Squad  </button>
+			  	
 				<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="teamslogo_graphic_btn" id="teamslogo_graphic_btn" onclick="processUserSelection(this)"> Teams  </button>
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"

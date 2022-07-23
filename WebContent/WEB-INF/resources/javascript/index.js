@@ -51,7 +51,7 @@ function processUserSelection(whichInput)
 	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn': case 'cancel_btn':
 	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn': case 'super_graphic_btn': case 'playerprofile_graphic_btn':
 	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn': case 'teamslogo_graphic_btn': case 'supermatch_graphic_btn': case 'supermatch1_graphic_btn': case 'supermatch2_graphic_btn':
-	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': case 'l3_double_match_graphic_btn':
+	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': case 'l3_double_match_graphic_btn': case 'squads_graphic_btn':
 		$("#captions_div").hide();
 		switch ($(whichInput).attr('name')) {
 		case 'scorebug_graphic_btn':
@@ -119,6 +119,9 @@ function processUserSelection(whichInput)
 		case 'l3_double_match_graphic_btn':
 			processBadmintonProcedures('LT-DOUBLE_GRAPHICS-OPTIONS');
 			break;
+		case 'squads_graphic_btn':
+			processBadmintonProcedures('SQUADS_GRAPHICS-OPTIONS');
+			break;
 		case 'cancel_btn':
 			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
 			break;
@@ -128,7 +131,7 @@ function processUserSelection(whichInput)
 	case 'populate_doubleffmatchid_btn': case 'populate_l3tieid_btn': case 'populate_fftieid_btn': case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn':
 	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn': case 'populate_teamslogo_btn': case 'populate_supermatch_btn': 
 	case 'populate_supermatch1_btn': case 'populate_supermatch2_btn': case 'populate_ff_single_match_promo_btn': case 'populate_ff_double_match_promo_btn': case 'populate_l3_single_match_promo_btn':
-	case 'populate_l3_double_match_promo_btn':
+	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_scorebug_btn':
@@ -210,6 +213,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_l3_double_match_promo_btn':
 			processBadmintonProcedures('POPULATE-LT_DOUBLE_MATCH_PROMO');
+			break;
+		case 'populate_squads_btn':
+			processBadmintonProcedures('POPULATE-SQUADS');
 			break;
 		}
 		
@@ -372,6 +378,13 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'POPULATE-SQUADS':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#squadsScene').val() + ',' + $('#selectTeam option:selected').val();
+			break;
+		}
+		break;
 	case 'POPULATE-TEAMS_LOGO':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
@@ -472,11 +485,15 @@ function processBadmintonProcedures(whatToProcess)
 				addItemsToList('LT_DOUBLE-OPTIONS',data);
 				match_data = data;
 				break;
+			case 'SQUADS_GRAPHICS-OPTIONS':
+				addItemsToList('SQUADS-OPTIONS',data);
+				match_data = data;
+				break;
 			
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
 			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-TEAMS_LOGO': case 'POPULATE-SUPER_MATCH':
 			case 'POPULATE-SUPER_MATCH1': case 'POPULATE-SUPER_MATCH2': case 'POPULATE-FF_TIE_PROMO': case 'POPULATE-L3_TIE_PROMO': case 'POPULATE-SINGLE_MATCH_PROMO': case 'POPULATE-DOUBLE_MATCH_PROMO':
-			case 'POPULATE-LT_SINGLE_MATCH_PROMO': case 'POPULATE-LT_DOUBLE_MATCH_PROMO':
+			case 'POPULATE-LT_SINGLE_MATCH_PROMO': case 'POPULATE-LT_DOUBLE_MATCH_PROMO': case 'POPULATE-SQUADS':
 				if (data.status.toUpperCase() == 'SUCCESSFUL') {
 					if(confirm('Animate In?') == true){
 						     
@@ -547,6 +564,9 @@ function processBadmintonProcedures(whatToProcess)
 							break;
 						case 'POPULATE-LT_DOUBLE_MATCH_PROMO':
 							processBadmintonProcedures('ANIMATE-IN-LT_DOUBLE_MATCH_PROMO');
+							break;
+						case 'POPULATE-SQUADS':
+							processBadmintonProcedures('ANIMATE-IN-SQUADS');
 							break;
 						}
 					}
@@ -1387,7 +1407,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 	switch (whatToProcess) {
 	
 	case 'ORDER_OF_PLAY-OPTIONS': case 'FF_TIE-OPTIONS': case 'L3_TIE-OPTIONS': case 'FF_SINGLE-OPTIONS': case 'FF_DOUBLE-OPTIONS': case 'LT_SINGLE-OPTIONS':
-	case 'LT_DOUBLE-OPTIONS':
+	case 'LT_DOUBLE-OPTIONS': case 'SQUADS-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -1468,7 +1488,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(oop,index,arr1){	
 						option = document.createElement('option');
 	                    option.value = oop.matchnumber;
-	                    option.text = oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
+	                    option.text = oop.matchnumber + ' - ' +oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1495,7 +1515,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(oop,index,arr1){	
 						option = document.createElement('option');
 	                    option.value = oop.matchnumber;
-	                    option.text = oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
+	                    option.text = oop.matchnumber + ' - ' +oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1613,6 +1633,34 @@ function addItemsToList(whatToProcess, dataToProcess)
 					
 					//select.setAttribute('onchange',"processUserSelection(this)");
 					break;
+					
+				case 'SQUADS-OPTIONS':
+					select = document.createElement('input');
+					select.type = "text";
+					select.id = 'squadsScene';
+					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Squad.sum';
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;
+					
+					select = document.createElement('select');
+					select.id = 'selectTeam';
+					select.name = select.id;
+					
+					dataToProcess.forEach(function(team,index,arr1){	
+						option = document.createElement('option');
+						option.value = team.teamId;
+                    	option.text = team.fullname ;
+	                    select.appendChild(option);
+							
+	                });
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;
+					
+					//select.setAttribute('onchange',"processUserSelection(this)");
+					break;
+
 				
 				
 			}
@@ -1774,6 +1822,31 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case 'LT_DOUBLE-OPTIONS':
 				option.name = 'populate_l3_double_match_promo_btn';
 			    option.value = 'Populate LT Double Match Promo';
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+				
+			case 'SQUADS-OPTIONS':
+				option.name = 'populate_squads_btn';
+			    option.value = 'Populate Squads';
 			    option.id = option.name;
 			    
 			    option.setAttribute('onclick',"processUserSelection(this)");

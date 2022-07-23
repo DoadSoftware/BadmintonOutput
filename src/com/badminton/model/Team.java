@@ -25,6 +25,9 @@ public class Team {
   @Column(name = "SHORTNAME")
   private String shortname;
   
+  @Column(name = "MENTORNAME")
+  private String mentorName;
+  
   @Column(name = "GROUPNAME")
   private String groupname;
   
@@ -70,6 +73,15 @@ public String getShortname() {
 public void setShortname(String shortname) {
 	this.shortname = shortname;
 }
+
+public String getMentorName() {
+	return mentorName;
+}
+
+public void setMentorName(String mentorName) {
+	this.mentorName = mentorName;
+}
+
 public String getGroupname() {
 	return groupname;
 }

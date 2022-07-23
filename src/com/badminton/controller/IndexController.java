@@ -183,6 +183,10 @@ public class IndexController
 		case "PLAYER_PROFILE_GRAPHICS-OPTIONS":	
 			player = badmintonService.getAllPlayer();
 				return JSONArray.fromObject(player).toString();
+				
+		case "SQUADS_GRAPHICS-OPTIONS":
+			team = badmintonService.getAllTeam();
+			return JSONArray.fromObject(team).toString();
 		
 		case "ORDER_OF_PLAY_GRAPHICS-OPTIONS": case "FF-TIE_GRAPHICS-OPTIONS": case "L3-TIE_GRAPHICS-OPTIONS":
 			fixture = badmintonService.getFixtures();
@@ -197,7 +201,6 @@ public class IndexController
 							fixture.get(i).setAway_Team(tm);
 						}
 					}
-					
 				}
 				return JSONArray.fromObject(fixture).toString();
 			
@@ -213,7 +216,7 @@ public class IndexController
 		case "POPULATE-DOUBLE-FF-MATCHID": case "POPULATE-L3-TIEID": case "POPULATE-FF-TIEID": case "POPULATE-SIDES": case "POPULATE-PLAYER_PROFILE": case "POPULATE-SUPER":
 		case "POPULATE-FF_TIE_PROMO": case "POPULATE-L3_TIE_PROMO": case "POPULATE-ORDER_OF_PLAY": case "POPULATE-TEAMS_LOGO": case "POPULATE-SUPER_MATCH": 
 		case "POPULATE-SUPER_MATCH1": case "POPULATE-SUPER_MATCH2": case "POPULATE-SINGLE_MATCH_PROMO": case "POPULATE-DOUBLE_MATCH_PROMO": case "POPULATE-LT_SINGLE_MATCH_PROMO":
-		case "POPULATE-LT_DOUBLE_MATCH_PROMO":
+		case "POPULATE-LT_DOUBLE_MATCH_PROMO": case "POPULATE-SQUADS":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch(whatToProcess.toUpperCase()) {
@@ -234,21 +237,18 @@ public class IndexController
 					break;
 				case "POPULATE-SINGLE-L3-MATCHID":
 					fixture = badmintonService.getFixtures();
-					
 					for(Fixture fx : fixture) {
 						this_doad.populateSingleL3MatchId(print_writer, viz_scene_path,fx, session_match, session_selected_broadcaster);
 					}
 					break;
 				case "POPULATE-SINGLE-FF-MATCHID":
 					fixture = badmintonService.getFixtures();
-					
 					for(Fixture fx : fixture) {
 						this_doad.populateSingleFFMatchId(print_writer, viz_scene_path,fx, session_match, session_selected_broadcaster);
 					}
 					break;
 				case "POPULATE-DOUBLE-L3_MATCHID":
 					fixture = badmintonService.getFixtures();
-					
 					for(Fixture fx : fixture) {
 						this_doad.populateDoubleL3MatchId(print_writer, viz_scene_path,fx, session_match, session_selected_broadcaster);
 					}
@@ -395,6 +395,13 @@ public class IndexController
 						}
 					}
 					break;
+				case "POPULATE-SQUADS":
+					for(Team select_team : team) {
+						if(select_team.getTeamId() == Integer.valueOf(valueToProcess.split(",")[1])) {
+							this_doad.populateSquads(print_writer, viz_scene_path ,select_team, badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
+						}
+					}
+					break;
 					
 				case "POPULATE-SCOREBUGSTATS":
 					
@@ -452,7 +459,7 @@ public class IndexController
 		case "ANIMATE-IN-SCOREBUG": case "ANIMATE-IN-SINGLE-L3_MATCHID": case "ANIMATE-IN-SINGLE-FF_MATCHID": case "ANIMATE-IN-DOUBLE-L3_MATCHID": case "ANIMATE-IN-DOUBLE-FF_MATCHID": case "ANIMATE-IN-L3_TIEID": case "ANIMATE-IN-FF_TIEID": 
 		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES": case "ANIMATE-IN-SUPER": case "ANIMATE-IN-PLAYER_PROFILE": case "ANIMATE-IN-ORDER_OF_PLAY": case "ANIMATE-IN-TEAMS_LOGO": case "ANIMATE-IN-SUPER_MATCH":
 		case "ANIMATE-IN-SUPER_MATCH1": case "ANIMATE-IN-SUPER_MATCH2":	case "ANIMATE-IN-FF_TIE_PROMO": case "ANIMATE-IN-L3_TIE_PROMO": case "ANIMATE-IN-FF_SINGLE_MATCH_PROMO": case "ANIMATE-IN-FF_DOUBLE_MATCH_PROMO":
-		case "ANIMATE-IN-LT_SINGLE_MATCH_PROMO": case "ANIMATE-IN-LT_DOUBLE_MATCH_PROMO":
+		case "ANIMATE-IN-LT_SINGLE_MATCH_PROMO": case "ANIMATE-IN-LT_DOUBLE_MATCH_PROMO": case "ANIMATE-IN-SQUADS":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				//System.out.println("whatToProcess = "+ whatToProcess);
@@ -588,6 +595,10 @@ public class IndexController
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 					which_graphics_onscreen = "LT_DOUBLE_MATCH_PROMO";
 					break;
+				case "ANIMATE-IN-SQUADS":
+					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					which_graphics_onscreen = "SQUADS";
+					break;
 				case "ANIMATE-IN-TEAMS_LOGO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 					which_graphics_onscreen = "TEAMS_LOGO";
@@ -618,7 +629,7 @@ public class IndexController
 					case "SINGLE_L3_MATCHID": case "SINGLE_FF_MATCHID": case "DOUBLE_L3_MATCHID": case "DOUBLE_FF_MATCHID": case "L3_TIEID": case "FF_TIEID":
 					case "FF_TIE_PROMO": case "L3_TIE_PROMO": case "SIDES": case "SUPER": case "PLAYER_PROFILE": case "ORDER_OF_PLAY": case "TEAMS_LOGO": 
 					case "SUPER_MATCH": case "SUPER_MATCH1": case "SUPER_MATCH2": case "FF_SINGLE_MATCH_PROMO": case "FF_DOUBLE_MATCH_PROMO": case "LT_SINGLE_MATCH_PROMO":
-					case "LT_DOUBLE_MATCH_PROMO":
+					case "LT_DOUBLE_MATCH_PROMO": case "SQUADS":
 						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
 						which_graphics_onscreen = "";
 						break;
