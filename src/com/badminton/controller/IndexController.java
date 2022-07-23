@@ -474,22 +474,22 @@ public class IndexController
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "1" +";");
 							TimeUnit.SECONDS.sleep(3);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
-							TimeUnit.SECONDS.sleep(5);
-							this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
+							//TimeUnit.SECONDS.sleep(5);
+							//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "2" +";");
 							TimeUnit.SECONDS.sleep(3);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
-							TimeUnit.SECONDS.sleep(5);
-							this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
+							//TimeUnit.SECONDS.sleep(5);
+							//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpHomeMatch() == 1 && session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "3" +";");
 							TimeUnit.SECONDS.sleep(3);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
-							TimeUnit.SECONDS.sleep(5);
-							this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
+							//TimeUnit.SECONDS.sleep(5);
+							//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
 						}
 						else {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "0" +";");
@@ -515,8 +515,8 @@ public class IndexController
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "3" +";");
 							TimeUnit.SECONDS.sleep(3);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
-							TimeUnit.SECONDS.sleep(5);
-							this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
+							//TimeUnit.SECONDS.sleep(5);
+							//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
 						}
 						else {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "0" +";");
@@ -524,9 +524,9 @@ public class IndexController
 						
 						
 						
-						this_doad.processAnimation(print_writer, "ScoreIn", "START", session_selected_broadcaster);
-						TimeUnit.SECONDS.sleep(5);
-						this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
+						this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
+						//TimeUnit.SECONDS.sleep(5);
+						//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
 						is_ScoreBug_on_Screen = true;
 					}
 					which_graphics_onscreen = "SCOREBUG";
@@ -618,9 +618,10 @@ public class IndexController
 				case "ANIMATE-OUT": 
 					switch(which_graphics_onscreen) {
 					case "SCOREBUG":
-						this_doad.processAnimation(print_writer, "ScoreIn", "COUNTINUE_REVERSE", session_selected_broadcaster);
-						TimeUnit.SECONDS.sleep(1);
-						this_doad.processAnimation(print_writer, "In", "COUNTINUE_REVERSE", session_selected_broadcaster);
+						//this_doad.processAnimation(print_writer, "Score1In", "COUNTINUE_REVERSE", session_selected_broadcaster);
+						//TimeUnit.SECONDS.sleep(1);
+						//this_doad.processAnimation(print_writer, "Out", "STOP", session_selected_broadcaster);
+						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
 						
 						which_graphics_onscreen = "";
 						is_ScoreBug_on_Screen = false;
