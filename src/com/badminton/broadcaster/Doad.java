@@ -1046,15 +1046,15 @@ public class Doad extends Scene{
 							}
 							else if(a==2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + ";");
 							
 							}
 							else if(a==3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - k).getTicker_name() + ";");
 								
 							}
@@ -1070,26 +1070,27 @@ public class Doad extends Scene{
 							
 							else if(a == 2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + ";");
 							}
 							
 							else if(a == 3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerA2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - k).getTicker_name() + ";");
 							}
 							
 						}
 				}
 				if(mtch.get(i).getSets() == null ) {
-					
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore1 " + " " +";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 " + "0" +";");
 					
 				}
 				else {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 1 " + "1" +";");
 					for(Set st : mtch.get(i).getSets()) {
 						if(st.getSetNumber() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore1 " + st.getHomeTeamTotalScore() + "-" + st.getAwayTeamTotalScore() +";");
@@ -1148,15 +1149,15 @@ public class Doad extends Scene{
 							}
 							else if(a==2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + ";");
 							
 							}
 							else if(a==3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - k).getTicker_name() + ";");
 								
 							}
@@ -1172,26 +1173,27 @@ public class Doad extends Scene{
 							
 							else if(a == 2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + ";");
 							}
 							
 							else if(a == 3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerB2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - k).getTicker_name() + ";");
 							}
 							
 						}
 				}
 				if(mtch.get(i).getSets() == null ) {
-					
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore2 " + " " +";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 2 " + "0" +";");
 					
 				}
 				else {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 2 " + "1" +";");
 					for(Set st : mtch.get(i).getSets()) {
 						if(st.getSetNumber() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore2 " + st.getHomeTeamTotalScore() + "-" + st.getAwayTeamTotalScore() +";");
@@ -1249,15 +1251,15 @@ public class Doad extends Scene{
 							}
 							else if(a==2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + ";");
 							
 							}
 							else if(a==3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - k).getTicker_name() + ";");
 								
 							}
@@ -1273,26 +1275,27 @@ public class Doad extends Scene{
 							
 							else if(a == 2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + ";");
 							}
 							
 							else if(a == 3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerC2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - k).getTicker_name() + ";");
 							}
 							
 						}
 				}
 				if(mtch.get(i).getSets() == null ) {
-					
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore3 " + " " +";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 3 " + "0" +";");
 					
 				}
 				else {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 3 " + "1" +";");
 					for(Set st : mtch.get(i).getSets()) {
 						if(st.getSetNumber() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore3 " + st.getHomeTeamTotalScore() + "-" + st.getAwayTeamTotalScore() +";");
@@ -1350,15 +1353,15 @@ public class Doad extends Scene{
 							}
 							else if(a==2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + ";");
 							
 							}
 							else if(a==3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - k).getTicker_name() + ";");
 								
 							}
@@ -1374,26 +1377,27 @@ public class Doad extends Scene{
 							
 							else if(a == 2){
 							int j=a-1;
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
 							+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + ";");
 							}
 							
 							else if(a == 3){
 								int j=a-1;
 								int k=a-2;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
-										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerD2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
+										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + " / " 
 										+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - k).getTicker_name() + ";");
 							}
 							
 						}
 				}
 				if(mtch.get(i).getSets() == null ) {
-					
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore4 " + " " +";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 4 " + "0" +";");
 					
 				}
 				else {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 4 " + "1" +";");
 					for(Set st : mtch.get(i).getSets()) {
 						if(st.getSetNumber() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore4 " + st.getHomeTeamTotalScore() + "-" + st.getAwayTeamTotalScore() +";");
@@ -1452,15 +1456,15 @@ public class Doad extends Scene{
 								}
 								else if(a==2){
 								int j=a-1;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
 								+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + ";");
 								
 								}
 								else if(a==3){
 									int j=a-1;
 									int k=a-2;
-									print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + "/" 
-											+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + "/" 
+									print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE1 " + mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - a).getTicker_name() + " / " 
+											+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - j).getTicker_name() + " / " 
 											+ mtch.get(i).getMatch().getHomePlayers().get(mtch.get(i).getMatch().getHomePlayers().size() - k).getTicker_name() + ";");
 									
 								}
@@ -1476,26 +1480,26 @@ public class Doad extends Scene{
 								
 								else if(a == 2){
 								int j=a-1;
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
 								+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + ";");
 								}
 								
 								else if(a == 3){
 									int j=a-1;
 									int k=a-2;
-									print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + "/" 
-											+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + "/" 
+									print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerE2 " + mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - a).getTicker_name() + " / " 
+											+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - j).getTicker_name() + " / " 
 											+ mtch.get(i).getMatch().getAwayPlayers().get(mtch.get(i).getMatch().getAwayPlayers().size() - k).getTicker_name() + ";");
 								}
 								
 							}
 					}
 					if(mtch.get(i).getSets() == null ) {
-						
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore5 " + " " +";");
-						
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 5 " + "0" +";");
 					}
 					else {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET 5 " + "1" +";");
 						for(Set st : mtch.get(i).getSets()) {
 							if(st.getSetNumber() == 1) {
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore5 " + st.getHomeTeamTotalScore() + "-" + st.getAwayTeamTotalScore() +";");
