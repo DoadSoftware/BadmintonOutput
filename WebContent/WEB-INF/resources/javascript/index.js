@@ -324,7 +324,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-SUPER':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#namesuperScene').val() + ',' + $('#selectNameSuper option:selected').val();
+			valueToProcess = $('#namesuperScene').val() + ',' + $('#selectNameSuper option:selected').val() + ',' + $('#selectSponsor option:selected').val();
 			break;
 		}
 		break;
@@ -843,7 +843,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 						
 					option = document.createElement('option');
                     option.value = pp.playerId;
-                    option.text = pp.ticker_name ;
+                    option.text = pp.full_name ;
                     select.appendChild(option);
 						
                 });
@@ -875,6 +875,25 @@ function addItemsToList(whatToProcess, dataToProcess)
 					option.text = ns.firstname + ' ' + ns.surname ;
 					select.appendChild(option);
 				});
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('select');
+				select.style = 'width:130px';
+				select.id = 'selectSponsor';
+				select.name = select.id;
+				
+				
+				option = document.createElement('option');
+				option.value = 0;
+				option.text = 'Without Sponsor';
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = 1;
+				option.text = 'With Sponsor';
+				select.appendChild(option);
 				
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
@@ -1635,7 +1654,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(sm,index,arr1){	
 						option = document.createElement('option');
 						option.value = sm.matchId;
-                    	option.text = sm.groupname + '-' + sm.matchId ;
+                    	option.text = sm.groupname + '- Match ' + sm.matchnumber ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1662,7 +1681,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(sm,index,arr1){	
 						option = document.createElement('option');
 						option.value = sm.matchId;
-                    	option.text = sm.groupname + '-' + sm.matchId ;
+                    	option.text = sm.groupname + '- Match ' + sm.matchnumber ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1689,7 +1708,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(sm,index,arr1){	
 						option = document.createElement('option');
 						option.value = sm.matchId;
-                    	option.text = sm.groupname + '-' + sm.matchId ;
+                    	option.text = sm.groupname + '- Match ' + sm.matchnumber ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1716,7 +1735,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(sm,index,arr1){	
 						option = document.createElement('option');
 						option.value = sm.matchId;
-                    	option.text = sm.groupname + '-' + sm.matchId ;
+                    	option.text = sm.groupname + '- Match ' + sm.matchnumber ;
 	                    select.appendChild(option);
 							
 	                });

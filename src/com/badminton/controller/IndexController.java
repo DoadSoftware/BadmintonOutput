@@ -268,7 +268,7 @@ public class IndexController
 					for(NameSuper ns : namesuper) {
 						  
 						  if(ns.getNamesuperId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-							  this_doad.populateSuper(print_writer, viz_scene_path, ns, session_match, session_selected_broadcaster);
+							  this_doad.populateSuper(print_writer, viz_scene_path, ns, Integer.valueOf(valueToProcess.split(",")[2]), session_selected_broadcaster);
 						  }
 						}
 					break;
@@ -292,9 +292,7 @@ public class IndexController
 	                    }
 					break;
 				case "POPULATE-TEAMS_LOGO":
-					
               		 this_doad.populateTeamsLogo(badmintonService.getAllTeam(),print_writer, viz_scene_path, session_selected_broadcaster);
-					
 					break;
 				case "POPULATE-SUPER_MATCH":
 					fixture = badmintonService.getFixtures();
@@ -350,8 +348,6 @@ public class IndexController
 				case "POPULATE-FF_TIE_PROMO":
 					for(Fixture fx : fixture) {
 						if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-							//System.out.println(fx.getHome_Team().getTeamId());
-							//System.out.println(fx.getAway_Team().getTeamId());
 							this_doad.populateFFTiePromo(print_writer, viz_scene_path ,fx, session_match, session_selected_broadcaster);
 						}
 					}
@@ -359,8 +355,6 @@ public class IndexController
 				case "POPULATE-L3_TIE_PROMO":
 					for(Fixture fx : fixture) {
 						if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-							//System.out.println(fx.getHome_Team().getTeamId());
-							//System.out.println(fx.getAway_Team().getTeamId());
 							this_doad.populateL3TiePromo(print_writer, viz_scene_path ,fx, session_match, session_selected_broadcaster);
 						}
 					}

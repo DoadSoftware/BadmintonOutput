@@ -101,7 +101,7 @@ public void setTeamcolor(String teamcolor) {
 @Override
 public String toString() {
 	return "Team [teamId=" + teamId + ", firstname=" + firstname + ", lastname=" + lastname + ", fullname=" + fullname + ", shortname=" + shortname + 
-			", groupname=" + groupname + ", teamcolor=" + teamcolor + "]";
+			", mentorName=" + mentorName + ", groupname=" + groupname + ", teamcolor=" + teamcolor + "]";
 }
 
 }
