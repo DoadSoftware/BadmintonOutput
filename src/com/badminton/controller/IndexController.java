@@ -497,11 +497,13 @@ public class IndexController
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "1" +";");
 							TimeUnit.SECONDS.sleep(3);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
+							this_doad.processAnimation(print_writer, "TrumpLoop", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "2" +";");
 							TimeUnit.SECONDS.sleep(3);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
+							this_doad.processAnimation(print_writer, "TrumpLoop", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpHomeMatch() == 1 && session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "3" +";");
@@ -513,12 +515,24 @@ public class IndexController
 						else {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "0" +";");
 						}
-						//if(session_match.getSets().get(0).get)
-						
-						
+						TimeUnit.SECONDS.sleep(3);
+						/*if(session_match.getSets().get(0).getStatus().equalsIgnoreCase("START") ||  session_match.getSets().get(0).getStatus().equalsIgnoreCase("END")) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "1" +";");
+							this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
+						}
+						if(session_match.getSets().get(1).getStatus().equalsIgnoreCase("START") ||  session_match.getSets().get(1).getStatus().equalsIgnoreCase("END")) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "2" +";");
+							this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
+						}
+						if(session_match.getSets().get(2).getStatus().equalsIgnoreCase("START") ||  session_match.getSets().get(2).getStatus().equalsIgnoreCase("END")) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "3" +";");
+							this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
+						}*/
+								
 						this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
 						this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
 						this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
+						
 						//TimeUnit.SECONDS.sleep(5);
 						//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
 						is_ScoreBug_on_Screen = true;
