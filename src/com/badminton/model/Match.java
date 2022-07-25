@@ -17,6 +17,9 @@ public class Match {
   @Column(name = "matchId")
   private Integer matchId;
   
+  @Column(name = "MATCHDATE")
+  private String matchDate;
+  
   @Column(name = "MATCHIDENT")
   private String matchIdent;
   
@@ -102,6 +105,14 @@ public Integer getMatchId() {
 
 public void setMatchId(Integer matchId) {
 	this.matchId = matchId;
+}
+
+public String getMatchDate() {
+	return matchDate;
+}
+
+public void setMatchDate(String matchDate) {
+	this.matchDate = matchDate;
 }
 
 public String getMatchIdent() {

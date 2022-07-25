@@ -1881,6 +1881,32 @@ public class Doad extends Scene{
 
 	}
 	
+	public void populatePointsTable(PrintWriter print_writer,String viz_sence_path,List<LeagueTeam> lt, String selectedbroadcaster) 
+	{
+		int row_id=0;
+		for(int i = 0; i <= lt.size()-1; i++) {
+			row_id = row_id + 1;
+			if(lt.get(i).getGroupName().equalsIgnoreCase("Group A")) {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGroup0" + row_id + " " + "0" +";");
+			}else {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGroup0" + row_id + " " + "1" +";");
+			}
+			
+			System.out.println("Team names:" + lt.get(i).getTeamName());
+			
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "A " + lt.get(i).getTeamName() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "B " + lt.get(i).getPlayed() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "C " + lt.get(i).getWon() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "D " + lt.get(i).getLost() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "E " + lt.get(i).getTrumpMatchWin() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "F " + lt.get(i).getTrumpMatchLost() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "G " + lt.get(i).getSuperMatchWin() + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue0" + row_id + "H " + lt.get(i).getPoints() + ";");
+		}
+		
+		this.status = BadmintonUtil.SUCCESSFUL;	
+	}
+	
 	public void populateSuper(PrintWriter print_writer,String viz_sence_path,NameSuper ns,int sponsor, String selectedbroadcaster) 
 	{
 		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + ns.getFirstname().toUpperCase() + " " + ns.getSurname().toUpperCase() + ";");
@@ -1896,7 +1922,6 @@ public class Doad extends Scene{
 			
 		this.status = BadmintonUtil.SUCCESSFUL;	
 	}
-	
 	public void populateNameSuperPlayer(PrintWriter print_writer,String viz_sence_path,Player pp,List<Team> allteam, int sponsor ,String selectedbroadcaster) 
 	{
 		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + pp.getFull_name().toUpperCase() + ";");

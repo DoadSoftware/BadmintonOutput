@@ -52,6 +52,7 @@ function processUserSelection(whichInput)
 	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn': case 'super_graphic_btn': case 'playerprofile_graphic_btn':
 	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn': case 'teamslogo_graphic_btn': case 'supermatch_graphic_btn': case 'supermatch1_graphic_btn': case 'supermatch2_graphic_btn':
 	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': case 'l3_double_match_graphic_btn': case 'squads_graphic_btn': case 'namesuper_player_graphic_btn':
+	case 'points_table_graphic_btn':
 		$("#captions_div").hide();
 		switch ($(whichInput).attr('name')) {
 		case 'scorebug_graphic_btn':
@@ -125,6 +126,9 @@ function processUserSelection(whichInput)
 		case 'squads_graphic_btn':
 			processBadmintonProcedures('SQUADS_GRAPHICS-OPTIONS');
 			break;
+		case 'points_table_graphic_btn':
+			addItemsToList('POINTS_TABLE-OPTIONS',null);
+			break;
 		case 'cancel_btn':
 			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
 			break;
@@ -134,7 +138,7 @@ function processUserSelection(whichInput)
 	case 'populate_doubleffmatchid_btn': case 'populate_l3tieid_btn': case 'populate_fftieid_btn': case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn':
 	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn': case 'populate_teamslogo_btn': case 'populate_supermatch_btn': 
 	case 'populate_supermatch1_btn': case 'populate_supermatch2_btn': case 'populate_ff_single_match_promo_btn': case 'populate_ff_double_match_promo_btn': case 'populate_l3_single_match_promo_btn':
-	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn': case 'populate_namesuper_player_btn':
+	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn': case 'populate_namesuper_player_btn': case 'populate_points_table_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
 		switch ($(whichInput).attr('name')) {
 		case 'populate_scorebug_btn':
@@ -222,6 +226,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_squads_btn':
 			processBadmintonProcedures('POPULATE-SQUADS');
+			break;
+		case 'populate_points_table_btn':
+			processBadmintonProcedures('POPULATE-POINTS_TABLE');
 			break;
 		}
 		
@@ -426,6 +433,13 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'POPULATE-POINTS_TABLE':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#pointstableScene').val();
+			break;
+		}
+		break;
 	}
 
 	$.ajax({    
@@ -510,7 +524,7 @@ function processBadmintonProcedures(whatToProcess)
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
 			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-TEAMS_LOGO': case 'POPULATE-SUPER_MATCH':
 			case 'POPULATE-SUPER_MATCH1': case 'POPULATE-SUPER_MATCH2': case 'POPULATE-FF_TIE_PROMO': case 'POPULATE-L3_TIE_PROMO': case 'POPULATE-SINGLE_MATCH_PROMO': case 'POPULATE-DOUBLE_MATCH_PROMO':
-			case 'POPULATE-LT_SINGLE_MATCH_PROMO': case 'POPULATE-LT_DOUBLE_MATCH_PROMO': case 'POPULATE-SQUADS': case 'POPULATE-NAMESUPER_PLAYER':
+			case 'POPULATE-LT_SINGLE_MATCH_PROMO': case 'POPULATE-LT_DOUBLE_MATCH_PROMO': case 'POPULATE-SQUADS': case 'POPULATE-NAMESUPER_PLAYER': case 'POPULATE-POINTS_TABLE':
 				if (data.status.toUpperCase() == 'SUCCESSFUL') {
 					if(confirm('Animate In?') == true){
 						     
@@ -588,6 +602,9 @@ function processBadmintonProcedures(whatToProcess)
 						case 'POPULATE-SQUADS':
 							processBadmintonProcedures('ANIMATE-IN-SQUADS');
 							break;
+						case 'POPULATE-POINTS_TABLE':
+							processBadmintonProcedures('ANIMATE-IN-POINTS_TABLE');
+							break;
 						}
 					}
 					
@@ -610,7 +627,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 
 	switch (whatToProcess) {
 	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
-	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS':
+	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS': case 'POINTS_TABLE-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -945,6 +962,15 @@ function addItemsToList(whatToProcess, dataToProcess)
 				cellCount = cellCount + 1;
 				
 				break;
+			case 'POINTS_TABLE-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'pointstableScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Points_Table.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+			
 			}
 			option = document.createElement('input');
 		    option.type = 'button';
@@ -1236,7 +1262,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 				
 			case 'NAMESUPER_PLAYER-OPTIONS':
-				  option.name = 'populate_namesuper_player_btn';
+				option.name = 'populate_namesuper_player_btn';
 			    option.value = 'Populate NameSuper Player';
 			    
 			    option.id = option.name;
@@ -1261,6 +1287,34 @@ function addItemsToList(whatToProcess, dataToProcess)
 				document.getElementById('select_graphic_options_div').style.display = '';
 			    
 				break;
+				
+			case 'POINTS_TABLE-OPTIONS':
+				option.name = 'populate_points_table_btn';
+			    option.value = 'Populate Points Table';
+			    
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+			    
+				break;
+			
 			}
 		    
 			break;
