@@ -7,7 +7,7 @@ import com.badminton.model.LeagueTeam;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
-import com.badminton.model.TeamColor;
+//import com.badminton.model.TeamColor;
 import com.badminton.model.NameSuper;
 
 public interface BadmintonDao {
@@ -18,6 +18,6 @@ public interface BadmintonDao {
   List<Player> getAllPlayer();
   List<Team> getAllTeam();
   List<NameSuper> getNameSupers();
-  List<TeamColor> getTeamColors();
+  //List<TeamColor> getTeamColors();
   List<Fixture> getFixtures();
 }

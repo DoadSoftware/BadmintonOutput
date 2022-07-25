@@ -11,7 +11,7 @@ import com.badminton.model.Fixture;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
-import com.badminton.model.TeamColor;
+//import com.badminton.model.TeamColor;
 import com.badminton.service.BadmintonService;
 import com.badminton.model.NameSuper;
 
@@ -57,14 +57,13 @@ public List<NameSuper> getNameSupers() {
 	return badmintonDao.getNameSupers();
 }
 
-@Override
+/*@Override
 public List<TeamColor> getTeamColors() {
 	return badmintonDao.getTeamColors();
-}
+}*/
 
 @Override
 public List<Fixture> getFixtures() {
 	return badmintonDao.getFixtures();
 }
-
 }

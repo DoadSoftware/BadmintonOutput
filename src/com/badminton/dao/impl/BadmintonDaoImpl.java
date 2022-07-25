@@ -13,7 +13,7 @@ import com.badminton.model.LeagueTeam;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
-import com.badminton.model.TeamColor;
+//import com.badminton.model.TeamColor;
 
 @Transactional
 @Repository("badmintonDao")
@@ -58,10 +58,10 @@ public List<NameSuper> getNameSupers() {
 	return sessionFactory.getCurrentSession().createQuery("from NameSuper").list();
 }
 
-@Override
+/*@Override
 public List<TeamColor> getTeamColors() {
 	return sessionFactory.getCurrentSession().createQuery("from TeamColor").list();
-}
+}*/
 
 @Override
 public List<Fixture> getFixtures() {

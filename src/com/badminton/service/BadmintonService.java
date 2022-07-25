@@ -6,7 +6,7 @@ import com.badminton.model.Fixture;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
-import com.badminton.model.TeamColor;
+//import com.badminton.model.TeamColor;
 import com.badminton.model.NameSuper;
 
 public interface BadmintonService {
@@ -17,6 +17,6 @@ public interface BadmintonService {
   List<Player> getAllPlayer();
   List<Team> getAllTeam();
   List<NameSuper> getNameSupers();
-  List<TeamColor> getTeamColors();
+ // List<TeamColor> getTeamColors();
   List<Fixture> getFixtures();
 }

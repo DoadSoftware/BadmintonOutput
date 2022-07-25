@@ -99,6 +99,7 @@ function processUserSelection(whichInput)
 			break;
 		case 'l3_tie_graphic_btn':
 			processBadmintonProcedures('L3-TIE_GRAPHICS-OPTIONS');
+			break;
 		case 'teamslogo_graphic_btn':
 			addItemsToList('TEAMS_LOGO-OPTIONS',null);
 			break;
@@ -106,7 +107,8 @@ function processUserSelection(whichInput)
 			addItemsToList('SUPER_MATCH-OPTIONS',null);
 			break;
 		case 'supermatch1_graphic_btn':
-			addItemsToList('SUPER_MATCH1-OPTIONS',null);
+			
+			processBadmintonProcedures('SUPER_MATCH1_GRAPHICS-OPTIONS');
 			break;
 		case 'supermatch2_graphic_btn':
 			addItemsToList('SUPER_MATCH2-OPTIONS',null);
@@ -207,6 +209,7 @@ function processUserSelection(whichInput)
 			processBadmintonProcedures('POPULATE-SUPER_MATCH');
 			break;
 		case 'populate_supermatch1_btn':
+			
 			processBadmintonProcedures('POPULATE-SUPER_MATCH1');
 			break;
 		case 'populate_supermatch2_btn':
@@ -352,7 +355,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-ORDER_OF_PLAY':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam1 option:selected').val() + ',' + $('#selectTeam2 option:selected').val();
+			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam1 option:selected').val();
 			break;
 		}
 		break;
@@ -520,6 +523,10 @@ function processBadmintonProcedures(whatToProcess)
 				addItemsToList('SQUADS-OPTIONS',data);
 				match_data = data;
 				break;
+			case 'SUPER_MATCH1_GRAPHICS-OPTIONS':
+				addItemsToList('SUPER_MATCH_DATA',data)
+				match_data = data;
+				break;
 			
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
 			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-TEAMS_LOGO': case 'POPULATE-SUPER_MATCH':
@@ -626,6 +633,24 @@ function addItemsToList(whatToProcess, dataToProcess)
 	var cellCount = 0;
 
 	switch (whatToProcess) {
+	case'SUPER_MATCH_DATA':
+		dataToProcess.sets.forEach(function(st,index,arr1){
+			if(st.homeTeamTotalScore > 8 || st.awayTeamTotalScore > 8){
+				alert('Cannot Populate');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#captions_div").show();
+			
+			}
+			else{
+				//alert('Populate');
+				addItemsToList('SUPER_MATCH1-OPTIONS',null);
+			}
+						
+        });
+		//alert(dataToProcess.sets.homeTeamTotalScore);
+		
+		break;
 	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
 	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS': case 'POINTS_TABLE-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
@@ -1610,8 +1635,8 @@ function addItemsToList(whatToProcess, dataToProcess)
 				dataToProcess.forEach(function(oop,index,arr1){
 						
 					option = document.createElement('option');
-                    option.value = oop.home_Team.teamId;
-                    option.text = oop.home_Team.fullname;
+                    option.value = oop.matchnumber;
+                    option.text = 'TIE- ' + oop.matchnumber +" "+ oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname;
                     select.appendChild(option);
 						
                 });
@@ -1619,7 +1644,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
 				
-				select = document.createElement('select');
+				/*select = document.createElement('select');
 				select.id = 'selectTeam2';
 				select.name = select.id;
 				
@@ -1633,7 +1658,7 @@ function addItemsToList(whatToProcess, dataToProcess)
                 });
 				
 				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
+				cellCount = cellCount + 1;*/
 				
 				//select.setAttribute('onchange',"processUserSelection(this)");
 				break;
@@ -1758,7 +1783,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
-					
+					//alert(dataToProcess.match.groupname);
 					dataToProcess.forEach(function(sm,index,arr1){	
 						option = document.createElement('option');
 						option.value = sm.matchId;
