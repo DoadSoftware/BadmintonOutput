@@ -17,6 +17,9 @@ public class BadmintonUtil {
 	public static final String SUCCESSFUL = "SUCCESSFUL";
 	public static final String UNSUCCESSFUL = "UNSUCCESSFUL";
 	
+	public final static String PNG_EXTENSION = ".png";
+	public final static String DOUBLE_BACKSLASH = "\\";
+	
 	public final static String TEAM = "TEAM";
 	public final static String PLAYER = "PLAYER";
 	public final static String STATS = "STATS";

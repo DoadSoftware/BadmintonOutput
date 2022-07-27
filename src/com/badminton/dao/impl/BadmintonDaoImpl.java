@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.badminton.dao.BadmintonDao;
 import com.badminton.model.NameSuper;
 import com.badminton.model.Fixture;
-import com.badminton.model.LeagueTeam;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;

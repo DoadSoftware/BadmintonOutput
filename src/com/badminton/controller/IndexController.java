@@ -235,7 +235,7 @@ public class IndexController
 			List<Match> current_date_match = new ArrayList<Match>(); 
 			match = badmintonService.getAllMatches();
 			for(Match mtch : match) {
-				System.out.println(mtch.getMatchDate());
+				//System.out.println(mtch.getMatchDate());
 				if(mtch.getMatchDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(new Date()))) {
 					current_date_match.add(mtch);
 				}
@@ -437,13 +437,12 @@ public class IndexController
 					}
 					break;
 				case "POPULATE-SQUADS":
-					for(Team select_team : team) {
-						if(select_team.getTeamId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-							this_doad.populateSquads(print_writer, viz_scene_path ,select_team, badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
-						}
-					}
+					this_doad.populateSquads(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]), badmintonService.getAllPlayer(),
+							badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-POINTS_TABLE":
+					//LeagueTable leaguetable = new LeagueTable();
+					System.out.println("Team Name :" + league_table.getLeagueTeams().get(0).getTeamName());
 					this_doad.populatePointsTable(print_writer, viz_scene_path, league_table.getLeagueTeams(),session_selected_broadcaster);
 					break;
 					

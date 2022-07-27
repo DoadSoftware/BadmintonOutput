@@ -3,7 +3,6 @@ package com.badminton.dao;
 import java.util.List;
 
 import com.badminton.model.Fixture;
-import com.badminton.model.LeagueTeam;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
 import com.badminton.model.Team;
