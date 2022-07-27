@@ -43,8 +43,10 @@ public class IndexController
 	public static Configurations session_Configurations;
 	public static BadmintonMatch session_match;
 	public static LeagueTable league_table;
+	public static ContainerData session_Data;
 	
 	public static String selectedmatch;
+	
 	public static Socket session_socket;
 	public static Doad this_doad;
 	public static PrintWriter print_writer;
@@ -52,7 +54,6 @@ public class IndexController
 	
 	//public static BadmintonMatch bm;
 	List<NameSuper> namesuper = new ArrayList<NameSuper>();
-
 	List<Player> player = new ArrayList<Player>();
 	List<Team> team = new ArrayList<Team>();
 	List<Fixture> fixture = new ArrayList<Fixture>();
@@ -84,6 +85,8 @@ public class IndexController
 		    }
 		}));
 		
+		
+		//selectedxml = scene_files;
 		if(new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.CONFIGURATIONS_DIRECTORY + BadmintonUtil.OUTPUT_XML).exists()) {
 			session_Configurations = (Configurations)JAXBContext.newInstance(Configurations.class).createUnmarshaller().unmarshal(
 					new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.CONFIGURATIONS_DIRECTORY + BadmintonUtil.OUTPUT_XML));
@@ -97,7 +100,7 @@ public class IndexController
 			league_table = (LeagueTable)JAXBContext.newInstance(LeagueTable.class).createUnmarshaller().unmarshal(
 					new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.LEAGUE_TABLE_DIRECTORY + BadmintonUtil.LEAGUETABLE_XML));
 		}
-	
+		model.addAttribute("session_Configurations",session_Configurations);
 		model.addAttribute("session_Configurations",session_Configurations);
 		model.addAttribute("league_table", league_table);
 		
@@ -128,7 +131,16 @@ public class IndexController
 		
 		session_socket = new Socket(vizIPAddresss, Integer.valueOf(vizPortNumber));
 		print_writer = new PrintWriter(session_socket.getOutputStream(), true);
+		//BadmintonMatch badminton_match = new BadmintonMatch();
 		session_Configurations = new Configurations(selectedmatch, select_broadcaster, vizIPAddresss, vizPortNumber, vizScene);
+		
+		model.addAttribute("manual_files", new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MANUAL_DIRECTORY + BadmintonUtil.DATA_DIRECTORY).listFiles(new FileFilter() {
+			@Override
+		    public boolean accept(File pathname) {
+		        String name = pathname.getName().toLowerCase();
+		        return name.endsWith(".xml") && pathname.isFile();
+		    }
+		}));
 		
 		JAXBContext.newInstance(Configurations.class).createMarshaller().marshal(session_Configurations, 
 				new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.CONFIGURATIONS_DIRECTORY + BadmintonUtil.OUTPUT_XML));
@@ -194,6 +206,23 @@ public class IndexController
 			else {
 				return JSONObject.fromObject(null).toString();
 			}
+		case "READ-MATCH_FOLDER-AND-POPULATE":
+			
+			if(!valueToProcess.equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(
+					new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MANUAL_DIRECTORY + BadmintonUtil.DATA_DIRECTORY).lastModified())))
+			{
+				System.out.println(session_match.getMatch_folder_file_timestamp());
+				session_match = populateMatchVariables((BadmintonMatch) JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
+						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MANUAL_DIRECTORY + BadmintonUtil.DATA_DIRECTORY)));
+				
+				session_match.setMatch_folder_file_timestamp(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(
+						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MANUAL_DIRECTORY + BadmintonUtil.DATA_DIRECTORY).lastModified()));
+				
+				return JSONArray.fromObject(session_match).toString();
+			}
+			else {
+				return JSONArray.fromObject(null).toString();
+			}
 		
 		case "SCOREBUG_GRAPHICS-OPTIONS": case "SCOREBUGSTAT_GRAPHICS-OPTIONS": case"POINT_GRAPHICS-OPTIONS": case"MATCH_POINT_GRAPHICS-OPTIONS": case"SUPER_MATCH1_GRAPHICS-OPTIONS":
 			return JSONObject.fromObject(session_match).toString();		
@@ -207,6 +236,8 @@ public class IndexController
 			
 			team = badmintonService.getAllTeam();
 			return JSONArray.fromObject(team).toString();
+		//case "PREVIOUS_GRAPHICS-OPTIONS":
+			//return JSONObject.fromObject(badminton_matches_scene).toString();
 		
 		case "ORDER_OF_PLAY_GRAPHICS-OPTIONS": case "FF-TIE_GRAPHICS-OPTIONS": case "L3-TIE_GRAPHICS-OPTIONS":
 			
@@ -248,10 +279,13 @@ public class IndexController
 		case "POPULATE-DOUBLE-FF-MATCHID": case "POPULATE-L3-TIEID": case "POPULATE-FF-TIEID": case "POPULATE-SIDES": case "POPULATE-PLAYER_PROFILE": case "POPULATE-SUPER":
 		case "POPULATE-FF_TIE_PROMO": case "POPULATE-L3_TIE_PROMO": case "POPULATE-ORDER_OF_PLAY": case "POPULATE-TEAMS_LOGO": case "POPULATE-SUPER_MATCH": 
 		case "POPULATE-SUPER_MATCH1": case "POPULATE-SUPER_MATCH2": case "POPULATE-SINGLE_MATCH_PROMO": case "POPULATE-DOUBLE_MATCH_PROMO": case "POPULATE-LT_SINGLE_MATCH_PROMO":
-		case "POPULATE-LT_DOUBLE_MATCH_PROMO": case "POPULATE-SQUADS": case "POPULATE-NAMESUPER_PLAYER": case "POPULATE-POINTS_TABLE":
+		case "POPULATE-LT_DOUBLE_MATCH_PROMO": case "POPULATE-SQUADS": case "POPULATE-NAMESUPER_PLAYER": case "POPULATE-POINTS_TABLE": case "LOAD_MANUAL_XML_SCENE":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch(whatToProcess.toUpperCase()) {
+				case "LOAD_MANUAL_XML_SCENE":
+					new Scene(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.SCENES_DIRECTORY + valueToProcess.replace(".xml", ".sum")).scene_load(print_writer,session_selected_broadcaster,BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.SCENES_DIRECTORY + valueToProcess.replace(".xml", ".sum"));
+					break;
 				case "POPULATE-SCOREBUGSTATS":
 					break;
 				default:
@@ -260,6 +294,27 @@ public class IndexController
 					break;
 				}
 				switch(whatToProcess.toUpperCase()) {
+				case "LOAD_MANUAL_XML_SCENE":
+					//Collections.sort(valueToProcess);
+					//System.out.println("2 = "  + which_graphic_on_screen);
+					session_Data = (ContainerData)JAXBContext.newInstance(ContainerData.class).createUnmarshaller().unmarshal(
+							new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MANUAL_DIRECTORY + BadmintonUtil.DATA_DIRECTORY + valueToProcess));
+					//System.out.println(contain);
+					
+					for(int i = 0; i < session_Data.getContainers().size() ; i++) {
+						//Collections.sort(session_Data.getContainers().get(i).getContainer_id());
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET " + session_Data.getContainers().get(i).getContainer_id() + " " + session_Data.getContainers().get(i).getContainer_value() + ";");
+					}
+					
+					
+					//print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In START;");
+					which_graphics_onscreen = "ANY_SCENE";
+					
+					return JSONObject.fromObject(session_Data).toString();
+				}
+				
+				switch(whatToProcess.toUpperCase()) {
+				
 				case "POPULATE-SCOREBUG":
 					/*teamcolor = badmintonService.getTeamColors();
 					for(TeamColor tc : teamcolor) {
@@ -500,14 +555,14 @@ public class IndexController
 		case "ANIMATE-IN-SCOREBUG": case "ANIMATE-IN-SINGLE-L3_MATCHID": case "ANIMATE-IN-SINGLE-FF_MATCHID": case "ANIMATE-IN-DOUBLE-L3_MATCHID": case "ANIMATE-IN-DOUBLE-FF_MATCHID": case "ANIMATE-IN-L3_TIEID": case "ANIMATE-IN-FF_TIEID": 
 		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES": case "ANIMATE-IN-SUPER": case "ANIMATE-IN-PLAYER_PROFILE": case "ANIMATE-IN-ORDER_OF_PLAY": case "ANIMATE-IN-TEAMS_LOGO": case "ANIMATE-IN-SUPER_MATCH":
 		case "ANIMATE-IN-SUPER_MATCH1": case "ANIMATE-IN-SUPER_MATCH2":	case "ANIMATE-IN-FF_TIE_PROMO": case "ANIMATE-IN-L3_TIE_PROMO": case "ANIMATE-IN-FF_SINGLE_MATCH_PROMO": case "ANIMATE-IN-FF_DOUBLE_MATCH_PROMO":
-		case "ANIMATE-IN-LT_SINGLE_MATCH_PROMO": case "ANIMATE-IN-LT_DOUBLE_MATCH_PROMO": case "ANIMATE-IN-SQUADS": case "ANIMATE-IN-NAMESUPER_PLAYER": case "ANIMATE-IN-POINTS_TABLE":
+		case "ANIMATE-IN-LT_SINGLE_MATCH_PROMO": case "ANIMATE-IN-LT_DOUBLE_MATCH_PROMO": case "ANIMATE-IN-SQUADS": case "ANIMATE-IN-NAMESUPER_PLAYER": case "ANIMATE-IN-POINTS_TABLE": case "ANIMATE-IN-MANUAL_GRAPHIC":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch (whatToProcess.toUpperCase()) {
 				case "ANIMATE-IN-SCOREBUG":
 					if(session_match.getSets() == null) {
 						this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
-						
+						//this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 						if(session_match.getMatch().getTrumpHomeMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "1" +";");
 							TimeUnit.SECONDS.sleep(3);
@@ -580,96 +635,128 @@ public class IndexController
 					which_graphics_onscreen = "SCOREBUG";
 					break;
 				case "ANIMATE-IN-SINGLE-L3_MATCHID":
+					
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SINGLE_L3_MATCHID";
 					break;
 				case "ANIMATE-IN-SINGLE-FF_MATCHID":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SINGLE_FF_MATCHID";
 					break;
 				case "ANIMATE-IN-DOUBLE-L3_MATCHID":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "DOUBLE_L3_MATCHID";
 					break;
 				case "ANIMATE-IN-DOUBLE-FF_MATCHID":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "DOUBLE_FF_MATCHID";
 					break;
 				case "ANIMATE-IN-L3_TIEID":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "L3_TIEID";
 					break;
 				case "ANIMATE-IN-FF_TIEID":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "FF_TIEID";
 					break;
 				case "ANIMATE-IN-SIDES":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SIDES";
 					break;
 				case "ANIMATE-IN-SUPER":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SUPER";
 					break;
 				case "ANIMATE-IN-NAMESUPER_PLAYER":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "NAMESUPER_PLAYER";
 					break;
 				case "ANIMATE-IN-PLAYER_PROFILE":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "PLAYER_PROFILE";
 					break;
 				case "ANIMATE-IN-ORDER_OF_PLAY":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "ORDER_OF_PLAY";
 					break;
 				case "ANIMATE-IN-FF_TIE_PROMO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "FF_TIE_PROMO";
 					break;
 				case "ANIMATE-IN-L3_TIE_PROMO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "L3_TIE_PROMO";
 					break;
 				case "ANIMATE-IN-FF_SINGLE_MATCH_PROMO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "FF_SINGLE_MATCH_PROMO";
 					break;
 				case "ANIMATE-IN-FF_DOUBLE_MATCH_PROMO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "FF_DOUBLE_MATCH_PROMO";
 					break;
 				case "ANIMATE-IN-LT_SINGLE_MATCH_PROMO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "LT_SINGLE_MATCH_PROMO";
 					break;
 				case "ANIMATE-IN-LT_DOUBLE_MATCH_PROMO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "LT_DOUBLE_MATCH_PROMO";
 					break;
 				case "ANIMATE-IN-SQUADS":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SQUADS";
 					break;
 				case "ANIMATE-IN-POINTS_TABLE":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "POINTS_TABLE";
 					break;
 				case "ANIMATE-IN-TEAMS_LOGO":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "TEAMS_LOGO";
 					break;
 				case "ANIMATE-IN-SUPER_MATCH":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SUPER_MATCH";
 					break;
 				case "ANIMATE-IN-SUPER_MATCH1":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SUPER_MATCH1";
 					break;
 				case "ANIMATE-IN-SUPER_MATCH2":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SUPER_MATCH2";
+					break;
+				case "ANIMATE-IN-MANUAL_GRAPHIC":
+					print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In START;");
+					TimeUnit.SECONDS.sleep(2);
+					print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
+					print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT_PATH C:/Temp/Preview.bmp;");
+					print_writer.println("LAYER1*EVEREST*GLOBAL SNAPSHOT 1920 1080;");
+					print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 					break;
 				case "ANIMATE-OUT": 
 					switch(which_graphics_onscreen) {
@@ -770,24 +857,4 @@ public class IndexController
 		}
 		return match;
 	}
-	/*public Fixture updateBadmintonData(Match mtch,String typeOfProfile ) 
-	{
-		boolean player_found = false;
-		//mtch = badmintonService.getAllMatches();
-		for(BadmintonMatch match : badminton_matches) {
-			player_found = false;
-			if(mtch.getGroupname() == match.getMatch().getGroupname() && mtch.getHomeFirstPlayerId() == match.getMatch().getHomeFirstPlayerId() && mtch.getAwayFirstPlayerId() == match.getMatch().getAwayFirstPlayerId()) {
-					
-					
-				}
-				
-				
-				
-		}
-<<<<<<< Updated upstream
-		return mtch;
-=======
-		
->>>>>>> Stashed changes
-	}*/
 }

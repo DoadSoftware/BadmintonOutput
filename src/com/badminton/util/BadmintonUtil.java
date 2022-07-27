@@ -3,6 +3,9 @@ package com.badminton.util;
 public class BadmintonUtil {
 	
 	public final static String BADMINTON_DIRECTORY = "C:/Sports/Badminton/";
+	public final static String MANUAL_DIRECTORY = "Manual/";
+	public final static String DATA_DIRECTORY = "Data/";
+	//public final static String DAT_DIRECTORY = "Data";
 	public final static String MATCHES_DIRECTORY = "Matches/";
 	public final static String SCENES_DIRECTORY = "Scenes/";
 	public final static String EVENT_DIRECTORY = "Event/";

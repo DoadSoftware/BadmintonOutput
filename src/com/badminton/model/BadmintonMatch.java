@@ -42,6 +42,9 @@ public class BadmintonMatch {
   private String match_file_timestamp;
   
   @XmlTransient
+  private String match_folder_file_timestamp;
+  
+  @XmlTransient
   private List<Match> matches;
   
 public BadmintonMatch(Match match) {
@@ -115,6 +118,14 @@ public String getMatch_file_timestamp() {
 
 public void setMatch_file_timestamp(String match_file_timestamp) {
 	this.match_file_timestamp = match_file_timestamp;
+}
+
+public String getMatch_folder_file_timestamp() {
+	return match_folder_file_timestamp;
+}
+
+public void setMatch_folder_file_timestamp(String match_folder_file_timestamp) {
+	this.match_folder_file_timestamp = match_folder_file_timestamp;
 }
 
 public int getOnStrikePlayerId() {

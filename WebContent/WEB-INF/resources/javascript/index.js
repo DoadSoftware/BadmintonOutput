@@ -22,7 +22,7 @@ function initialiseForm(whatToProcess,dataToProcess)
 	case 'UPDATE-MATCH-ON-OUTPUT-FORM':
 			document.getElementById('home_team_set_won').innerHTML = 'Home Team Set Won: ' + parseInt(dataToProcess.homeTeamSetsWon);
 			document.getElementById('away_team_set_won').innerHTML = 'Away Team Set Won: ' + parseInt(dataToProcess.awayTeamSetsWon);
-		
+			//document.getElementById('previous_xml_data') = dataToProcess.awayTeamSetsWon
 		break;
 	}
 }
@@ -47,6 +47,9 @@ function processUserSelection(whichInput)
 		break;
 	case 'animateout_scorebugstat_btn':
 		processBadmintonProcedures('ANIMATE-OUT-STAT');
+		break;
+	case 'manualgraphics_graphic_btn':
+		processBadmintonProcedures('LOAD_MANUAL_XML_SCENE');
 		break;
 	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn': case 'cancel_btn':
 	case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn': case 'sides_graphic_btn': case 'super_graphic_btn': case 'playerprofile_graphic_btn':
@@ -267,6 +270,9 @@ function processBadmintonProcedures(whatToProcess)
 	case 'READ-MATCH-AND-POPULATE':
 		valueToProcess = $('#match_file_timestamp').val();
 		break;
+	case 'READ-MATCH_FOLDER-AND-POPULATE':
+		valueToProcess = $('#match_folder_file_timestamp').val();
+		break;
 	case 'POPULATE-SCOREBUG': 
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
@@ -443,6 +449,13 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'LOAD_MANUAL_XML_SCENE':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess =$('#previous_xml_data option:selected').val();
+			break;
+		}
+		break;
 	}
 
 	$.ajax({    
@@ -457,6 +470,18 @@ function processBadmintonProcedures(whatToProcess)
 					if($('#match_file_timestamp').val() != data.match_file_timestamp) {
 						document.getElementById('match_file_timestamp').value = data.match_file_timestamp;
 						initialiseForm("UPDATE-MATCH-ON-OUTPUT-FORM",data);
+					}
+				}
+				break;
+			case 'READ-MATCH_FOLDER-AND-POPULATE':
+			
+				if(data){
+					alert('hi');
+					if($('#match_folder_file_timestamp').val() != data.match_folder_file_timestamp) {
+						
+						document.getElementById('match_folder_file_timestamp').value = data.match_folder_file_timestamp;
+						window.location.reload();
+						//initialiseForm("UPDATE-MATCH-ON-OUTPUT-FORM",data);
 					}
 				}
 				break;
@@ -527,7 +552,19 @@ function processBadmintonProcedures(whatToProcess)
 				addItemsToList('SUPER_MATCH_DATA',data)
 				match_data = data;
 				break;
-			
+			case 'LOAD_MANUAL_XML_SCENE':
+			switch(whatToProcess) {
+			case 'LOAD_MANUAL_XML_SCENE':
+			if(confirm('Animate In?') == true){
+				processBadmintonProcedures('ANIMATE-IN-MANUAL_GRAPHIC');
+				//addItemsToList('LOAD_PREVIOUS_SCENE-OPTIONS',data);
+			}else{
+				$('#select_graphic_options_div').empty();
+						document.getElementById('select_graphic_options_div').style.display = 'none';
+						$("#captions_div").show();
+			}
+			break;
+			}
 			case 'POPULATE-SCOREBUG': case 'POPULATE-SINGLE-L3-MATCHID': case 'POPULATE-SINGLE-FF-MATCHID': case 'POPULATE-DOUBLE-L3_MATCHID': case 'POPULATE-DOUBLE-FF-MATCHID': case 'POPULATE-L3-TIEID':
 			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-TEAMS_LOGO': case 'POPULATE-SUPER_MATCH':
 			case 'POPULATE-SUPER_MATCH1': case 'POPULATE-SUPER_MATCH2': case 'POPULATE-FF_TIE_PROMO': case 'POPULATE-L3_TIE_PROMO': case 'POPULATE-SINGLE_MATCH_PROMO': case 'POPULATE-DOUBLE_MATCH_PROMO':
@@ -652,7 +689,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		
 		break;
 	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
-	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS': case 'POINTS_TABLE-OPTIONS':
+	case'TEAMS_LOGO-OPTIONS': case'SUPER_MATCH-OPTIONS': case'SUPER_MATCH1-OPTIONS': case'SUPER_MATCH2-OPTIONS': case 'NAMESUPER_PLAYER-OPTIONS': case 'POINTS_TABLE-OPTIONS': case 'MANUAL_GRAPHICS-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 

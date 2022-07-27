@@ -32,7 +32,11 @@
     
     
     
+<<<<<<< Updated upstream
     <wb-module deploy-name="BadmintonOutput-1.1.b26">
+=======
+    <wb-module deploy-name="BadmintonOutput-1.1.b29">
+>>>>>>> Stashed changes
                                                                                                                                                                                                                                                                                 
         
         

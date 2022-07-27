@@ -16,7 +16,8 @@
   <link href="<c:url value="/webjars/font-awesome/6.0.0/css/all.css"/>" rel="stylesheet">
   <script type="text/javascript">
   setInterval(() => {
-	  processBadmintonProcedures('READ-MATCH-AND-POPULATE');		
+	  processBadmintonProcedures('READ-MATCH-AND-POPULATE');
+	  processBadmintonProcedures('READ-MATCH_FOLDER-AND-POPULATE');
 	}, 1000);
   </script>
 
@@ -53,7 +54,17 @@
 				
 				<label id="home_team_set_won" class="col-sm-4 col-form-label text-left">Home Team Set Won: ${session_match.homeTeamSetsWon} </label>
 				<label id="away_team_set_won" class="col-sm-4 col-form-label text-left">Away Team Set Won: ${session_match.awayTeamSetsWon} </label>
-				
+				<div class="form-group row row-bottom-margin ml-2" style="margin-bottom:5px;">
+			    <label for="previous_xml_data" class="col-sm-4 col-form-label text-left">Previous Manual Data </label>
+			    <div class="col-sm-6 col-md-6">
+			      <select id="previous_xml_data" name="previous_xml_data" 
+			      		class="browser-default custom-select custom-select-sm">
+						<c:forEach items = "${manual_files}" var = "files">
+				          	<option value="${files.name}">${files.name}</option>
+						</c:forEach>
+			      </select>
+			    </div>
+			  </div>
 				<!-- <c:forEach var="set" items="${session_match.sets}">
 					<c:if test="${(set.setNumber == 1)}">
 						<label class="col-sm-4 col-form-label text-left" >Set1: ${set.homeTeamTotalScore}-${set.awayTeamTotalScore}  </label>
@@ -127,9 +138,11 @@
 			  		
 			  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 			  		name="points_table_graphic_btn" id="points_table_graphic_btn" onclick="processUserSelection(this)"> Points Table  </button>
-			  		
 			  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 			  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
+			  	
+			  <button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
+			  		name="manualgraphics_graphic_btn" id="manualgraphics_graphic_btn" onclick="processUserSelection(this)"> Animate In Manual </button>
 			  </div>
 			  </div>
 	       </div>
@@ -140,6 +153,7 @@
 </div>
 <input type="hidden" name="select_broadcaster" id="select_broadcaster" value="${session_selected_broadcaster}"/>
 <input type="hidden" id="match_file_timestamp" name="match_file_timestamp" value="${session_match.match_file_timestamp}"></input>
+<input type="hidden" id="match_folder_file_timestamp" name="match_folder_file_timestamp" value="${session_match.match_folder_file_timestamp}"></input>
 </form:form>
 </body>
 </html>
