@@ -441,8 +441,6 @@ public class IndexController
 							badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-POINTS_TABLE":
-					//LeagueTable leaguetable = new LeagueTable();
-					System.out.println("Team Name :" + league_table.getLeagueTeams().get(0).getTeamName());
 					this_doad.populatePointsTable(print_writer, viz_scene_path, league_table.getLeagueTeams(),session_selected_broadcaster);
 					break;
 					
