@@ -3,8 +3,6 @@ package com.badminton.broadcaster;
 
 import java.io.PrintWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 //import java.util.concurrent.TimeUnit;
 
@@ -57,21 +55,23 @@ public class Doad extends Scene{
 			this.status = BadmintonUtil.SUCCESSFUL;	
 		}
 	}	
-	
 	public void populateScoreBugName(boolean is_this_updating, PrintWriter print_writer,String viz_sence_path, List<Team> tm, BadmintonMatch Bad_match, String selectedbroadcaster) 
 	{
 		if (Bad_match == null) {
 			this.status = "ERROR: Match is null";
 		} else {
-			
+			int Count = 0;
+			System.out.println("outside ="+Count);
 			if(Bad_match.getGoldenPointsPlayerId() == Bad_match.getMatch().getHomeFirstPlayerId()) {
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "1" +";");
+				Count = Count + 1 ;
 				//print_writer.println("LAYER1*EVEREST*TREEVIEW*GoldenPoint*CONTAINER SET ACTIVE 1;");
 			}
 			else if(Bad_match.getGoldenPointsPlayerId() == Bad_match.getMatch().getAwayFirstPlayerId()) {
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "2" +";");
+				Count = Count + 1 ;
 				//print_writer.println("LAYER1*EVEREST*TREEVIEW*GoldenPoint*CONTAINER SET ACTIVE 1;");
 			}
 			else if(Bad_match.getGoldenPointsPlayerId() == 0) {
@@ -161,7 +161,6 @@ public class Doad extends Scene{
 				for(Set st : Bad_match.getSets()) {
 					if(st.getSetNumber() == 1) {
 						if(st.getStatus().equalsIgnoreCase("START") || st.getStatus().equalsIgnoreCase("END")) {
-							
 							if(Bad_match.getGoldenPointsPlayerId() != 0  && st.getHomeTeamTotalScore() == 0 &&  st.getAwayTeamTotalScore() == 0) {
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
 							}
@@ -175,7 +174,11 @@ public class Doad extends Scene{
 								
 								processAnimation(print_writer, "Score1In", "START", selectedbroadcaster);
 								
+								if(st.getHomeTeamTotalScore() == 0 &&  st.getAwayTeamTotalScore() == 2 || st.getHomeTeamTotalScore() == 2 &&  st.getAwayTeamTotalScore() == 0) {
+									processAnimation(print_writer, "Score1In", "START", selectedbroadcaster);
+								}
 							}
+							
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "1" +";");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam1_R1 " + st.getHomeTeamTotalScore() +";");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam2_R1 " + st.getAwayTeamTotalScore() +";");
@@ -364,7 +367,6 @@ public class Doad extends Scene{
 			this.status = BadmintonUtil.SUCCESSFUL;	
 		}
 	}
-	
 	public void populateSingleL3MatchId(PrintWriter print_writer,String viz_sence_path,List<Fixture> fix,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
 	{
 		
@@ -385,8 +387,7 @@ public class Doad extends Scene{
 					Bad_match.getMatch().getAwayPlayers().get(0).getTicker_name() + BadmintonUtil.PNG_EXTENSION + ";");
 
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomePlayerName " + Bad_match.getMatch().getHomePlayers().get(0).getTicker_name().toUpperCase()+ ";");
-			//System.out.println(Bad_match.getMatch().getHomePlayers().get(0).getFull_name().toUpperCase());
-			//System.out.println(Bad_match.getMatch().getAwayPlayers().get(0).getFull_name().toUpperCase());
+			
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayPlayerName " + Bad_match.getMatch().getAwayPlayers().get(0).getTicker_name().toUpperCase() + ";");
 			
 			if(Bad_match.getMatch().getCategoryId() == 0 ) {
@@ -640,7 +641,9 @@ public class Doad extends Scene{
 			this.status = "ERROR: Match is null";
 		} else {
 			int Set1h = 0,Set1a=0, Set2h = 0,Set2a=0;
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "GRAND PRIX BADMINTON LEAGUE 2022" +";");
+
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getTournamentName().toUpperCase() +";");
+
 			for(Fixture fx : fix) {
 				if((Bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (Bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "TIE " + fx.getMatchnumber() + " - " + "MATCH " + Bad_match.getMatch().getMatchnumber() +";");
@@ -775,7 +778,7 @@ public class Doad extends Scene{
 			this.status = "ERROR: Match is null";
 		} else {
 			int Set1h = 0,Set1a=0, Set2h = 0,Set2a=0;
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "GRAND PRIX BADMINTON LEAGUE 2022 " +";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getTournamentName().toUpperCase() +";");
 			//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "MATCH " + Bad_match.getMatch().getMatchId() +";");
 			//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader2 " + "MATCH " + Bad_match.getMatch().getMatchId() +";");
 			for(Fixture fx : fix) {
@@ -931,7 +934,15 @@ public class Doad extends Scene{
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore_VS " + fx.getMargin() +";");
 					}			
 				}
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getMatch().getGroupname().toUpperCase() +";");
+				if(Bad_match.getMatch().getGroupname().toUpperCase().equalsIgnoreCase("PLAYOFF")) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "SUPER LEAGUE" +";");
+				}
+				else if(Bad_match.getMatch().getGroupname().toUpperCase().equalsIgnoreCase("FINALS")) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "FINAL" +";");
+				}
+				else{
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getMatch().getGroupname().toUpperCase() +";");
+				}
 				if((Bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (Bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "TIE " + fx.getMatchnumber() +";");
 					
@@ -983,9 +994,17 @@ public class Doad extends Scene{
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader2 " + fx.getMargin() +";");
 					}			
 				}
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "GRAND PRIX BADMINTON LEAGUE 2022 " +";");
-				if((Bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (Bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " +Bad_match.getMatch().getGroupname().toUpperCase() +" - "+ "TIE " + fx.getMatchnumber() +";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getTournamentName().toUpperCase() +";");
+				if(Bad_match.getMatch().getGroupname().toUpperCase().equalsIgnoreCase("PLAYOFF")) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "SUPER LEAGUE" +";");
+				}
+				else if(Bad_match.getMatch().getGroupname().toUpperCase().equalsIgnoreCase("FINALS")) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "FINAL" +";");
+				}
+				else{
+					if((Bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (Bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " +Bad_match.getMatch().getGroupname().toUpperCase() +" - "+ "TIE " + fx.getMatchnumber() +";");
+					}
 				}
 				//print_writer.println("LAYER1*EVEREST*TREEVIEW*CenterPart*CONTAINER SET ACTIVE 0;");
 				if(Bad_match.getSets() != null ) {
@@ -1132,7 +1151,7 @@ public class Doad extends Scene{
 			this.status = BadmintonUtil.SUCCESSFUL;	
 		}
 	}
-	public void populateOrderOfPlay(PrintWriter print_writer,String viz_sence_path,int match_number,List<BadmintonMatch> mtch,Fixture fx,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
+	public void populateOrderOfPlay(PrintWriter print_writer,String viz_sence_path,int match_number,List<BadmintonMatch> mtch,List<Fixture> fix,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
 	{
 		if (Bad_match == null) {
 			this.status = "ERROR: Match is null";
@@ -1187,12 +1206,6 @@ public class Doad extends Scene{
 				else {
 					super_match_val = 0;
 				}
-				//print_writer.println("LAYER1*EVEREST*TREEVIEW*First*CONTAINER SET ACTIVE 1;");
-				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Second*CONTAINER SET ACTIVE 0;");
-				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Third*CONTAINER SET ACTIVE 0;");
-				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Fourth*CONTAINER SET ACTIVE 0;");
-				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSuperMatch " +  + ";");
-			//	print_writer.println("LAYER1*EVEREST*TREEVIEW*Fifth*CONTAINER SET ACTIVE 0;");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSuperMatch " + super_match_val + ";");
 				
 				if(mtch.get(i).getMatch().getHomeSecondPlayerId() == 0) {
@@ -1273,36 +1286,38 @@ public class Doad extends Scene{
 			else {
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump" + container + "2 " + "1" + ";");
 			}
-			if(mtch.get(i).getMatch().getCategoryId() == 1) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " WS " +";");
-			}
-			else if(mtch.get(i).getMatch().getCategoryId() == 2) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " MD " +";");
-			}
-			else if(mtch.get(i).getMatch().getCategoryId() == 3) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " MS " +";");
-			}
-			else if(mtch.get(i).getMatch().getCategoryId() == 4) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " XD " +";");
-			}
-			else {
+			if(mtch.get(i).getMatch().getCategoryId() == null) {
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + "SM" +";");
 			}
-		
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamName " + mtch.get(i).getMatch().getHomeTeam().getFullname().toUpperCase() +";");
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamName " + mtch.get(i).getMatch().getAwayTeam().getFullname().toUpperCase() +";");
-
-				if((mtch.get(i).getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (mtch.get(i).getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
-					if(fx.getMargin() == null) {
-						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + " " +";");
-					}
-					else {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + fx.getMargin() +";");
-					}			
+			else {
+				if(mtch.get(i).getMatch().getCategoryId() == 1) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " WS " +";");
 				}
-			
+				else if(mtch.get(i).getMatch().getCategoryId() == 2) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " MD " +";");
+				}
+				else if(mtch.get(i).getMatch().getCategoryId() == 3) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " MS " +";");
+				}
+				else if(mtch.get(i).getMatch().getCategoryId() == 4) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " XD " +";");
+				}
 			}
-			
+		}
+			for(BadmintonMatch match : mtch) {
+				for(Fixture fx : fix) {
+					if((match.getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (match.getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
+						if(fx.getMargin() == null) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + " " +";");
+						}
+						else {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + fx.getMargin() +";");
+						}			
+					}
+				}
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamName " + match.getMatch().getHomeTeam().getFullname().toUpperCase() +";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamName " + match.getMatch().getAwayTeam().getFullname().toUpperCase() +";");
+			}
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In STOP;");
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*Out STOP;");
@@ -1325,11 +1340,11 @@ public class Doad extends Scene{
 		print_writer.println("LAYER1*EVEREST*TREEVIEW*Underline*CONTAINER SET ACTIVE 0;");
 
 		for(Team team : teams) {
-			if(team.getGroupname().equalsIgnoreCase("A")) {
+			if(team.getGroupname().equalsIgnoreCase("GROUP A")) {
 				left_row_id = left_row_id + 1;
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgGroupALogo" + left_row_id + " " + logo_path + team.getShortname().toUpperCase() + ".png" +";");
 			}
-			else if(team.getGroupname().equalsIgnoreCase("B")) {
+			else if(team.getGroupname().equalsIgnoreCase("GROUP B")) {
 				right_row_id = right_row_id + 1;
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgGroupBLogo" + right_row_id + " " + logo_path + team.getShortname().toUpperCase() + ".png" +";");
 			}
@@ -1354,12 +1369,14 @@ public class Doad extends Scene{
 		if (Bad_match == null) {
 			this.status = "ERROR: Match is null";
 		} else {
-			//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " +  +";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getTournamentName().toUpperCase() +";");
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + " " +";");
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue1 " + pp.getAge() +";");
 			if(pp.getTeamId() == tm.getTeamId()) {
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue2 " + tm.getFullname().toUpperCase() +";");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomeTeamLogo " + logo_path + tm.getShortname() + BadmintonUtil.PNG_EXTENSION + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomePlayerImage " + left_path + tm.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
+						pp.getTicker_name() + BadmintonUtil.PNG_EXTENSION + ";");
 			}
 			
 			if(pp.getIconPlayer().equalsIgnoreCase("YES")) {
@@ -1388,8 +1405,7 @@ public class Doad extends Scene{
 			}
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText1 " + pp.getText1()  +";");
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText2 " + pp.getText2() +";");
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomePlayerImage " + left_path + tm.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
-					pp.getTicker_name() + BadmintonUtil.PNG_EXTENSION + ";");
+			
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName " + pp.getFull_name().toUpperCase() + ";");
 			
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
@@ -1406,7 +1422,8 @@ public class Doad extends Scene{
 			this.status = BadmintonUtil.SUCCESSFUL;	
 		}
 	}
-	public void populateL3TiePromo(PrintWriter print_writer,String viz_sence_path, int match_number ,List<Fixture> fix,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
+
+	public void populateL3TiePromo(PrintWriter print_writer,String viz_sence_path, int match_number ,List<Team> team,List<Fixture> fix,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
 	{
 		if (Bad_match == null) {
 			this.status = "ERROR: Match is null";
@@ -1414,15 +1431,26 @@ public class Doad extends Scene{
 			
 			for(Fixture fx : fix) {
 				if(fx.getMatchnumber() == match_number) {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "GROUP " + fx.getHome_Team().getGroupname().toUpperCase() +";");
-					
+					for(Team tm : team) {
+						if(tm.getTeamId() == fx.getHometeam()) {
+							if(tm.getGroupname().toUpperCase().equalsIgnoreCase("PLAYOFF")) {
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "SUPER LEAGUE" +";");
+							}
+							else if(tm.getGroupname().toUpperCase().equalsIgnoreCase("FINALS")) {
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "FINAL" +";");
+							}
+							else{
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader "  + tm.getGroupname().toUpperCase() +";");
+							}
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomePlayer1Image " + logo_path + tm.getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamName " + tm.getFullname().toUpperCase() + ";");
+						}
+						if(tm.getTeamId() == fx.getAwayteam()) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgAwayPlayer1Image " + logo_path + tm.getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamName " + tm.getFullname().toUpperCase() + ";");
+						}
+					}
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "TIE " + fx.getMatchnumber() +";");
-					
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomePlayer1Image " + logo_path + fx.getHome_Team().getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamName " + fx.getHome_Team().getFullname().toUpperCase() + ";");
-					
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgAwayPlayer1Image " + logo_path + fx.getAway_Team().getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamName " + fx.getAway_Team().getFullname().toUpperCase() + ";");
 				}
 			}
 			
@@ -1442,30 +1470,40 @@ public class Doad extends Scene{
 			this.status = BadmintonUtil.SUCCESSFUL;	
 		}
 	}
-	
-	public void populateFFTiePromo(PrintWriter print_writer,String viz_sence_path, int match_number ,List<Fixture> fix,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
+	public void populateFFTiePromo(PrintWriter print_writer,String viz_sence_path, int match_number ,List<Team> team,List<Fixture> fix,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
 	{
 		if (Bad_match == null) {
 			this.status = "ERROR: Match is null";
 		} else {
 			
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "GRAND PRIX BADMINTON LEAGUE 2022 " +";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getTournamentName().toUpperCase() +";");
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader2 " + "UP NEXT" +";");
 			for(Fixture fx : fix) {
 				if(fx.getMatchnumber() == match_number) {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "GROUP " + fx.getHome_Team().getGroupname() + " " + slashOrDash + " TIE " + fx.getMatchnumber() +";");
-					
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomeTeamLogo " + logo_path + fx.getHome_Team().getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamFirstName " + fx.getHome_Team().getFirstname().toUpperCase() + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamLastName " + fx.getHome_Team().getLastname().toUpperCase() + ";");
+					for(Team tm : team) {
+						if(tm.getTeamId() == fx.getHometeam()) {
+							if(tm.getGroupname().toUpperCase().equalsIgnoreCase("PLAYOFF")) {
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "SUPER LEAGUE" +";");
+							}
+							else if(tm.getGroupname().toUpperCase().equalsIgnoreCase("FINALS")) {
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "FINAL" +";");
+							}
+							else{
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "GROUP " + tm.getGroupname() + " " + slashOrDash + " TIE " + fx.getMatchnumber() +";");
+							}
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomeTeamLogo " + logo_path + tm.getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamFirstName " + tm.getFirstname().toUpperCase() + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamLastName " + tm.getLastname().toUpperCase() + ";");
+						}
+						if(tm.getTeamId() == fx.getAwayteam()) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgAwayTeamLogo " + logo_path + tm.getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamFirstName " + tm.getFirstname().toUpperCase() + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamLastName " + tm.getLastname().toUpperCase() + ";");	
+						}
+					}
 					//print_writer.println("LAYER1*EVEREST*TREEVIEW*TEAM1LastName*CONTAINER SET ACTIVE 0;");
-					
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgAwayTeamLogo " + logo_path + fx.getAway_Team().getShortname().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamFirstName " + fx.getAway_Team().getFirstname().toUpperCase() + ";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tAwayTeamLastName " + fx.getAway_Team().getLastname().toUpperCase() + ";");	
 				}
 			}
-					
 			//print_writer.println("LAYER1*EVEREST*TREEVIEW*TEAM2LastName*CONTAINER SET ACTIVE 0;");
 		
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
@@ -1798,7 +1836,6 @@ public class Doad extends Scene{
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");	
 			this.status = BadmintonUtil.SUCCESSFUL;	
 	}
-	
 	public void populateSquads(PrintWriter print_writer,String viz_sence_path,int team_id, List<Player> allplayer, List<Team> allteam,String selectedbroadcaster) throws InterruptedException 
 	{
 		int row_id=1;
@@ -1873,7 +1910,6 @@ public class Doad extends Scene{
 		this.status = BadmintonUtil.SUCCESSFUL;	
 
 	}
-	
 	public void populatePointsTable(PrintWriter print_writer,String viz_sence_path,List<LeagueTeam> point_table, String selectedbroadcaster) throws InterruptedException 
 	{
 		int row_id=0;
@@ -2028,7 +2064,6 @@ public class Doad extends Scene{
 		print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");	
 		this.status = BadmintonUtil.SUCCESSFUL;	
 	}
-	
 	public void populateSuperMatch(PrintWriter print_writer,String viz_sence_path,List<Fixture> fix,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
 	{
 		if (Bad_match == null) {

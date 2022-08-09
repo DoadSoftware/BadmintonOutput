@@ -14,6 +14,9 @@ public class BadmintonMatch {
 
   @XmlElement
   private Match match;
+
+  @XmlElement
+  private String tournamentName;
   
   @XmlElement
   private String match_file_name;
@@ -142,6 +145,14 @@ public int getGoldenPointsPlayerId() {
 
 public void setGoldenPointsPlayerId(int goldenPointsPlayerId) {
 	this.goldenPointsPlayerId = goldenPointsPlayerId;
+}
+
+public String getTournamentName() {
+	return tournamentName;
+}
+
+public void setTournamentName(String tournamentName) {
+	this.tournamentName = tournamentName;
 }
 
 }

@@ -148,12 +148,12 @@
 		  		
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  		name="points_table_graphic_btn" id="points_table_graphic_btn" onclick="processUserSelection(this)"> Points Table  </button>
-		  		
+
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  		name="rules_graphic_btn" id="rules_graphic_btn" onclick="processUserSelection(this)"> Rules  </button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  		name="schedule_graphic_btn" id="schedule_graphic_btn" onclick="processUserSelection(this)"> Schedule  </button>
-		  	
+
 		  	</div>
 		  	<div class="left">
 		  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"

@@ -143,10 +143,11 @@ function processUserSelection(whichInput)
 		case 'squads_graphic_btn':
 			processBadmintonProcedures('SQUADS_GRAPHICS-OPTIONS');
 			break;
+
 		case 'schedule_graphic_btn':
 			processBadmintonProcedures('SCHEDULE_GRAPHICS-OPTIONS');
 			break;
-		
+
 		case 'cancel_btn':
 			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
 			break;
@@ -156,6 +157,7 @@ function processUserSelection(whichInput)
 	case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn': case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn':
 	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn': case 'points_table_graphic_btn':
 	case 'populate_ff_single_match_promo_btn': case 'populate_ff_double_match_promo_btn': case 'populate_l3_single_match_promo_btn':
+
 	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn': case 'populate_namesuper_player_btn': case 'teamslogo_graphic_btn': 
 	case 'supermatch_graphic_btn': case 'supermatch1_graphic_btn': case 'supermatch2_graphic_btn': case 'rules_graphic_btn': case 'populate_schedule_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
@@ -259,12 +261,14 @@ function processUserSelection(whichInput)
 		case 'populate_squads_btn':
 			processBadmintonProcedures('POPULATE-SQUADS');
 			break;
+
 		case 'rules_graphic_btn':
 			processBadmintonProcedures('POPULATE-RULES');
 			break;
 		case 'populate_schedule_btn':
 			processBadmintonProcedures('POPULATE-SCHEDULE');
 			break;
+
 		}
 		
 		break;
@@ -1742,6 +1746,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 			    
 				document.getElementById('select_graphic_options_div').style.display = '';
 				break;
+
 				
 			case 'SCHEDULE-OPTIONS':
 				option.name = 'populate_schedule_btn';
@@ -1767,6 +1772,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 			    
 				document.getElementById('select_graphic_options_div').style.display = '';
 				break;
+
 			}
 			break;
 		}

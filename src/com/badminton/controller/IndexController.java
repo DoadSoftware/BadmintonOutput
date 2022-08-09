@@ -400,22 +400,23 @@ public class IndexController
 									
 									badminton_matches.add(bad_match);
 								}
-								this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fx, session_match, session_selected_broadcaster);
+								//this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fx, session_match, session_selected_broadcaster);
 							}
 						}
 					}
+					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,badmintonService.getFixtures(), session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-FF_TIE_PROMO":
 					//for(Fixture fx : fixture) {
 						//if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-					this_doad.populateFFTiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getFixtures(), session_match, session_selected_broadcaster);
+					this_doad.populateFFTiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllTeam(),badmintonService.getFixtures(), session_match, session_selected_broadcaster);
 						//}
 					//}
 					break;
 				case "POPULATE-L3_TIE_PROMO":
 					//for(Fixture fx : fixture) {
 						//if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-					this_doad.populateL3TiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]), badmintonService.getFixtures(), session_match, session_selected_broadcaster);
+					this_doad.populateL3TiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllTeam(), badmintonService.getFixtures(), session_match, session_selected_broadcaster);
 						//}
 					//}
 					break;
