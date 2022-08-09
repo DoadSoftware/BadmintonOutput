@@ -56,7 +56,7 @@ function initialiseForm(whatToProcess,dataToProcess)
 function processUserSelection(whichInput)
 {	
 	switch ($(whichInput).attr('name')) {
-	case 'selectscorebugStat':
+	/*case 'selectscorebugStat':
 		switch ($('#selectscorebugStat :selected').val().toUpperCase()) {
 		case 'SET_POINT':  
 			processBadmintonProcedures('POINT_GRAPHICS-OPTIONS');
@@ -65,12 +65,15 @@ function processUserSelection(whichInput)
 			processBadmintonProcedures('MATCH_POINT_GRAPHICS-OPTIONS');
 			break;
 		}
-		break;	
+		break;*/	
 	
 	case 'animateout_graphic_btn':
 		if(confirm('It will Also Delete Your Preview from Directory...\r\n \r\nAre You Sure To Animate Out? ') == true){
 			processBadmintonProcedures('ANIMATE-OUT');	
 		}
+		break;
+	case 'animateout_category_graphic_btn':
+		processBadmintonProcedures('ANIMATE-OUT-CATEGORY');
 		break;
 	case 'animateout_scorebugstat_btn':
 		processBadmintonProcedures('ANIMATE-OUT-STAT');
@@ -721,7 +724,8 @@ function addItemsToList(whatToProcess, dataToProcess)
 	switch (whatToProcess) {
 	case'SUPER_MATCH_DATA':
 		dataToProcess.sets.forEach(function(st,index,arr1){
-			if(st.homeTeamTotalScore > 8 || st.awayTeamTotalScore > 8){
+			if(st.homeTeamTotalScore > 8 &&  st.awayTeamTotalScore == 1 || st.awayTeamTotalScore > 8 && st.homeTeamTotalScore == 1 || 
+			st.homeTeamTotalScore > 8 &&  st.awayTeamTotalScore == 0 || st.awayTeamTotalScore > 8 && st.homeTeamTotalScore == 0){
 				alert('Cannot Populate');
 				$('#select_graphic_options_div').empty();
 				document.getElementById('select_graphic_options_div').style.display = 'none';
@@ -843,17 +847,23 @@ function addItemsToList(whatToProcess, dataToProcess)
 				select.appendChild(option);
 				
 				option = document.createElement('option');
+				option.value = 'Category';
+				option.text = 'Category';
+				select.appendChild(option);
+				
+				option = document.createElement('option');
 				option.value = 'set_point';
 				option.text = 'Set Point';
 				select.appendChild(option);
-				select.setAttribute('onclick','processUserSelection(this);');
+				//select.setAttribute('onclick','processUserSelection(this);');
 				
 				option = document.createElement('option');
 				option.value = 'match_point';
 				option.text = 'Match Point';
 				select.appendChild(option);
 				
-				select.setAttribute('onchange',"processUserSelection(this)");
+				select.setAttribute('onclick','processUserSelection(this);');
+				//select.setAttribute('onchange',"processUserSelection(this)");
 				row.insertCell(cellCount).appendChild(select);
 				
 				cellCount = cellCount + 1;

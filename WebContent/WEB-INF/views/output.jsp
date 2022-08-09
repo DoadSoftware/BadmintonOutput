@@ -160,6 +160,8 @@
 		  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
 		  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 		  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All </button>
+		  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
+		  		name="animateout_category_graphic_btn" id="animateout_category_graphic_btn" onclick="processUserSelection(this)"> AnimateOut Category </button>
 		  	
 		  <button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 		  		name="manualgraphics_graphic_btn" id="manualgraphics_graphic_btn" onclick="processUserSelection(this)"> Animate In Manual </button>

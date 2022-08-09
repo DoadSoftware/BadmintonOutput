@@ -64,7 +64,7 @@ public class IndexController
 	List<Team> allteams = new ArrayList<Team>();
 
 	
-	String session_selected_broadcaster,session_selected_ip,which_graphics_onscreen,viz_scene_path,stat;
+	String session_selected_broadcaster,session_selected_ip,which_graphics_onscreen,viz_scene_path,stat,category_onscreen;
 	int session_selected_port ;
 	boolean is_ScoreBug_on_Screen = false;
 	
@@ -120,6 +120,7 @@ public class IndexController
 	{
 		which_graphics_onscreen = "";
 		stat = "";
+		category_onscreen = "";
 		selectedmatch = selectmatch;
 		is_ScoreBug_on_Screen = false;
 		this_doad = new Doad();
@@ -404,7 +405,7 @@ public class IndexController
 							}
 						}
 					}
-					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,badmintonService.getFixtures(), session_match, session_selected_broadcaster);
+					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fixture, session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-FF_TIE_PROMO":
 					//for(Fixture fx : fixture) {
@@ -466,8 +467,14 @@ public class IndexController
 				case "POPULATE-SCOREBUGSTATS":
 					
 					switch(valueToProcess.toUpperCase()) {
-					case "TEAM_NAME": case"HOME": case"AWAY": case"MATCH_HOME": case"MATCH_AWAY":
-						if(which_graphics_onscreen.equalsIgnoreCase("FOREHAND_WINNER" ) || which_graphics_onscreen.equalsIgnoreCase("FOREHAND_ERROR")  || which_graphics_onscreen.equalsIgnoreCase("BACKHAND_WINNER") || which_graphics_onscreen.equalsIgnoreCase("BACKHAND_ERROR")) {
+					
+					case "TEAM_NAME": case"HOME": case"AWAY": case"MATCH_HOME": case"MATCH_AWAY": case"MATCH_POINT": case"SET_POINT": case "CATEGORY":
+						if(valueToProcess.toUpperCase().equalsIgnoreCase("CATEGORY")) {
+							category_onscreen = "CATEGORY";
+						}
+						
+						if(which_graphics_onscreen.equalsIgnoreCase("FOREHAND_WINNER" ) || which_graphics_onscreen.equalsIgnoreCase("FOREHAND_ERROR")  || 
+								which_graphics_onscreen.equalsIgnoreCase("BACKHAND_WINNER") || which_graphics_onscreen.equalsIgnoreCase("BACKHAND_ERROR")) {
 							stat = valueToProcess;
 			
 							this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
@@ -516,7 +523,7 @@ public class IndexController
 		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES": case "ANIMATE-IN-SUPER": case "ANIMATE-IN-PLAYER_PROFILE": case "ANIMATE-IN-ORDER_OF_PLAY": case "ANIMATE-IN-TEAMS_LOGO": case "ANIMATE-IN-SUPER_MATCH":
 		case "ANIMATE-IN-SUPER_MATCH1": case "ANIMATE-IN-SUPER_MATCH2":	case "ANIMATE-IN-FF_TIE_PROMO": case "ANIMATE-IN-L3_TIE_PROMO": case "ANIMATE-IN-FF_SINGLE_MATCH_PROMO": case "ANIMATE-IN-FF_DOUBLE_MATCH_PROMO":
 		case "ANIMATE-IN-LT_SINGLE_MATCH_PROMO": case "ANIMATE-IN-LT_DOUBLE_MATCH_PROMO": case "ANIMATE-IN-SQUADS": case "ANIMATE-IN-NAMESUPER_PLAYER": case "ANIMATE-IN-POINTS_TABLE": case "ANIMATE-IN-MANUAL_GRAPHIC": case "CLEAR-ALL":
-		case "ANIMATE-IN-RULES": case "ANIMATE-IN-SCHEDULE":
+		case "ANIMATE-IN-RULES": case "ANIMATE-IN-SCHEDULE": case "ANIMATE-OUT-CATEGORY":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch (whatToProcess.toUpperCase()) {
@@ -747,6 +754,15 @@ public class IndexController
 					case "SUPER_MATCH": case "SUPER_MATCH1": case "SUPER_MATCH2": case "FF_SINGLE_MATCH_PROMO": case "FF_DOUBLE_MATCH_PROMO": case "LT_SINGLE_MATCH_PROMO":
 					case "LT_DOUBLE_MATCH_PROMO": case "SQUADS": case "NAMESUPER_PLAYER": case "POINTS_TABLE": case "RULES": case "SCHEDULE":
 						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
+						which_graphics_onscreen = "";
+						break;
+					}
+					break;
+				case "ANIMATE-OUT-CATEGORY":
+					switch(category_onscreen) {
+					case "CATEGORY":
+						this_doad.processAnimation(print_writer, "TeamOut", "START", session_selected_broadcaster);
+						category_onscreen = "";
 						which_graphics_onscreen = "";
 						break;
 					}
