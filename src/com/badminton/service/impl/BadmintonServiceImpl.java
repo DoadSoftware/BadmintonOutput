@@ -10,6 +10,7 @@ import com.badminton.dao.BadmintonDao;
 import com.badminton.model.Fixture;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
+import com.badminton.model.Rules;
 import com.badminton.model.Team;
 //import com.badminton.model.TeamColor;
 import com.badminton.service.BadmintonService;
@@ -57,13 +58,13 @@ public List<NameSuper> getNameSupers() {
 	return badmintonDao.getNameSupers();
 }
 
-/*@Override
-public List<TeamColor> getTeamColors() {
-	return badmintonDao.getTeamColors();
-}*/
-
 @Override
 public List<Fixture> getFixtures() {
 	return badmintonDao.getFixtures();
+}
+
+@Override
+public List<Rules> getRules() {
+	return badmintonDao.getRules();
 }
 }

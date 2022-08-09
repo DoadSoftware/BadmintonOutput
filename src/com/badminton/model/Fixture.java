@@ -21,6 +21,9 @@ public class Fixture {
   @Id
   @Column(name = "MATCHNUMBER")
   private int matchnumber;
+  
+  @Column(name = "Date")
+  private String date;
 
   @Column(name = "HOMETEAM")
   private int hometeam;
@@ -55,6 +58,14 @@ public int getMatchnumber() {
 
 public void setMatchnumber(int matchnumber) {
 	this.matchnumber = matchnumber;
+}
+
+public String getDate() {
+	return date;
+}
+
+public void setDate(String date) {
+	this.date = date;
 }
 
 public int getHometeam() {

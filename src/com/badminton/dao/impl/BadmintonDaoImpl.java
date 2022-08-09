@@ -11,6 +11,7 @@ import com.badminton.model.NameSuper;
 import com.badminton.model.Fixture;
 import com.badminton.model.Match;
 import com.badminton.model.Player;
+import com.badminton.model.Rules;
 import com.badminton.model.Team;
 //import com.badminton.model.TeamColor;
 
@@ -57,14 +58,14 @@ public List<NameSuper> getNameSupers() {
 	return sessionFactory.getCurrentSession().createQuery("from NameSuper").list();
 }
 
-/*@Override
-public List<TeamColor> getTeamColors() {
-	return sessionFactory.getCurrentSession().createQuery("from TeamColor").list();
-}*/
-
 @Override
 public List<Fixture> getFixtures() {
 	return sessionFactory.getCurrentSession().createQuery("from Fixture").list();
+}
+
+@Override
+public List<Rules> getRules() {
+	return sessionFactory.getCurrentSession().createQuery("from Rules").list();
 }
 
 }
