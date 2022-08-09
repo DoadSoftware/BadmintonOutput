@@ -1905,8 +1905,8 @@ public class Doad extends Scene{
 						selected_team.getFullname().toUpperCase() + ";");
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgTeamLogo " + logo_path +  selected_team.getFirstname() + "_" + selected_team.getLastname() + BadmintonUtil.PNG_EXTENSION  + ";");
 				
-				for(Player player : allplayer) {
-					if(selected_team.getMentorName() == null) {
+				if(selected_team.getMentorName() == null) {
+					for(Player player : allplayer) {
 						if(selected_team.getTeamId() == player.getTeamId()) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vHidePlayer8 " + "0" +";");
 							if(player.getIconPlayer().toUpperCase().equalsIgnoreCase("YES")) {
@@ -1925,31 +1925,30 @@ public class Doad extends Scene{
 								row_id = row_id + 1;
 							}
 						}
-						
-					}else {
+					}
+				}else {
+					for(Player player : allplayer) {
 						if(selected_team.getTeamId() == player.getTeamId()) {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vKeyPlayer " + "1" +";");
 							if(player.getIconPlayer().toUpperCase().equalsIgnoreCase("YES")) {
 								//row_id = row_id + 1;
-								
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vKeyPlayer " + "1" +";");
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage1 " + left_path + selected_team.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
 										player.getTicker_name() + BadmintonUtil.PNG_EXTENSION + ";");
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName1 " + player.getFull_name().toUpperCase() +";");
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerAge1 " + "Age: " + player.getAge() +";");
 							}else {
 								row_id = row_id + 1;
-								System.out.println(player.getTicker_name());
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgPlayerImage" + row_id + " " + left_path + selected_team.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
 										player.getTicker_name() + BadmintonUtil.PNG_EXTENSION + ";");
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName" + row_id + " " + player.getFull_name().toUpperCase() +";");
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerAge" + row_id + " " + "Age: " + player.getAge() +";");
 
 							}
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgMentroImage " + right_path + selected_team.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
-										selected_team.getMentorName().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMentorName " + selected_team.getMentorName().toUpperCase() +";");
 						}
 					}
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgMentroImage " + right_path + selected_team.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
+							selected_team.getMentorName().toUpperCase() + BadmintonUtil.PNG_EXTENSION + ";");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMentorName " + selected_team.getMentorName().toUpperCase() +";");
 				}
 			}
 		}
