@@ -24,6 +24,9 @@ public class Fixture {
   
   @Column(name = "Date")
   private String date;
+  
+  @Column(name = "GROUPNAME")
+  private String groupname;
 
   @Column(name = "HOMETEAM")
   private int hometeam;
@@ -66,6 +69,14 @@ public String getDate() {
 
 public void setDate(String date) {
 	this.date = date;
+}
+
+public String getGroupname() {
+	return groupname;
+}
+
+public void setGroupname(String groupname) {
+	this.groupname = groupname;
 }
 
 public int getHometeam() {

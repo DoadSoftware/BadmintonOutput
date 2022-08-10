@@ -1543,6 +1543,16 @@ function addItemsToList(whatToProcess, dataToProcess)
 					option.text = 'Group B';
 					select.appendChild(option);
 					
+					option = document.createElement('option');
+					option.value = 'SUPER LEAGUE';
+					option.text = 'SUPER LEAGUE';
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 'FINAL';
+					option.text = 'FINAL';
+					select.appendChild(option);
+					
 					row.insertCell(cellCount).appendChild(select);
 					cellCount = cellCount + 1;
 					

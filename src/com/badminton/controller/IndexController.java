@@ -97,10 +97,6 @@ public class IndexController
 					new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.CONFIGURATIONS_DIRECTORY + BadmintonUtil.OUTPUT_XML));
 		}
 		
-		if(new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.LEAGUE_TABLE_DIRECTORY + BadmintonUtil.LEAGUETABLE_XML).exists()) {
-			league_table = (LeagueTable)JAXBContext.newInstance(LeagueTable.class).createUnmarshaller().unmarshal(
-					new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.LEAGUE_TABLE_DIRECTORY + BadmintonUtil.LEAGUETABLE_XML));
-		}
 		model.addAttribute("session_Configurations",session_Configurations);
 		//model.addAttribute("session_Configurations",session_Configurations);
 		model.addAttribute("league_table", league_table);
@@ -393,15 +389,17 @@ public class IndexController
 						bad_match = (populateMatchVariables((BadmintonMatch) JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
 									new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + file.getName()))));
 						for(Fixture fx : fixture) {
-							if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-								if(bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHome_Team().getTeamId() || 
-										bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAway_Team().getTeamId() || 
-												bad_match.getMatch().getHomeTeam().getTeamId() == fx.getAway_Team().getTeamId() ||
-														bad_match.getMatch().getAwayTeam().getTeamId() == fx.getHome_Team().getTeamId()) {
-									
-									badminton_matches.add(bad_match);
+							if(bad_match.getMatch().getMatchDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(new Date()))) {
+								if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
+									if(bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHome_Team().getTeamId() || 
+											bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAway_Team().getTeamId() || 
+													bad_match.getMatch().getHomeTeam().getTeamId() == fx.getAway_Team().getTeamId() ||
+															bad_match.getMatch().getAwayTeam().getTeamId() == fx.getHome_Team().getTeamId()) {
+										
+										badminton_matches.add(bad_match);
+									}
+									//this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fx, session_match, session_selected_broadcaster);
 								}
-								//this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fx, session_match, session_selected_broadcaster);
 							}
 						}
 					}
@@ -454,6 +452,10 @@ public class IndexController
 							badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-POINTS_TABLE":
+					if(new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.LEAGUE_TABLE_DIRECTORY + BadmintonUtil.LEAGUETABLE_XML).exists()) {
+						league_table = (LeagueTable)JAXBContext.newInstance(LeagueTable.class).createUnmarshaller().unmarshal(
+								new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.LEAGUE_TABLE_DIRECTORY + BadmintonUtil.LEAGUETABLE_XML));
+					}
 					this_doad.populatePointsTable(print_writer, viz_scene_path, league_table.getLeagueTeams(),session_selected_broadcaster);
 					break;
 				case "POPULATE-RULES":
