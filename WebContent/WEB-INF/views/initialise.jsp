@@ -34,7 +34,7 @@
 			      <select id="selectedMatch" name="selectedMatch" 
 			      		class="browser-default custom-select custom-select-sm">
 						<c:forEach items = "${match_files}" var = "match">
-				          	<option value="${match.name}">${match.name}</option>
+							<option value="${match.name}">${match.name}</option>
 						</c:forEach>
 			      </select>
 			    </div>

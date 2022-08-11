@@ -163,7 +163,6 @@ public class IndexController
 			@RequestParam(value = "valueToProcess", required = false, defaultValue = "") String valueToProcess)  
 					throws IOException, IllegalAccessException, InvocationTargetException, JAXBException, InterruptedException, ParseException 
 	{
-		//session_match.getMatch().getGroupname()
 		
 		switch (whatToProcess.toUpperCase()) {
 		
@@ -178,26 +177,9 @@ public class IndexController
 				session_match.setMatch_file_timestamp(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(
 						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + selectedmatch).lastModified()));
 				
-				/*if(is_ScoreBug_on_Screen == true) {
-					teamcolor = badmintonService.getTeamColors();
-					for(TeamColor tc : teamcolor) {
-						this_doad.populateScoreBugName(true,print_writer, viz_scene_path, tc, session_match, session_selected_broadcaster);
-					}
-				}*/
-				
-				/*if(is_ScoreBug_on_Screen == true) {
-					TeamColor homeTeamColor = badmintonService.getHomeTeamColors(session_match.getMatch().getHomeTeam().getTeamId());
-					TeamColor awayTeamColor = badmintonService.getAwayTeamColors(session_match.getMatch().getAwayTeam().getTeamId());
-					
-					this_doad.populateScoreBugName(true,print_writer, viz_scene_path, homeTeamColor, awayTeamColor, session_match, session_selected_broadcaster);
-					
-				}*/
 				if(is_ScoreBug_on_Screen == true) {
-					//List<Team> team = new ArrayList<Team>();
-					//team = badmintonService.getAllTeam();
-					//for(Team tm : team) {
-					this_doad.populateScoreBugName(true,print_writer, viz_scene_path, badmintonService.getAllTeam(), session_match, session_selected_broadcaster);
-					//}
+					
+					this_doad.populateScoreBug(true,print_writer, viz_scene_path, session_match, session_selected_broadcaster);
 				}
 				
 				return JSONObject.fromObject(session_match).toString();
@@ -218,6 +200,7 @@ public class IndexController
 			
 			team = badmintonService.getAllTeam();
 			return JSONArray.fromObject(team).toString();
+			
 		//case "PREVIOUS_GRAPHICS-OPTIONS":
 			//return JSONObject.fromObject(badminton_matches_scene).toString();
 		
@@ -289,8 +272,6 @@ public class IndexController
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET " + session_Data.getContainers().get(i).getContainer_id() + " " + session_Data.getContainers().get(i).getContainer_value() + ";");
 					}
 					
-					
-					//print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In START;");
 					which_graphics_onscreen = "ANY_SCENE";
 					
 					return JSONObject.fromObject(session_Data).toString();
@@ -299,18 +280,8 @@ public class IndexController
 				switch(whatToProcess.toUpperCase()) {
 				
 				case "POPULATE-SCOREBUG":
-					/*teamcolor = badmintonService.getTeamColors();
-					for(TeamColor tc : teamcolor) {
-						this_doad.populateScoreBug(print_writer, viz_scene_path, stat , session_match, tc, session_selected_broadcaster);
-					}*/
-					//TeamColor homeTeamColor = badmintonService.getHomeTeamColors(session_match.getMatch().getHomeTeam().getTeamId());
-					//TeamColor awayTeamColor = badmintonService.getAwayTeamColors(session_match.getMatch().getAwayTeam().getTeamId());
-					//List<Team> team = new ArrayList<Team>();
-					//team = badmintonService.getAllTeam();
-					//for(Team tm : team) {
-					this_doad.populateScoreBug(print_writer, viz_scene_path, stat , session_match, badmintonService.getAllTeam(), session_selected_broadcaster);
-					//}	
 					
+					this_doad.populateScoreBug(false ,print_writer, viz_scene_path, session_match, session_selected_broadcaster);
 
 					break;
 				case "POPULATE-SINGLE-L3-MATCHID":
@@ -406,46 +377,28 @@ public class IndexController
 					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fixture, session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-FF_TIE_PROMO":
-					//for(Fixture fx : fixture) {
-						//if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-					this_doad.populateFFTiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllTeam(),badmintonService.getFixtures(), session_match, session_selected_broadcaster);
-						//}
-					//}
+					this_doad.populateFFTiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllTeam(),
+							badmintonService.getFixtures(), session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-L3_TIE_PROMO":
-					//for(Fixture fx : fixture) {
-						//if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-					this_doad.populateL3TiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllTeam(), badmintonService.getFixtures(), session_match, session_selected_broadcaster);
-						//}
-					//}
+					this_doad.populateL3TiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllTeam(), 
+							badmintonService.getFixtures(), session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-SINGLE_MATCH_PROMO":
-					//for(Match singlematch : match) {
-						//if(singlematch.getMatchId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-					this_doad.populateFFSingleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
-					//	}
-					//}
+					this_doad.populateFFSingleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), 
+							badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-DOUBLE_MATCH_PROMO":
-					for(Match doublematch : match) {
-						if(doublematch.getMatchId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-							this_doad.populateFFDoubleMatchPromo(print_writer, viz_scene_path ,doublematch, badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
-						}
-					}
+					this_doad.populateFFDoubleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), 
+							badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-LT_SINGLE_MATCH_PROMO":
-					//for(Match singlematch : match) {
-						//if(singlematch.getMatchId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-					this_doad.populateLTSingleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
-						//}
-					//}
+					this_doad.populateLTSingleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), 
+							badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-LT_DOUBLE_MATCH_PROMO":
-					for(Match doublematch : match) {
-						if(doublematch.getMatchId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-							this_doad.populateLTDoubleMatchPromo(print_writer, viz_scene_path ,doublematch, badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
-						}
-					}
+					this_doad.populateLTDoubleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), 
+							badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-SQUADS":
 					this_doad.populateSquads(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]), badmintonService.getAllPlayer(),
@@ -532,20 +485,19 @@ public class IndexController
 				case "ANIMATE-IN-SCOREBUG":
 					if(session_match.getSets() == null) {
 						this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
-						//this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 						if(session_match.getMatch().getTrumpHomeMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "1" +";");
-							TimeUnit.SECONDS.sleep(3);
+							TimeUnit.SECONDS.sleep(7);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "2" +";");
-							TimeUnit.SECONDS.sleep(3);
+							TimeUnit.SECONDS.sleep(7);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpHomeMatch() == 1 && session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "3" +";");
-							TimeUnit.SECONDS.sleep(3);
+							TimeUnit.SECONDS.sleep(7);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 						}
 						else {
@@ -558,21 +510,26 @@ public class IndexController
 						//this_doad.processAnimation(print_writer, "OtherInfoOut", "SHOW 0.0", session_selected_broadcaster);
 						this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 						
+						TimeUnit.SECONDS.sleep(3);	
+						this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
+						this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
+						this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
+						
 						if(session_match.getMatch().getTrumpHomeMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "1" +";");
-							TimeUnit.SECONDS.sleep(3);
+							TimeUnit.SECONDS.sleep(4);
 							//this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 							this_doad.processAnimation(print_writer, "TrumpLoop", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "2" +";");
-							TimeUnit.SECONDS.sleep(3);
+							TimeUnit.SECONDS.sleep(4);
 							//this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 							this_doad.processAnimation(print_writer, "TrumpLoop", "START", session_selected_broadcaster);
 						}
 						else if(session_match.getMatch().getTrumpHomeMatch() == 1 && session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "3" +";");
-							TimeUnit.SECONDS.sleep(3);
+							TimeUnit.SECONDS.sleep(4);
 							//this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 							this_doad.processAnimation(print_writer, "TrumpLoop", "START", session_selected_broadcaster);
 							//TimeUnit.SECONDS.sleep(5);
@@ -594,10 +551,10 @@ public class IndexController
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "3" +";");
 							this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
 						}*/
-						TimeUnit.SECONDS.sleep(3);	
+						/*TimeUnit.SECONDS.sleep(3);	
 						this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
 						this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
-						this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
+						this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);*/
 						
 						//TimeUnit.SECONDS.sleep(5);
 						//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
