@@ -44,17 +44,6 @@ public class Doad extends Scene{
 		this.status = status;
 	}
 
-	/*public void populateScoreBug(PrintWriter print_writer,String viz_sence_path,BadmintonMatch Bad_match, String selectedbroadcaster)
-	{
-		if (Bad_match == null) {
-			this.status = "ERROR: Match is null";
-		} else {
-			
-			populateScoreBugName(false,print_writer, viz_sence_path, Bad_match, selectedbroadcaster);
-			//populateScoreBugStat(false,print_writer, viz_sence_path, Stats, Bad_match, selectedbroadcaster);
-			this.status = BadmintonUtil.SUCCESSFUL;	
-		}
-	}*/	
 	public void populateScoreBug(boolean is_this_updating, PrintWriter print_writer,String viz_sence_path, BadmintonMatch Bad_match, String selectedbroadcaster) 
 	{
 		if (Bad_match == null) {
@@ -165,12 +154,11 @@ public class Doad extends Scene{
 							}
 							
 							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 1) || (st.getHomeTeamTotalScore() == 1 && st.getAwayTeamTotalScore() == 0)) {
-								
 								processAnimation(print_writer, "Score1In", "START", selectedbroadcaster);
-								
-								if(st.getHomeTeamTotalScore() == 0 &&  st.getAwayTeamTotalScore() == 2 || st.getHomeTeamTotalScore() == 2 &&  st.getAwayTeamTotalScore() == 0) {
-									processAnimation(print_writer, "Score1In", "START", selectedbroadcaster);
-								}
+							}
+							
+							if(st.getHomeTeamTotalScore() == 0 &&  st.getAwayTeamTotalScore() == 2 || st.getHomeTeamTotalScore() == 2 &&  st.getAwayTeamTotalScore() == 0) {
+								processAnimation(print_writer, "Score1In", "START", selectedbroadcaster);
 							}
 							
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "1" +";");
@@ -186,7 +174,7 @@ public class Doad extends Scene{
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
 							}
 							
-							if((Bad_match.getGoldenPointsPlayerId() != 0  && st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0)) {
+							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0)) {
 								processAnimation(print_writer, "Score2In", "START", selectedbroadcaster);
 							}
 							
@@ -205,7 +193,7 @@ public class Doad extends Scene{
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
 							}
 							
-							if((Bad_match.getGoldenPointsPlayerId() != 0  && st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0)) {
+							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0)) {
 								processAnimation(print_writer, "Score3In", "START", selectedbroadcaster);
 							}
 							

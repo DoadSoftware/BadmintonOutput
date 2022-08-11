@@ -163,7 +163,6 @@ public class IndexController
 			@RequestParam(value = "valueToProcess", required = false, defaultValue = "") String valueToProcess)  
 					throws IOException, IllegalAccessException, InvocationTargetException, JAXBException, InterruptedException, ParseException 
 	{
-		
 		switch (whatToProcess.toUpperCase()) {
 		
 		case "READ-MATCH-AND-POPULATE":
@@ -178,7 +177,6 @@ public class IndexController
 						new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + selectedmatch).lastModified()));
 				
 				if(is_ScoreBug_on_Screen == true) {
-					
 					this_doad.populateScoreBug(true,print_writer, viz_scene_path, session_match, session_selected_broadcaster);
 				}
 				
@@ -722,7 +720,7 @@ public class IndexController
 					case "CATEGORY":
 						this_doad.processAnimation(print_writer, "TeamOut", "START", session_selected_broadcaster);
 						category_onscreen = "";
-						which_graphics_onscreen = "";
+						which_graphics_onscreen = "SCOREBUG";
 						break;
 					}
 					break;
@@ -730,11 +728,11 @@ public class IndexController
 					switch(which_graphics_onscreen) {
 					case "FOREHAND_WINNER": case "FOREHAND_ERROR": case "BACKHAND_WINNER": case "BACKHAND_ERROR":
 						this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
+						which_graphics_onscreen = "SCOREBUG";
 						break;
 					case "TEAM_NAME":
 						this_doad.processAnimation(print_writer, "TeamOut", "START", session_selected_broadcaster);
-						which_graphics_onscreen = "";
+						which_graphics_onscreen = "SCOREBUG";
 						break;
 					}
 					break;

@@ -1,4 +1,4 @@
-var match_data;
+var match_data,is_scorebug_on_screen;
 function processWaitingButtonSpinner(whatToProcess) 
 {
 	switch (whatToProcess) {
@@ -68,6 +68,7 @@ function processUserSelection(whichInput)
 		break;*/	
 	
 	case 'animateout_graphic_btn':
+		is_scorebug_on_screen = false;
 		if(confirm('It will Also Delete Your Preview from Directory...\r\n \r\nAre You Sure To Animate Out? ') == true){
 			processBadmintonProcedures('ANIMATE-OUT');	
 		}
@@ -103,6 +104,7 @@ function processUserSelection(whichInput)
 		//$("#captions_div").hide();
 		switch ($(whichInput).attr('name')) {
 		case 'scorebug_graphic_btn':
+			is_scorebug_on_screen = true;
 			processBadmintonProcedures('SCOREBUG_GRAPHICS-OPTIONS');
 			break;
 		case 'scorebugstat_graphic_btn':
@@ -110,47 +112,136 @@ function processUserSelection(whichInput)
 			break;
 		
 		case 'sides_graphic_btn':
-			addItemsToList('SIDES-OPTIONS',null);
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				addItemsToList('SIDES-OPTIONS',null);
+			}
 			break;
 		case 'super_graphic_btn':
-			processBadmintonProcedures('NAMESUPER_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('NAMESUPER_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'namesuper_player_graphic_btn':
-			processBadmintonProcedures('NAMESUPER_PLAYER_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('NAMESUPER_PLAYER_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'playerprofile_graphic_btn':
-			processBadmintonProcedures('PLAYER_PROFILE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('PLAYER_PROFILE_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'orderofplay_graphic_btn':
-			processBadmintonProcedures('ORDER_OF_PLAY_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('ORDER_OF_PLAY_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'ff_tie_graphic_btn':
-			processBadmintonProcedures('FF-TIE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('FF-TIE_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'l3_tie_graphic_btn':
-			processBadmintonProcedures('L3-TIE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('L3-TIE_GRAPHICS-OPTIONS');
+			}
 			break;
 		
 		case 'ff_single_match_graphic_btn':
-			processBadmintonProcedures('FF-SINGLE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('FF-SINGLE_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'ff_double_match_graphic_btn':
-			processBadmintonProcedures('FF-DOUBLE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('FF-DOUBLE_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'l3_single_match_graphic_btn':
-			processBadmintonProcedures('LT-SINGLE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('LT-SINGLE_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'l3_double_match_graphic_btn':
-			processBadmintonProcedures('LT-DOUBLE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('LT-DOUBLE_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'squads_graphic_btn':
-			processBadmintonProcedures('SQUADS_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('SQUADS_GRAPHICS-OPTIONS');
+			}
 			break;
-
 		case 'schedule_graphic_btn':
-			processBadmintonProcedures('SCHEDULE_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('SCHEDULE_GRAPHICS-OPTIONS');
+			}
 			break;
-
 		case 'cancel_btn':
 			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
 			break;
@@ -172,46 +263,90 @@ function processUserSelection(whichInput)
 			processBadmintonProcedures('POPULATE-SCOREBUGSTATS');
 			break;
 		case 'singlel3matchid_graphic_btn':
-			processBadmintonProcedures('POPULATE-SINGLE-L3-MATCHID');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-SINGLE-L3-MATCHID');
+			}
 			//addItemsToList('SINGLE-L3-MATCHID-OPTIONS',null);
 			break;
 		case 'singleffmatchid_graphic_btn':
-			processBadmintonProcedures('POPULATE-SINGLE-FF-MATCHID');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-SINGLE-FF-MATCHID');
+			}
 			//addItemsToList('SINGLE-FF-MATCHID-OPTIONS',null);
 			break;
 		case 'doublel3matchid_graphic_btn':
-			processBadmintonProcedures('POPULATE-DOUBLE-L3_MATCHID');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-DOUBLE-L3_MATCHID');
+			}
 			//addItemsToList('DOUBLE-L3-MATCHID-OPTIONS',null);
 			break;
 		case 'doubleffmatchid_graphic_btn':
-			processBadmintonProcedures('POPULATE-DOUBLE-FF-MATCHID');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-DOUBLE-FF-MATCHID');
+			}
 			//addItemsToList('DOUBLE-FF-MATCHID-OPTIONS',null);
 			break;
 		case 'l3tieid_graphic_btn':
-			processBadmintonProcedures('POPULATE-L3-TIEID');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-L3-TIEID');
+			}
 			//addItemsToList('L3-TIEID-OPTIONS',null);
 			break;
 		case 'fftieid_graphic_btn':
-			processBadmintonProcedures('POPULATE-FF-TIEID');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-FF-TIEID');
+			}
 			//addItemsToList('FF-TIEID-OPTIONS',null);
 			break;
 		case 'teamslogo_graphic_btn':
-			processBadmintonProcedures('POPULATE-TEAMS_LOGO');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-TEAMS_LOGO');
+			}
 			//addItemsToList('TEAMS_LOGO-OPTIONS',null);
 			break;
 		case 'supermatch_graphic_btn':
-			processBadmintonProcedures('POPULATE-SUPER_MATCH');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-SUPER_MATCH');
+			}
 			//addItemsToList('SUPER_MATCH-OPTIONS',null);
 			break;
 		case 'supermatch1_graphic_btn':
-			processBadmintonProcedures('SUPER_MATCH1_GRAPHICS-OPTIONS');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('SUPER_MATCH1_GRAPHICS-OPTIONS');
+			}
 			break;
 		case 'supermatch2_graphic_btn':
-			processBadmintonProcedures('POPULATE-SUPER_MATCH2');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-SUPER_MATCH2');
+			}
 			//addItemsToList('SUPER_MATCH2-OPTIONS',null);
 			break;
 		case 'points_table_graphic_btn':
-			processBadmintonProcedures('POPULATE-POINTS_TABLE');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-POINTS_TABLE');
+			}
 			//addItemsToList('POINTS_TABLE-OPTIONS',null);
 			break;
 		case 'populate_sides_btn':
@@ -266,7 +401,11 @@ function processUserSelection(whichInput)
 			break;
 
 		case 'rules_graphic_btn':
-			processBadmintonProcedures('POPULATE-RULES');
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+			}else{
+				processBadmintonProcedures('POPULATE-RULES');
+			}
 			break;
 		case 'populate_schedule_btn':
 			processBadmintonProcedures('POPULATE-SCHEDULE');
