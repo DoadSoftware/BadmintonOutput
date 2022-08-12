@@ -32,8 +32,8 @@ public class Player
   @Column(name = "TEXT2")
   private String text2;
   
-  @Column(name = "CAPTAIN")
-  private String captain;
+  //@Column(name = "CAPTAIN")
+  //private String captain;
   
   @Column(name = "BAIRANKING")
   private Integer baiRanking;
@@ -106,13 +106,13 @@ public void setText2(String text2) {
 	this.text2 = text2;
 }
 
-public String getCaptain() {
+/*public String getCaptain() {
 	return captain;
 }
 
 public void setCaptain(String captain) {
 	this.captain = captain;
-}
+}*/
 
 public Integer getBaiRanking() {
 	return baiRanking;

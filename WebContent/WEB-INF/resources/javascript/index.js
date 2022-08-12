@@ -93,8 +93,8 @@ function processUserSelection(whichInput)
 		}
 		break;
 	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': 
-	case 'sides_graphic_btn': case 'super_graphic_btn': case 'playerprofile_graphic_btn':
-	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn': 
+	case 'sides_graphic_btn': case 'super_graphic_btn': case 'bug_super_graphic_btn': case 'playerprofile_graphic_btn': 
+	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn': case 'lt_tieid_double_graphic_btn':
 	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': 
 	case 'l3_double_match_graphic_btn': case 'squads_graphic_btn': case 'namesuper_player_graphic_btn': case 'schedule_graphic_btn': case 'cancel_btn':
 	
@@ -109,6 +109,19 @@ function processUserSelection(whichInput)
 			break;
 		case 'scorebugstat_graphic_btn':
 			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
+			break;
+		
+		case 'lt_tieid_double_graphic_btn':
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				//addItemsToList('LT-TIEID_DOUBLE-OPTIONS',null);
+				processBadmintonProcedures('LT-TIEID-DOUBLE_GRAPHICS-OPTIONS');
+				//'LT-TIEID_DOUBLE-OPTIONS',null
+			}
 			break;
 		
 		case 'sides_graphic_btn':
@@ -129,6 +142,16 @@ function processUserSelection(whichInput)
 				$("#main_captions_div").show();
 			}else{
 				processBadmintonProcedures('NAMESUPER_GRAPHICS-OPTIONS');
+			}
+			break;
+		case 'bug_super_graphic_btn':
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('BUGSUPER_GRAPHICS-OPTIONS');
 			}
 			break;
 		case 'namesuper_player_graphic_btn':
@@ -251,7 +274,7 @@ function processUserSelection(whichInput)
 	case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn': case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn':
 	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn': case 'points_table_graphic_btn':
 	case 'populate_ff_single_match_promo_btn': case 'populate_ff_double_match_promo_btn': case 'populate_l3_single_match_promo_btn':
-
+	case 'populate_bug_super_btn': case 'populate_lt_tieId_double_btn':
 	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn': case 'populate_namesuper_player_btn': case 'teamslogo_graphic_btn': 
 	case 'supermatch_graphic_btn': case 'supermatch1_graphic_btn': case 'supermatch2_graphic_btn': case 'rules_graphic_btn': case 'populate_schedule_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
@@ -261,6 +284,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_scorebugstat_btn':
 			processBadmintonProcedures('POPULATE-SCOREBUGSTATS');
+			break;
+		case 'populate_lt_tieId_double_btn':
+			processBadmintonProcedures('POPULATE-TIEID-DOUBLE');
 			break;
 		case 'singlel3matchid_graphic_btn':
 			if(is_scorebug_on_screen == true){
@@ -369,6 +395,9 @@ function processUserSelection(whichInput)
 		case 'populate_super_btn':
 			processBadmintonProcedures('POPULATE-SUPER');
 			break;
+		case 'populate_bug_super_btn':
+			processBadmintonProcedures('POPULATE-BUG_SUPER');
+			break;
 		case 'populate_namesuper_player_btn':
 			processBadmintonProcedures('POPULATE-NAMESUPER_PLAYER');
 			break;
@@ -462,6 +491,13 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'POPULATE-TIEID-DOUBLE':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/TieId_Doubles.sum' + ',' + $('#selectTieID option:selected').val() ;
+			break;
+		}
+		break;
 	case 'POPULATE-SINGLE-L3-MATCHID':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
@@ -518,6 +554,14 @@ function processBadmintonProcedures(whatToProcess)
 			break;
 		}
 		break;
+	case 'POPULATE-BUG_SUPER':
+		switch ($('#select_broadcaster').val()) {
+		case 'DOAD_In_House_Everest':
+			valueToProcess = $('#bugsuperScene').val() + ',' + $('#selectNameSuper option:selected').val();
+			break;
+		}
+		break;
+		
 	case 'POPULATE-NAMESUPER_PLAYER':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
@@ -671,8 +715,17 @@ function processBadmintonProcedures(whatToProcess)
 				//addItemsToList('SCOREBUG-OPTIONS',data);
 				match_data = data;
 				break;
+			case 'LT-TIEID-DOUBLE_GRAPHICS-OPTIONS':
+				addItemsToList('LT-TIEID-DOUBLE-OPTIONS',data);
+				match_data = data;
+				break;
 			case 'NAMESUPER_GRAPHICS-OPTIONS':
 				addItemsToList('SUPER-OPTIONS',data);
+				//addItemsToList('SCOREBUG-OPTIONS',data);
+				match_data = data;
+				break;
+			case 'BUGSUPER_GRAPHICS-OPTIONS':
+				addItemsToList('BUGSUPER-OPTIONS',data);
 				//addItemsToList('SCOREBUG-OPTIONS',data);
 				match_data = data;
 				break;
@@ -752,7 +805,7 @@ function processBadmintonProcedures(whatToProcess)
 			case 'POPULATE-FF-TIEID': case 'POPULATE-SIDES': case 'POPULATE-SUPER': case 'POPULATE-PLAYER_PROFILE': case 'POPULATE-ORDER_OF_PLAY': case 'POPULATE-TEAMS_LOGO': case 'POPULATE-SUPER_MATCH':
 			case 'POPULATE-SUPER_MATCH1': case 'POPULATE-SUPER_MATCH2': case 'POPULATE-FF_TIE_PROMO': case 'POPULATE-L3_TIE_PROMO': case 'POPULATE-SINGLE_MATCH_PROMO': case 'POPULATE-DOUBLE_MATCH_PROMO':
 			case 'POPULATE-LT_SINGLE_MATCH_PROMO': case 'POPULATE-LT_DOUBLE_MATCH_PROMO': case 'POPULATE-SQUADS': case 'POPULATE-NAMESUPER_PLAYER': case 'POPULATE-POINTS_TABLE': case 'POPULATE-RULES':
-			case 'POPULATE-SCHEDULE':
+			case 'POPULATE-SCHEDULE': case 'POPULATE-BUG_SUPER': case 'POPULATE-TIEID-DOUBLE':
 				if (data.status.toUpperCase() == 'SUCCESSFUL') {
 					if(confirm('Animate In?') == true){
 						     
@@ -764,6 +817,9 @@ function processBadmintonProcedures(whatToProcess)
 			        	switch(whatToProcess) {
 						case 'POPULATE-SCOREBUG': 
 							processBadmintonProcedures('ANIMATE-IN-SCOREBUG');
+							break;
+						case 'POPULATE-TIEID-DOUBLE':
+							processBadmintonProcedures('ANIMATE-IN-TIEID-DOUBLE');
 							break;
 						case 'POPULATE-SINGLE-L3-MATCHID': 
 							processBadmintonProcedures('ANIMATE-IN-SINGLE-L3_MATCHID');
@@ -788,6 +844,9 @@ function processBadmintonProcedures(whatToProcess)
 							break;
 						case 'POPULATE-SUPER': 
 							processBadmintonProcedures('ANIMATE-IN-SUPER');
+							break;
+						case 'POPULATE-BUG_SUPER':
+							processBadmintonProcedures('ANIMATE-IN-BUG_SUPER');
 							break;
 						case 'POPULATE-NAMESUPER_PLAYER':
 							processBadmintonProcedures('ANIMATE-IN-NAMESUPER_PLAYER');
@@ -883,7 +942,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		
 		break;
 	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
-	case 'NAMESUPER_PLAYER-OPTIONS': case 'MANUAL_GRAPHICS-OPTIONS':
+	case 'NAMESUPER_PLAYER-OPTIONS': case 'MANUAL_GRAPHICS-OPTIONS': case 'BUGSUPER-OPTIONS': case 'LT-TIEID-DOUBLE-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -904,6 +963,30 @@ function addItemsToList(whatToProcess, dataToProcess)
 			row = tbody.insertRow(tbody.rows.length);
 		    
 			switch (whatToProcess) {
+			case 'LT-TIEID-DOUBLE-OPTIONS':
+				var today = new Date();
+				var today_date = String(today.getDate()).padStart(2, '0') + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + today.getFullYear();
+				var tomorrow_date = String(today.getDate() + 1).padStart(2, '0') + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + today.getFullYear();
+				select = document.createElement('select');
+				select.id = 'selectTieID';
+				select.name = select.id;
+				
+				
+				option = document.createElement('option');
+				option.value = today_date;
+				option.text = 'Today' ;
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = tomorrow_date;
+				option.text = 'Tomorrow' ;
+				select.appendChild(option);
+				
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				break;
+			
 			case'POINT-OPTIONS':
 				select = document.createElement('select');
 				select.id = 'selectscorebugStat';
@@ -1100,7 +1183,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
 				
-				
 				select = document.createElement('select');
 				select.style = 'width:130px';
 				select.id = 'selectNameSuper';
@@ -1135,6 +1217,30 @@ function addItemsToList(whatToProcess, dataToProcess)
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
 				
+				break;
+			case 'BUGSUPER-OPTIONS':
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'bugsuperScene';
+				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Bug_DoubleLine.sum';
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('select');
+				select.style = 'width:130px';
+				select.id = 'selectNameSuper';
+				select.name = select.id;
+				
+				dataToProcess.forEach(function(ns,index,arr1){
+					option = document.createElement('option');
+					option.value = ns.namesuperId;
+					option.text = ns.firstname + ' ' + ns.surname ;
+					select.appendChild(option);
+				});
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
 				break;
 				
 			case 'NAMESUPER_PLAYER-OPTIONS':
@@ -1290,6 +1396,32 @@ function addItemsToList(whatToProcess, dataToProcess)
 			    
 				break;
 				
+			case 'LT-TIEID-DOUBLE-OPTIONS':
+				option.name = 'populate_lt_tieId_double_btn';
+			    option.value = 'Populate TieID Double';
+			    
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+				
 			case'SIDES-OPTIONS':
 			    option.name = 'populate_sides_btn';
 			    option.value = 'Populate Sides';
@@ -1347,6 +1479,33 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case'SUPER-OPTIONS':
 			    option.name = 'populate_super_btn';
 			    option.value = 'Populate Super';
+			    
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+			    
+				break;
+			
+			case 'BUGSUPER-OPTIONS':
+				option.name = 'populate_bug_super_btn';
+			    option.value = 'Populate Bug Super';
 			    
 			    option.id = option.name;
 			    
@@ -1655,6 +1814,25 @@ function addItemsToList(whatToProcess, dataToProcess)
 					
 					row.insertCell(cellCount).appendChild(select);
 					cellCount = cellCount + 1;
+					
+					/*select = document.createElement('select');
+					select.style = 'width:130px';
+					select.id = 'selectCaptain';
+					select.name = select.id;
+					
+					
+					option = document.createElement('option');
+					option.value = 0;
+					option.text = 'Without Captain';
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 1;
+					option.text = 'With Captain';
+					select.appendChild(option);
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;*/
 					
 					//select.setAttribute('onchange',"processUserSelection(this)");
 					break;

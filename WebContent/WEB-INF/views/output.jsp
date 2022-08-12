@@ -127,6 +127,9 @@
 		  		name="super_graphic_btn" id="super_graphic_btn" onclick="processUserSelection(this)"> Name Super  </button>
 		  		
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  		name="bug_super_graphic_btn" id="bug_super_graphic_btn" onclick="processUserSelection(this)"> Bug Super  </button>
+		  		
+		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  		name="namesuper_player_graphic_btn" id="namesuper_player_graphic_btn" onclick="processUserSelection(this)"> NameSuper-Player  </button>
 		  		
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
@@ -152,7 +155,9 @@
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  		name="rules_graphic_btn" id="rules_graphic_btn" onclick="processUserSelection(this)"> Rules  </button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="schedule_graphic_btn" id="schedule_graphic_btn" onclick="processUserSelection(this)"> Schedule  </button>
+		  		name="schedule_graphic_btn" id="schedule_graphic_btn" onclick="processUserSelection(this)"> Schedule  </button>	
+		  	<!--  button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
+		  		name="lt_tieid_double_graphic_btn" id="lt_tieid_double_graphic_btn" onclick="processUserSelection(this)"> LT TieID Double  </button> -->
 
 		  	</div>
 		  	<div class="left">

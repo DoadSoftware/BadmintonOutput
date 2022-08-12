@@ -27,9 +27,6 @@ public class NameSuper
 
   @Column(name = "SURNAME")
   private String surname;
-  
-  @Column(name = "SUBHEADER")
-  private String subHeader;
 
   @Column(name = "SUBLINE")
   private String subLine;
@@ -65,14 +62,6 @@ public String getSurname() {
 
 public void setSurname(String surname) {
 	this.surname = surname;
-}
-
-public String getSubHeader() {
-	return subHeader;
-}
-
-public void setSubHeader(String subHeader) {
-	this.subHeader = subHeader;
 }
 
 public String getSubLine() {

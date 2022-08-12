@@ -202,7 +202,7 @@ public class IndexController
 		//case "PREVIOUS_GRAPHICS-OPTIONS":
 			//return JSONObject.fromObject(badminton_matches_scene).toString();
 		
-		case "ORDER_OF_PLAY_GRAPHICS-OPTIONS": case "FF-TIE_GRAPHICS-OPTIONS": case "L3-TIE_GRAPHICS-OPTIONS": case "SCHEDULE_GRAPHICS-OPTIONS":
+		case "ORDER_OF_PLAY_GRAPHICS-OPTIONS": case "FF-TIE_GRAPHICS-OPTIONS": case "L3-TIE_GRAPHICS-OPTIONS": case "SCHEDULE_GRAPHICS-OPTIONS": case "LT-TIEID-DOUBLE_GRAPHICS-OPTIONS":
 			
 			fixture = badmintonService.getFixtures();
 			team = badmintonService.getAllTeam();
@@ -219,7 +219,7 @@ public class IndexController
 				}
 				return JSONArray.fromObject(fixture).toString();
 			
-		case "NAMESUPER_GRAPHICS-OPTIONS":
+		case "NAMESUPER_GRAPHICS-OPTIONS": case "BUGSUPER_GRAPHICS-OPTIONS":
 			
 			namesuper = badmintonService.getNameSupers();
 			return JSONArray.fromObject(namesuper).toString();
@@ -243,7 +243,7 @@ public class IndexController
 		case "POPULATE-FF_TIE_PROMO": case "POPULATE-L3_TIE_PROMO": case "POPULATE-ORDER_OF_PLAY": case "POPULATE-TEAMS_LOGO": case "POPULATE-SUPER_MATCH": 
 		case "POPULATE-SUPER_MATCH1": case "POPULATE-SUPER_MATCH2": case "POPULATE-SINGLE_MATCH_PROMO": case "POPULATE-DOUBLE_MATCH_PROMO": case "POPULATE-LT_SINGLE_MATCH_PROMO":
 		case "POPULATE-LT_DOUBLE_MATCH_PROMO": case "POPULATE-SQUADS": case "POPULATE-NAMESUPER_PLAYER": case "POPULATE-POINTS_TABLE": case "POPULATE-RULES": 
-		case "POPULATE-SCHEDULE": case "LOAD_MANUAL_XML_SCENE":
+		case "POPULATE-SCHEDULE": case "POPULATE-BUG_SUPER": case "POPULATE-TIEID-DOUBLE": case "LOAD_MANUAL_XML_SCENE":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch(whatToProcess.toUpperCase()) {
@@ -310,6 +310,13 @@ public class IndexController
 					  }
 					}
 					break;
+				case "POPULATE-BUG_SUPER":
+					for(NameSuper ns : namesuper) {
+						  if(ns.getNamesuperId() == Integer.valueOf(valueToProcess.split(",")[1])) {
+							  this_doad.populateBugSuper(print_writer, viz_scene_path, ns, session_selected_broadcaster);
+						  }
+						}
+						break;
 				case "POPULATE-NAMESUPER_PLAYER":
 					for(Player pp : player) {
 						if(pp.getPlayerId() == Integer.valueOf(valueToProcess.split(",")[1])) {
@@ -330,7 +337,7 @@ public class IndexController
                     }
 					break;
 				case "POPULATE-TEAMS_LOGO":
-              		 this_doad.populateTeamsLogo(badmintonService.getAllTeam(),print_writer, viz_scene_path, session_selected_broadcaster);
+              		 this_doad.populateTeamsLogo(badmintonService.getAllTeam(),print_writer, viz_scene_path,session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-SUPER_MATCH":
 	              	this_doad.populateSuperMatch(print_writer, viz_scene_path,badmintonService.getFixtures(), session_match, session_selected_broadcaster);
@@ -384,11 +391,11 @@ public class IndexController
 					break;
 				case "POPULATE-SINGLE_MATCH_PROMO":
 					this_doad.populateFFSingleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), 
-							badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
+							badmintonService.getAllPlayer(),badmintonService.getAllTeam(), session_match,session_selected_broadcaster);
 					break;
 				case "POPULATE-DOUBLE_MATCH_PROMO":
 					this_doad.populateFFDoubleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), 
-							badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
+							badmintonService.getAllPlayer(),badmintonService.getAllTeam(), session_match,session_selected_broadcaster);
 					break;
 				case "POPULATE-LT_SINGLE_MATCH_PROMO":
 					this_doad.populateLTSingleMatchPromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllMatches(), 
@@ -399,8 +406,8 @@ public class IndexController
 							badmintonService.getAllPlayer(),badmintonService.getAllTeam(),session_selected_broadcaster);
 					break;
 				case "POPULATE-SQUADS":
-					this_doad.populateSquads(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]), badmintonService.getAllPlayer(),
-							badmintonService.getAllTeam(),session_selected_broadcaster);
+					this_doad.populateSquads(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]), 
+							badmintonService.getAllPlayer(),badmintonService.getAllTeam(), session_match,session_selected_broadcaster);
 					break;
 				case "POPULATE-POINTS_TABLE":
 					if(new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.LEAGUE_TABLE_DIRECTORY + BadmintonUtil.LEAGUETABLE_XML).exists()) {
@@ -410,11 +417,15 @@ public class IndexController
 					this_doad.populatePointsTable(print_writer, viz_scene_path, league_table.getLeagueTeams(),session_selected_broadcaster);
 					break;
 				case "POPULATE-RULES":
-					this_doad.populateRules(print_writer, viz_scene_path,badmintonService.getRules(),session_selected_broadcaster);
+					this_doad.populateRules(print_writer, viz_scene_path,badmintonService.getRules(), session_match,session_selected_broadcaster);
 					break;
 				case "POPULATE-SCHEDULE":
 					this_doad.populateSchedule(print_writer, viz_scene_path,valueToProcess.split(",")[1],fixture,
-								badmintonService.getAllTeam(),session_selected_broadcaster);
+								badmintonService.getAllTeam(), session_match,session_selected_broadcaster);
+					break;
+				case "POPULATE-TIEID-DOUBLE":
+					//System.out.println(valueToProcess.split(",")[1]);
+					this_doad.populateTieIdDouble(print_writer, viz_scene_path,valueToProcess.split(",")[1],fixture, session_match, session_selected_broadcaster);
 					break;
 					
 				case "POPULATE-SCOREBUGSTATS":
@@ -476,19 +487,19 @@ public class IndexController
 		case "ANIMATE-OUT": case "ANIMATE-OUT-STAT": case "ANIMATE-IN-SIDES": case "ANIMATE-IN-SUPER": case "ANIMATE-IN-PLAYER_PROFILE": case "ANIMATE-IN-ORDER_OF_PLAY": case "ANIMATE-IN-TEAMS_LOGO": case "ANIMATE-IN-SUPER_MATCH":
 		case "ANIMATE-IN-SUPER_MATCH1": case "ANIMATE-IN-SUPER_MATCH2":	case "ANIMATE-IN-FF_TIE_PROMO": case "ANIMATE-IN-L3_TIE_PROMO": case "ANIMATE-IN-FF_SINGLE_MATCH_PROMO": case "ANIMATE-IN-FF_DOUBLE_MATCH_PROMO":
 		case "ANIMATE-IN-LT_SINGLE_MATCH_PROMO": case "ANIMATE-IN-LT_DOUBLE_MATCH_PROMO": case "ANIMATE-IN-SQUADS": case "ANIMATE-IN-NAMESUPER_PLAYER": case "ANIMATE-IN-POINTS_TABLE": case "ANIMATE-IN-MANUAL_GRAPHIC": case "CLEAR-ALL":
-		case "ANIMATE-IN-RULES": case "ANIMATE-IN-SCHEDULE": case "ANIMATE-OUT-CATEGORY":
+		case "ANIMATE-IN-RULES": case "ANIMATE-IN-BUG_SUPER": case "ANIMATE-IN-SCHEDULE": case "ANIMATE-OUT-CATEGORY": case "ANIMATE-IN-TIEID-DOUBLE":
 			switch(session_selected_broadcaster) {
 			case "DOAD_In_House_Everest":
 				switch (whatToProcess.toUpperCase()) {
 				case "ANIMATE-IN-SCOREBUG":
 					if(session_match.getSets() == null) {
 						this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
-						if(session_match.getMatch().getTrumpHomeMatch() == 1) {
+						if(session_match.getMatch().getTrumpHomeMatch() == 1 && session_match.getMatch().getTrumpAwayMatch() == 0) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "1" +";");
 							TimeUnit.SECONDS.sleep(7);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 						}
-						else if(session_match.getMatch().getTrumpAwayMatch() == 1) {
+						else if(session_match.getMatch().getTrumpHomeMatch() == 0 && session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "2" +";");
 							TimeUnit.SECONDS.sleep(7);
 							this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
@@ -513,13 +524,13 @@ public class IndexController
 						this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
 						this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
 						
-						if(session_match.getMatch().getTrumpHomeMatch() == 1) {
+						if(session_match.getMatch().getTrumpHomeMatch() == 1 && session_match.getMatch().getTrumpAwayMatch() == 0) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "1" +";");
 							TimeUnit.SECONDS.sleep(4);
 							//this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
 							this_doad.processAnimation(print_writer, "TrumpLoop", "START", session_selected_broadcaster);
 						}
-						else if(session_match.getMatch().getTrumpAwayMatch() == 1) {
+						else if(session_match.getMatch().getTrumpHomeMatch() == 0 && session_match.getMatch().getTrumpAwayMatch() == 1) {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "2" +";");
 							TimeUnit.SECONDS.sleep(4);
 							//this_doad.processAnimation(print_writer, "TrumpIn", "START", session_selected_broadcaster);
@@ -600,6 +611,11 @@ public class IndexController
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
 					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SUPER";
+					break;
+				case "ANIMATE-IN-BUG_SUPER":
+					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
+					which_graphics_onscreen = "BUG_SUPER";
 					break;
 				case "ANIMATE-IN-NAMESUPER_PLAYER":
 					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
@@ -686,6 +702,11 @@ public class IndexController
 					print_writer.println("LAYER1*EVEREST*STAGE START;");
 					which_graphics_onscreen = "SCHEDULE";
 					break;
+				case "ANIMATE-IN-TIEID-DOUBLE":
+					this_doad.processAnimation(print_writer, "In", "START", session_selected_broadcaster);
+					print_writer.println("LAYER1*EVEREST*STAGE START;");
+					which_graphics_onscreen = "TIEID_DOUBLE";
+					break;
 				case "ANIMATE-IN-MANUAL_GRAPHIC":
 					print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In START;");
 					TimeUnit.SECONDS.sleep(2);
@@ -709,7 +730,7 @@ public class IndexController
 					case "SINGLE_L3_MATCHID": case "SINGLE_FF_MATCHID": case "DOUBLE_L3_MATCHID": case "DOUBLE_FF_MATCHID": case "L3_TIEID": case "FF_TIEID":
 					case "FF_TIE_PROMO": case "L3_TIE_PROMO": case "SIDES": case "SUPER": case "PLAYER_PROFILE": case "ORDER_OF_PLAY": case "TEAMS_LOGO": 
 					case "SUPER_MATCH": case "SUPER_MATCH1": case "SUPER_MATCH2": case "FF_SINGLE_MATCH_PROMO": case "FF_DOUBLE_MATCH_PROMO": case "LT_SINGLE_MATCH_PROMO":
-					case "LT_DOUBLE_MATCH_PROMO": case "SQUADS": case "NAMESUPER_PLAYER": case "POINTS_TABLE": case "RULES": case "SCHEDULE":
+					case "LT_DOUBLE_MATCH_PROMO": case "SQUADS": case "NAMESUPER_PLAYER": case "POINTS_TABLE": case "RULES": case "SCHEDULE": case "BUG_SUPER": case "TIEID_DOUBLE":
 						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
 						which_graphics_onscreen = "";
 						break;
