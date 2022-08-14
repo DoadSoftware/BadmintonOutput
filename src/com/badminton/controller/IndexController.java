@@ -365,18 +365,22 @@ public class IndexController
 						bad_match = (populateMatchVariables((BadmintonMatch) JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
 									new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + file.getName()))));
 						for(Fixture fx : fixture) {
-							if(bad_match.getMatch().getMatchDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(new Date()))) {
+							//if(bad_match.getMatch().getMatchDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(new Date()))) {
 								if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-									if(bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHome_Team().getTeamId() || 
-											bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAway_Team().getTeamId() || 
-													bad_match.getMatch().getHomeTeam().getTeamId() == fx.getAway_Team().getTeamId() ||
-															bad_match.getMatch().getAwayTeam().getTeamId() == fx.getHome_Team().getTeamId()) {
-										
-										badminton_matches.add(bad_match);
+									//System.out.println("FIX -GN" + fx.getGroupname());
+									//System.out.println("Match -GN" + fx.getGroupname());
+									if(fx.getGroupname().equalsIgnoreCase(bad_match.getMatch().getGroupname())) {
+										if(bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHome_Team().getTeamId() && 
+												bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAway_Team().getTeamId() || 
+														bad_match.getMatch().getHomeTeam().getTeamId() == fx.getAway_Team().getTeamId() &&
+																bad_match.getMatch().getAwayTeam().getTeamId() == fx.getHome_Team().getTeamId()) {
+											
+											badminton_matches.add(bad_match);
+										}
 									}
 									//this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fx, session_match, session_selected_broadcaster);
 								}
-							}
+							//}
 						}
 					}
 					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fixture, session_match, session_selected_broadcaster);
@@ -432,19 +436,20 @@ public class IndexController
 					
 					switch(valueToProcess.toUpperCase()) {
 					
-					case "TEAM_NAME": case"HOME": case"AWAY": case"MATCH_HOME": case"MATCH_AWAY": case"MATCH_POINT": case"SET_POINT": case "CATEGORY":
+					case "TEAM_NAME": case"HOME": case"AWAY": case"MATCH_HOME": case"MATCH_AWAY": case"MATCH_POINT": case"SET_POINT": case "CATEGORY": 
 						if(valueToProcess.toUpperCase().equalsIgnoreCase("CATEGORY")) {
 							category_onscreen = "CATEGORY";
 						}
 						
 						if(which_graphics_onscreen.equalsIgnoreCase("FOREHAND_WINNER" ) || which_graphics_onscreen.equalsIgnoreCase("FOREHAND_ERROR")  || 
-								which_graphics_onscreen.equalsIgnoreCase("BACKHAND_WINNER") || which_graphics_onscreen.equalsIgnoreCase("BACKHAND_ERROR")) {
+								which_graphics_onscreen.equalsIgnoreCase("BACKHAND_WINNER") || which_graphics_onscreen.equalsIgnoreCase("BACKHAND_ERROR")||
+								which_graphics_onscreen.equalsIgnoreCase("TIE_SCORE")) {
 							stat = valueToProcess;
 			
 							this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
 							
 							this_doad.processAnimation(print_writer, "TeamIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess, session_match, session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess, session_match,badmintonService.getFixtures(), session_selected_broadcaster);
 							
 							which_graphics_onscreen = "TEAM_NAME";
 						}
@@ -452,7 +457,7 @@ public class IndexController
 							
 							stat = valueToProcess;
 							this_doad.processAnimation(print_writer, "TeamIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(), session_selected_broadcaster);
 							
 							which_graphics_onscreen = "TEAM_NAME";
 						}
@@ -463,14 +468,14 @@ public class IndexController
 							this_doad.processAnimation(print_writer, "TeamOut", "START", session_selected_broadcaster);
 							
 							this_doad.processAnimation(print_writer, "OtherInfoIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(), session_selected_broadcaster);
 							
 							which_graphics_onscreen = valueToProcess.toUpperCase();
 						}
 						else {
 							stat = valueToProcess;
 							this_doad.processAnimation(print_writer, "OtherInfoIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match, session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(), session_selected_broadcaster);
 							
 							which_graphics_onscreen = valueToProcess.toUpperCase();
 						}
@@ -747,7 +752,7 @@ public class IndexController
 					break;
 				case "ANIMATE-OUT-STAT":
 					switch(which_graphics_onscreen) {
-					case "FOREHAND_WINNER": case "FOREHAND_ERROR": case "BACKHAND_WINNER": case "BACKHAND_ERROR":
+					case "FOREHAND_WINNER": case "FOREHAND_ERROR": case "BACKHAND_WINNER": case "BACKHAND_ERROR": case "TIE_SCORE":
 						this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
 						which_graphics_onscreen = "SCOREBUG";
 						break;

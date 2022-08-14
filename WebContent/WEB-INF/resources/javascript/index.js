@@ -1064,6 +1064,11 @@ function addItemsToList(whatToProcess, dataToProcess)
 				select.appendChild(option);
 				
 				option = document.createElement('option');
+				option.value = 'Tie_Score';
+				option.text = 'Tie Score';
+				select.appendChild(option);
+				
+				option = document.createElement('option');
 				option.value = 'Team_Name';
 				option.text = 'Team_Name';
 				select.appendChild(option);
