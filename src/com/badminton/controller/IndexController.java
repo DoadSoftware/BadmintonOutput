@@ -332,39 +332,27 @@ public class IndexController
 	              	this_doad.populateSuperMatch2(print_writer, viz_scene_path,badmintonService.getFixtures(), session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-ORDER_OF_PLAY":
-					//System.out.println(Integer.valueOf(valueToProcess.split(",")[1]));
-					//List<BadmintonMatch> badminton_match = new ArrayList<BadmintonMatch>();
 					badminton_matches.clear();
 					BadmintonMatch bad_match = new BadmintonMatch();
-					File files[] = new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY).listFiles(new FileFilter() {
+					for(File file :  new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY).listFiles(new FileFilter() {
 						@Override
 					    public boolean accept(File pathname) {
 					        String name = pathname.getName().toLowerCase();
 					        return name.endsWith(".xml") && pathname.isFile();
 					    }
-					});
-					for(File file : files) {
-						
-						bad_match = (populateMatchVariables((BadmintonMatch) JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
-									new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + file.getName()))));
-						for(Fixture fx : fixture) {
-							//if(bad_match.getMatch().getMatchDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(new Date()))) {
+					})) {
+							bad_match = (populateMatchVariables((BadmintonMatch) JAXBContext.newInstance(BadmintonMatch.class).createUnmarshaller().unmarshal(
+										new File(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.MATCHES_DIRECTORY + file.getName()))));
+							for(Fixture fx : fixture) {
 								if(fx.getMatchnumber() == Integer.valueOf(valueToProcess.split(",")[1])) {
-									//System.out.println("FIX -GN" + fx.getGroupname());
-									//System.out.println("Match -GN" + fx.getGroupname());
-									if(fx.getGroupname().equalsIgnoreCase(bad_match.getMatch().getGroupname())) {
-										if(bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHome_Team().getTeamId() && 
-												bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAway_Team().getTeamId() || 
-														bad_match.getMatch().getHomeTeam().getTeamId() == fx.getAway_Team().getTeamId() &&
-																bad_match.getMatch().getAwayTeam().getTeamId() == fx.getHome_Team().getTeamId()) {
-											
-											badminton_matches.add(bad_match);
-										}
+									
+									if(bad_match.getMatch().getMatchDate().equalsIgnoreCase(fx.getDate())  && bad_match.getMatch().getHomeTeam().getTeamId() == fx.getHometeam() 
+											&& bad_match.getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())
+									{
+										badminton_matches.add(bad_match);
 									}
-									//this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fx, session_match, session_selected_broadcaster);
 								}
-							//}
-						}
+							}
 					}
 					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fixture, session_match, session_selected_broadcaster);
 					break;
