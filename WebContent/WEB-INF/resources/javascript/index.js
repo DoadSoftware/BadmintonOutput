@@ -24,16 +24,19 @@ function initialiseForm(whatToProcess,dataToProcess)
 			document.getElementById('away_team').innerHTML = parseInt(dataToProcess.awayTeamSetsWon) +" "+ dataToProcess.match.awayTeam.fullname + ': Away';
 			
 			if(dataToProcess.match.categoryId == 1){
-				document.getElementById('category').innerHTML = 'Category:' + "Women's Singles";
+				document.getElementById('category').innerHTML = 'Category:' + " Women's Singles";
 			}
 			else if(dataToProcess.match.categoryId == 2){
-				document.getElementById('category').innerHTML = 'Category:' + "MEN'S DOUBLES";
+				document.getElementById('category').innerHTML = 'Category:' + " MEN'S DOUBLES";
 			}
 			else if(dataToProcess.match.categoryId == 3){
-				document.getElementById('category').innerHTML = 'Category:' + "MEN'S SINGLES";
+				document.getElementById('category').innerHTML = 'Category:' + " MEN'S SINGLES";
 			}
 			else if(dataToProcess.match.categoryId == 4){
-				document.getElementById('category').innerHTML = 'Category:' + "MIXED DOUBLES";
+				document.getElementById('category').innerHTML = 'Category:' + " MIXED DOUBLES";
+			}
+			else{
+				document.getElementById('category').innerHTML = 'Category:' + " SUPER MATCH";
 			}
 			
 			

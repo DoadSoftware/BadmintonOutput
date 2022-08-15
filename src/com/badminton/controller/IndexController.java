@@ -248,6 +248,7 @@ public class IndexController
 			case "DOAD_In_House_Everest":
 				switch(whatToProcess.toUpperCase()) {
 				case "LOAD_MANUAL_XML_SCENE":
+					//System.out.println(viz_scene_path);
 					new Scene(BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.SCENES_DIRECTORY + valueToProcess.replace(".xml", ".sum")).scene_load(print_writer,session_selected_broadcaster,BadmintonUtil.BADMINTON_DIRECTORY + BadmintonUtil.SCENES_DIRECTORY + valueToProcess.replace(".xml", ".sum"));
 					break;
 				case "POPULATE-SCOREBUGSTATS":

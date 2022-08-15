@@ -1258,6 +1258,13 @@ public class Doad extends Scene{
 			String container = "";
 			for(Fixture fx : fix) {
 				if(fx.getMatchnumber() == match_number) {
+					if(fx.getMargin() == null) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + " " +";");
+					}
+					else {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + fx.getMargin() +";");
+					}
+					
 					if(fx.getDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(new Date()))){
 						if(Bad_match.getMatch().getSuperMatch() == 1 && Bad_match.getSets() != null) {
 							if(Bad_match.getSets().get(0).getStatus().equalsIgnoreCase(BadmintonUtil.START)) {
@@ -1278,15 +1285,15 @@ public class Doad extends Scene{
 						cal.add(Calendar.DATE, -1);
 						if(fx.getDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime()))) {
 							if(match_number % 2 == 0) {
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "YESTERDAY RESULTS - TIE 2" +";");
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "RESULTS - TIE 2" +";");
 							}else {
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "YESTERDAY RESULTS - TIE 1" +";");
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "RESULTS - TIE 1" +";");
 							}
 						}else {
 							if(match_number % 2 == 0) {
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "RESULTS " + fx.getDate() + " - TIE 2" +";");
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "RESULTS "  + " - TIE 2" +";");
 							}else {
-								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "RESULTS " + fx.getDate() + " - TIE 1" +";");
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "RESULTS "  + " - TIE 1" +";");
 							}
 						}
 						
@@ -1449,29 +1456,7 @@ public class Doad extends Scene{
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tMatchName" + row_id + " " + " XD " +";");
 				}
 			}
-			for(Fixture fx : fix) {
-				if((mtch.get(i).getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (mtch.get(i).getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
-					if(fx.getMargin() == null) {
-						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + " " +";");
-					}
-					else {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + fx.getMargin() +";");
-					}			
-				}
-			}
 		}
-			/*for(BadmintonMatch match : mtch) {
-				for(Fixture fx : fix) {
-					if((mtch.get(i).getMatch().getHomeTeam().getTeamId() == fx.getHometeam()) && (mtch.get(i).getMatch().getAwayTeam().getTeamId() == fx.getAwayteam())) {
-						if(fx.getMargin() == null) {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + " " +";");
-						}
-						else {
-						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScore " + fx.getMargin() +";");
-						}			
-					}
-				}
-			}*/
 			for(Fixture fx : fix) {
 				if(fx.getMatchnumber() == match_number) {
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHomeTeamName " + fx.getHome_Team().getFullname().toUpperCase() +";");
@@ -1625,9 +1610,9 @@ public class Doad extends Scene{
 					cal.add(Calendar.DATE, +1);
 					if(fx.getDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime()))) {
 						if(match_number % 2 == 0) {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader "  + "TOMORROW - TIE 2"+";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader "  + fx.getGroupname() +" - TIE 2" +";");
 						}else {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader "  + "TOMORROW - TIE 1"+";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader "  + fx.getGroupname() +" - TIE 1" +";");
 						}
 					}else {
 						if(match_number % 2 == 0) {
@@ -1682,9 +1667,9 @@ public class Doad extends Scene{
 					cal.add(Calendar.DATE, +1);
 					if(fx.getDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime()))) {
 						if(match_number % 2 == 0) {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 "  + "TOMORROW - TIE 2"+";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 "  + fx.getGroupname() +" - TIE 2" +";");
 						}else {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 "  + "TOMORROW - TIE 1"+";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 "  + fx.getGroupname() +" - TIE 1" +";");
 						}
 						
 					}else {
@@ -2620,20 +2605,18 @@ public class Doad extends Scene{
 			this.status = "ERROR: Match is null";
 		} else {
 			int row_id = 1;
+			//String First= "12-08-2022";
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getTournamentName().toUpperCase() +";");
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DATE, +1);
 			if(day.equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(cal.getTime()))) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "FIXTURES TOMORROW" +";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "FIXTURES" +";");
 			}else {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "FIXTURES TODAY" +";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + "FIXTURES" +";");
 			}
-			
+			//System.out.println(day.compareTo(fix.get(0).getDate()) + 1); // want it to check which day match is this
 			for(int i = 0; i <= fix.size()-1; i++) {
 				if(fix.get(i).getDate().equalsIgnoreCase(day)) {
-					
-					//if(fx.getMatchnumber())
-					//System.out.println(fx.getMatchnumber());
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomeTeam" +row_id+ "Logo " + logo_path + fix.get(i).getHome_Team().getFirstname() 
 							+ "_" + fix.get(i).getHome_Team().getLastname() + BadmintonUtil.PNG_EXTENSION +";");
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgAwayTeam" +row_id+ "Logo " + logo_path + fix.get(i).getAway_Team().getFirstname() 
