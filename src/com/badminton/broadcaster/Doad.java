@@ -312,6 +312,37 @@ public class Doad extends Scene{
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName02 " + Bad_match.getMatch().getAwayTeam().getFullname().toUpperCase() +";");
 				break;
 				
+			case"GAME_POINT":
+				if(is_this_updating == false) {
+					//print_writer.println("LAYER1*EVEREST*TREEVIEW*TeamName*CONTAINER SET ACTIVE 1;");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*NEW_GROUP*CONTAINER SET ACTIVE 1;");
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vExtra " + "0" +";");
+					//print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*TeamIn START;");
+				}
+				if(Bad_match.getMatch().getCategoryId() == null) {
+					if(Bad_match.getMatch().getSuperMatch() == 1) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName01 " + "SUPER MATCH" + ";");
+					}
+				}
+				else {
+					if(Bad_match.getMatch().getCategoryId() == 1) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName01 " + "WOMEN'S SINGLES" +";");
+					}
+					if(Bad_match.getMatch().getCategoryId() == 2) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName01 " + "MEN'S DOUBLES" +";");
+					}
+					if(Bad_match.getMatch().getCategoryId() == 3) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName01 " + "MEN'S SINGLES" +";");
+					}
+					if(Bad_match.getMatch().getCategoryId() == 4) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName01 " + "MIXED DOUBLES" +";");
+					}
+				}
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTeamName02 " + "GAME POINT" +";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*TopTeamGRP*CONTAINER SET ACTIVE 1;");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*BottomTeamGRP*CONTAINER SET ACTIVE 1;");
+				break;
+				
 			case "MATCH_POINT":
 				if(is_this_updating == false) {
 					//print_writer.println("LAYER1*EVEREST*TREEVIEW*TeamName*CONTAINER SET ACTIVE 1;");

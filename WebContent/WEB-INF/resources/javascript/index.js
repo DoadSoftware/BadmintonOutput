@@ -1092,6 +1092,11 @@ function addItemsToList(whatToProcess, dataToProcess)
 				option.text = 'Match Point';
 				select.appendChild(option);
 				
+				option = document.createElement('option');
+				option.value = 'game_point';
+				option.text = 'Game Point';
+				select.appendChild(option);
+				
 				select.setAttribute('onclick','processUserSelection(this);');
 				//select.setAttribute('onchange',"processUserSelection(this)");
 				row.insertCell(cellCount).appendChild(select);

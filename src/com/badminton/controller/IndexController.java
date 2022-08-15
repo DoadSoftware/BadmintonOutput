@@ -407,7 +407,7 @@ public class IndexController
 					
 					switch(valueToProcess.toUpperCase()) {
 					
-					case "TEAM_NAME": case"HOME": case"AWAY": case"MATCH_HOME": case"MATCH_AWAY": case"MATCH_POINT": case"SET_POINT": case "CATEGORY": 
+					case "TEAM_NAME": case"HOME": case"AWAY": case"MATCH_HOME": case"MATCH_AWAY": case"MATCH_POINT": case"SET_POINT": case "CATEGORY": case"GAME_POINT":
 						if(valueToProcess.toUpperCase().equalsIgnoreCase("CATEGORY")) {
 							category_onscreen = "CATEGORY";
 						}
@@ -723,7 +723,7 @@ public class IndexController
 					break;
 				case "ANIMATE-OUT-STAT":
 					switch(which_graphics_onscreen) {
-					case "FOREHAND_WINNER": case "FOREHAND_ERROR": case "BACKHAND_WINNER": case "BACKHAND_ERROR": case "TIE_SCORE":
+					case "FOREHAND_WINNER": case "FOREHAND_ERROR": case "BACKHAND_WINNER": case "BACKHAND_ERROR": case "TIE_SCORE": 
 						this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
 						which_graphics_onscreen = "SCOREBUG";
 						break;
