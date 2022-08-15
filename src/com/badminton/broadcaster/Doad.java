@@ -1525,65 +1525,79 @@ public class Doad extends Scene{
 		this.status = BadmintonUtil.SUCCESSFUL;	
 		
 	}
-	public void populatePlayerProfile(PrintWriter print_writer,String viz_sence_path,Player pp,Team tm,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
+	public void populatePlayerProfile(PrintWriter print_writer,String viz_sence_path,int player_id, List<Player> Player,List<Team> Team,BadmintonMatch Bad_match, String selectedbroadcaster) throws InterruptedException 
 	{
 		if (Bad_match == null) {
 			this.status = "ERROR: Match is null";
 		} else {
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Bad_match.getTournamentName().toUpperCase() +";");
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader1 " + " " +";");
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue1 " + pp.getAge() +";");
-			if(pp.getTeamId() == tm.getTeamId()) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue2 " + tm.getFullname().toUpperCase() +";");
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomeTeamLogo " + logo_path + tm.getFirstname() + "_" + tm.getLastname() + BadmintonUtil.PNG_EXTENSION + ";");
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomePlayerImage " + left_path + tm.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
-						pp.getTicker_name() + BadmintonUtil.PNG_EXTENSION + ";");
+			for(Player pp : Player) {
+				if(pp.getPlayerId() == player_id) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue1 " + pp.getAge() +";");
+					for(Team tm : Team) {
+						if(pp.getTeamId() == tm.getTeamId()) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue2 " + tm.getFullname().toUpperCase() +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomeTeamLogo " + logo_path + tm.getFirstname() + "_" + tm.getLastname() + BadmintonUtil.PNG_EXTENSION + ";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET lgHomePlayerImage " + left_path + tm.getFirstname() + BadmintonUtil.DOUBLE_BACKSLASH +
+									pp.getTicker_name() + BadmintonUtil.PNG_EXTENSION + ";");
+						}
+					}
+					
+					if(pp.getIconPlayer().equalsIgnoreCase("YES")) {
+						if(pp.getBwfRanking() == null && pp.getBaiRanking() == null) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + " " +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3B " + " " +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + " " +";");
+						}
+						else if(pp.getBwfRanking() == null) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + "BAI" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + pp.getBaiRanking() +";");
+						}
+						else {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + "BWF" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + pp.getBwfRanking() +";");
+						}
+						
+					}
+					else if(pp.getIconPlayer().equalsIgnoreCase("NO")) {
+						if(pp.getBaiRanking() == null) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + " " +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3B " + " " +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + " " +";");
+						}
+						else {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + "BAI" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + pp.getBaiRanking() +";");
+						}
+						
+					}
+					
+					if(pp.getText1() == null && pp.getText2() == null) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Circle1*CONTAINER SET ACTIVE 0;");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*RunningLine1*CONTAINER SET ACTIVE 0;");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Circle2*CONTAINER SET ACTIVE 0;");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*RunningLine2*CONTAINER SET ACTIVE 0;");
+					}else if(pp.getText2() == null) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Circle2*CONTAINER SET ACTIVE 0;");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*RunningLine2*CONTAINER SET ACTIVE 0;");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText1 " + pp.getText1()  +";");
+					}else if(pp.getText1() == null) {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Circle1*CONTAINER SET ACTIVE 0;");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*RunningLine1*CONTAINER SET ACTIVE 0;");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText2 " + pp.getText2() +";");
+						
+					}else {
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText1 " + pp.getText1()  +";");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText2 " + pp.getText2() +";");
+					}
+					
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName " + pp.getFull_name().toUpperCase() + ";");
+				}
 			}
 			
-			if(pp.getIconPlayer().equalsIgnoreCase("YES")) {
-				if(pp.getBwfRanking() == null && pp.getBaiRanking() == null) {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + " " +";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3B " + " " +";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + " " +";");
-				}
-				else if(pp.getBwfRanking() == null) {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + "BAI" +";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + pp.getBaiRanking() +";");
-				}
-				else {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + "BWF" +";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + pp.getBwfRanking() +";");
-				}
-				
-			}
-			else if(pp.getIconPlayer().equalsIgnoreCase("NO")) {
-				if(pp.getBaiRanking() == null) {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + " " +";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3B " + " " +";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + " " +";");
-				}
-				else {
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatHead3A " + "BAI" +";");
-					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tStatValue3 " + pp.getBaiRanking() +";");
-				}
-				
-			}
-			if(pp.getText1() == null) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Circle1*CONTAINER SET ACTIVE 0;");
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*RunningLine1*CONTAINER SET ACTIVE 0;");
-			}else {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText1 " + pp.getText1()  +";");
-			}
 			
-			if(pp.getText2() == null) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Circle2*CONTAINER SET ACTIVE 0;");
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*RunningLine2*CONTAINER SET ACTIVE 0;");
-			}else {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText2 " + pp.getText2() +";");
-			}
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tRunningText2 " + pp.getText2() +";");
 			
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName " + pp.getFull_name().toUpperCase() + ";");
 			
 			print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
 			print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In STOP;");
@@ -2247,19 +2261,25 @@ public class Doad extends Scene{
 		print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 		this.status = BadmintonUtil.SUCCESSFUL;	
 	}
-	public void populateSuper(PrintWriter print_writer,String viz_sence_path,NameSuper ns,int sponsor, String selectedbroadcaster) throws InterruptedException 
+	public void populateSuper(PrintWriter print_writer,String viz_sence_path,int super_value,int sponsor,List<NameSuper> namesuper, String selectedbroadcaster) throws InterruptedException 
 
 	{
-		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + ns.getFirstname().toUpperCase() + " " + ns.getSurname().toUpperCase() + ";");
-		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + ns.getSubLine()  + ";");
-		//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "0" + ";");
-		//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "DAY " + Bad_match.getMatch().getMatchId() +";");
-		
-		if(sponsor == 0) {
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "0" + ";");
-		}else {
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "1" + ";");
+		for(NameSuper ns : namesuper) {
+			if(ns.getNamesuperId() == super_value) {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + ns.getFirstname().toUpperCase() + " " + 
+						ns.getSurname().toUpperCase() + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + ns.getSubLine()  + ";");
+				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "0" + ";");
+				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "DAY " + Bad_match.getMatch().getMatchId() +";");
+				
+				if(sponsor == 0) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "0" + ";");
+				}else {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "1" + ";");
+				}
+			}
 		}
+		
 		
 		print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
 		print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In STOP;");
@@ -2274,18 +2294,22 @@ public class Doad extends Scene{
 		print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 		this.status = BadmintonUtil.SUCCESSFUL;	
 	}
-	public void populateBugSuper(PrintWriter print_writer,String viz_sence_path,NameSuper ns, String selectedbroadcaster) throws InterruptedException 
+	public void populateBugSuper(PrintWriter print_writer,String viz_sence_path,int bug_value,List<NameSuper> namesuper, String selectedbroadcaster) throws InterruptedException 
 
 	{
-		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName01 " + ns.getFirstname().toUpperCase() + " " + ns.getSurname().toUpperCase() + ";");
-		if(ns.getSubLine() == null) {
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1A " + " "  + ";");
-		}else {
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1A " + ns.getSubLine()  + ";");
-		}
-		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1B " + " "  + ";");
-		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1C " + " "  + ";");
 		
+		for(NameSuper ns : namesuper) {
+			if(ns.getNamesuperId() == bug_value) {
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName01 " + ns.getFirstname().toUpperCase() + " " + ns.getSurname().toUpperCase() + ";");
+				if(ns.getSubLine() == null) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1A " + " "  + ";");
+				}else {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1A " + ns.getSubLine()  + ";");
+				}
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1B " + " "  + ";");
+				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1C " + " "  + ";");
+			}
+		}
 		
 		print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");
 		print_writer.println("LAYER1*EVEREST*STAGE*DIRECTOR*In STOP;");
@@ -2300,20 +2324,28 @@ public class Doad extends Scene{
 		print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW OFF;");
 		this.status = BadmintonUtil.SUCCESSFUL;	
 	}
-	public void populateNameSuperPlayer(PrintWriter print_writer,String viz_sence_path,Player pp,List<Team> allteam, int sponsor ,String selectedbroadcaster) throws InterruptedException 
+	public void populateNameSuperPlayer(PrintWriter print_writer,String viz_sence_path,List<Player> Player,List<Team> allteam,int player_id,int detail, int sponsor ,String selectedbroadcaster) throws InterruptedException 
 	{
-		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + pp.getFull_name().toUpperCase() + ";");
-		for(Team team : allteam) {
-			if(pp.getTeamId() == team.getTeamId()) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + team.getFullname().toUpperCase() + ";");
-			}
+		print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + Player.get(player_id - 1).getFull_name().toUpperCase() + ";");
+		
+		if(detail == 0) {
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + allteam.get(Player.get(player_id - 1).getTeamId() - 1).
+					getFullname().toUpperCase() + ";");
+		}else if(detail == 1) {
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER OF THE MATCH" + ";");
+			
+		}else {
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "FASTRACK SMART PLAY OF THE TIE" + ";");
 		}
+		
+		
+			
 		if(sponsor == 0) {
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "0" + ";");
 		}else {
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "1" + ";");
 		}
-		
+
 		//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "DAY " + Bad_match.getMatch().getMatchId() +";");
 			
 		print_writer.println("LAYER1*EVEREST*GLOBAL PREVIEW ON;");

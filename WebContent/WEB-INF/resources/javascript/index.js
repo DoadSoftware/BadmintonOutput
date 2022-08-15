@@ -565,7 +565,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-NAMESUPER_PLAYER':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#namesuperplayerScene').val() + ',' + $('#selectNameSuperPlayer option:selected').val() + ',' + $('#selectSponsor option:selected').val(); 
+			valueToProcess = $('#namesuperplayerScene').val() + ',' + $('#selectNameSuperPlayer option:selected').val() + ',' + $('#selectNameSuperDetail option:selected').val() + ',' + $('#selectSponsor option:selected').val(); 
 			break;
 		}
 		break;
@@ -1269,6 +1269,30 @@ function addItemsToList(whatToProcess, dataToProcess)
 					option.text = plyr.full_name;
 					select.appendChild(option);
 				});
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('select');
+				select.style = 'width:130px';
+				select.id = 'selectNameSuperDetail';
+				select.name = select.id;
+				
+				
+				option = document.createElement('option');
+				option.value = 0;
+				option.text = 'Team Name';
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = 1;
+				option.text = 'Player of the Match';
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = 2;
+				option.text = 'Fastrack Smart Play of the Tie';
+				select.appendChild(option);
 				
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;

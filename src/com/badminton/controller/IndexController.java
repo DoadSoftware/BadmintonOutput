@@ -278,9 +278,7 @@ public class IndexController
 				switch(whatToProcess.toUpperCase()) {
 				
 				case "POPULATE-SCOREBUG":
-					
 					this_doad.populateScoreBug(false ,print_writer, viz_scene_path, session_match, session_selected_broadcaster);
-
 					break;
 				case "POPULATE-SINGLE-L3-MATCHID":
 					this_doad.populateSingleL3MatchId(print_writer, viz_scene_path,badmintonService.getFixtures(), session_match, session_selected_broadcaster);
@@ -304,37 +302,21 @@ public class IndexController
 					this_doad.populateSides(print_writer, viz_scene_path ,valueToProcess.split(",")[1],valueToProcess.split(",")[2], session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-SUPER":
-					for(NameSuper ns : namesuper) {
-					  if(ns.getNamesuperId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-						  this_doad.populateSuper(print_writer, viz_scene_path, ns, Integer.valueOf(valueToProcess.split(",")[2]), session_selected_broadcaster);
-					  }
-					}
+					this_doad.populateSuper(print_writer, viz_scene_path,Integer.valueOf(valueToProcess.split(",")[1]),Integer.valueOf(valueToProcess.split(",")[2]), 
+						  badmintonService.getNameSupers(),session_selected_broadcaster);
 					break;
 				case "POPULATE-BUG_SUPER":
-					for(NameSuper ns : namesuper) {
-						  if(ns.getNamesuperId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-							  this_doad.populateBugSuper(print_writer, viz_scene_path, ns, session_selected_broadcaster);
-						  }
-						}
+						this_doad.populateBugSuper(print_writer, viz_scene_path,Integer.valueOf(valueToProcess.split(",")[1]),
+								badmintonService.getNameSupers(), session_selected_broadcaster);
 						break;
 				case "POPULATE-NAMESUPER_PLAYER":
-					for(Player pp : player) {
-						if(pp.getPlayerId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-	                    	this_doad.populateNameSuperPlayer(print_writer, viz_scene_path, pp, badmintonService.getAllTeam(), Integer.valueOf(valueToProcess.split(",")[2]), 
-	                    			session_selected_broadcaster);  
-	                    }
-	                }
+                	this_doad.populateNameSuperPlayer(print_writer, viz_scene_path, badmintonService.getAllPlayer(), badmintonService.getAllTeam(), 
+                		Integer.valueOf(valueToProcess.split(",")[1]),Integer.valueOf(valueToProcess.split(",")[2]), 
+                		Integer.valueOf(valueToProcess.split(",")[3]),session_selected_broadcaster);
 					break;
 				case "POPULATE-PLAYER_PROFILE":
-					for(Player pp : player) {
-					  team = badmintonService.getAllTeam();
-					  
-                      if(pp.getPlayerId() == Integer.valueOf(valueToProcess.split(",")[1])) {
-                    	  for(Team tm : team) {
-                    		  this_doad.populatePlayerProfile(print_writer, viz_scene_path, pp, tm, session_match, session_selected_broadcaster);
-						  }
-                      }
-                    }
+					this_doad.populatePlayerProfile(print_writer, viz_scene_path,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllPlayer(), 
+						badmintonService.getAllTeam(), session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-TEAMS_LOGO":
               		 this_doad.populateTeamsLogo(badmintonService.getAllTeam(),print_writer, viz_scene_path,session_match, session_selected_broadcaster);
