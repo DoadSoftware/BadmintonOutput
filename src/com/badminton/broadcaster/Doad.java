@@ -1181,7 +1181,7 @@ public class Doad extends Scene{
 			case "HOME_PLAYER":
 				for(int i=1; i <= Bad_match.getMatch().getHomePlayers().size();i++){
 					if(i==1){
-						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTopName " + Bad_match.getMatch().getHomePlayers().get(Bad_match.getMatch().getHomePlayers().size() - i).getFull_name().toUpperCase() +";");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTopName " + Bad_match.getMatch().getHomePlayers().get(Bad_match.getMatch().getHomePlayers().size() - i).getTicker_name().toUpperCase() +";");
 					}
 					else if(i==2){
 					int j=i-1;
@@ -1201,7 +1201,7 @@ public class Doad extends Scene{
 			case "AWAY_PLAYER":
 				for(int i=1; i <= Bad_match.getMatch().getHomePlayers().size();i++){
 					if(i==1){
-						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTopName " + Bad_match.getMatch().getAwayPlayers().get(Bad_match.getMatch().getAwayPlayers().size() - i).getFull_name().toUpperCase() +";");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tTopName " + Bad_match.getMatch().getAwayPlayers().get(Bad_match.getMatch().getAwayPlayers().size() - i).getTicker_name().toUpperCase() +";");
 					}
 					else if(i==2){
 					int j=i-1;
@@ -1223,7 +1223,7 @@ public class Doad extends Scene{
 			case "HOME_PLAYER":
 				for(int i=1; i <= Bad_match.getMatch().getHomePlayers().size();i++){
 					if(i==1){
-						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET BottomName " + Bad_match.getMatch().getHomePlayers().get(Bad_match.getMatch().getHomePlayers().size() - i).getFull_name().toUpperCase() +";");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET BottomName " + Bad_match.getMatch().getHomePlayers().get(Bad_match.getMatch().getHomePlayers().size() - i).getTicker_name().toUpperCase() +";");
 					}
 					else if(i==2){
 					int j=i-1;
@@ -1243,7 +1243,7 @@ public class Doad extends Scene{
 			case "AWAY_PLAYER":
 				for(int i=1; i <= Bad_match.getMatch().getHomePlayers().size();i++){
 					if(i==1){
-						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET BottomName " + Bad_match.getMatch().getAwayPlayers().get(Bad_match.getMatch().getAwayPlayers().size() - i).getFull_name().toUpperCase() +";");
+						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET BottomName " + Bad_match.getMatch().getAwayPlayers().get(Bad_match.getMatch().getAwayPlayers().size() - i).getTicker_name().toUpperCase() +";");
 					}
 					else if(i==2){
 					int j=i-1;
@@ -1380,7 +1380,7 @@ public class Doad extends Scene{
 				if(mtch.get(i).getMatch().getHomeSecondPlayerId() == 0) {
 					if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getHomePlayers().get(0).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
-								getTicker_name().toUpperCase() + " (PT)" +";");
+								getTicker_name().toUpperCase() + " (PoT)" +";");
 					}else {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
 								getTicker_name().toUpperCase() +";");
@@ -1388,7 +1388,7 @@ public class Doad extends Scene{
 					
 					if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getAwayPlayers().get(0).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
-								getTicker_name().toUpperCase() + " (PT)" +";");
+								getTicker_name().toUpperCase() + " (PoT)" +";");
 					}else {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
 								getTicker_name().toUpperCase() +";");
@@ -1398,11 +1398,11 @@ public class Doad extends Scene{
 				else if(mtch.get(i).getMatch().getHomeSecondPlayerId() != 0 && mtch.get(i).getMatch().getHomeThirdPlayerId() == 0) {
 					if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getHomePlayers().get(0).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
-								getTicker_name().toUpperCase() + " (PT)" + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() +";");
+								getTicker_name().toUpperCase() + " (PoT)" + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() +";");
 					}
 					else if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
-								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " (PT)" +";");
+								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " (PoT)" +";");
 					}
 					else {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).getTicker_name().
@@ -1411,11 +1411,11 @@ public class Doad extends Scene{
 					
 					if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getAwayPlayers().get(0).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
-								getTicker_name().toUpperCase() + " (PT)" + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() +";");
+								getTicker_name().toUpperCase() + " (PoT)" + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() +";");
 					}
 					else if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
-								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " (PT)" +";");
+								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " (PoT)" +";");
 					}
 					else {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).getTicker_name().
@@ -1432,18 +1432,18 @@ public class Doad extends Scene{
 					
 					if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getHomePlayers().get(0).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
-								getTicker_name().toUpperCase() + " (PT)" + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " / " + 
+								getTicker_name().toUpperCase() + " (PoT)" + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " / " + 
 									mtch.get(i).getMatch().getHomePlayers().get(2).getTicker_name().toUpperCase() +";");
 					}
 					else if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
-								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " (PT)" + " / " + 
+								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " (PoT)" + " / " + 
 								 mtch.get(i).getMatch().getHomePlayers().get(2).getTicker_name().toUpperCase() + ";");
 					}
 					else if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getHomePlayers().get(2).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
 								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " / " + 
-								 mtch.get(i).getMatch().getHomePlayers().get(2).getTicker_name().toUpperCase() + " (PT)" + ";");
+								 mtch.get(i).getMatch().getHomePlayers().get(2).getTicker_name().toUpperCase() + " (PoT)" + ";");
 					}else {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "1 " + mtch.get(i).getMatch().getHomePlayers().get(0).
 								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getHomePlayers().get(1).getTicker_name().toUpperCase() + " / " + 
@@ -1452,18 +1452,18 @@ public class Doad extends Scene{
 					
 					if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getAwayPlayers().get(0).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
-								getTicker_name().toUpperCase() + " (PT)" + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " / " + 
+								getTicker_name().toUpperCase() + " (PoT)" + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " / " + 
 									mtch.get(i).getMatch().getAwayPlayers().get(2).getTicker_name().toUpperCase() +";");
 					}
 					else if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
-								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " (PT)" + " / " + 
+								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " (PoT)" + " / " + 
 								 mtch.get(i).getMatch().getAwayPlayers().get(2).getTicker_name().toUpperCase() + ";");
 					}
 					else if(Player_name.toUpperCase().equalsIgnoreCase(mtch.get(i).getMatch().getAwayPlayers().get(2).getTicker_name().toUpperCase())) {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
 								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " / " + 
-								 mtch.get(i).getMatch().getAwayPlayers().get(2).getTicker_name().toUpperCase() + " (PT)" + ";");
+								 mtch.get(i).getMatch().getAwayPlayers().get(2).getTicker_name().toUpperCase() + " (PoT)" + ";");
 					}else {
 						print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayer" + container + "2 " + mtch.get(i).getMatch().getAwayPlayers().get(0).
 								getTicker_name().toUpperCase() + " / " + mtch.get(i).getMatch().getAwayPlayers().get(1).getTicker_name().toUpperCase() + " / " + 
@@ -2360,8 +2360,14 @@ public class Doad extends Scene{
 	{
 		for(NameSuper ns : namesuper) {
 			if(ns.getNamesuperId() == super_value) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + ns.getFirstname().toUpperCase() + " " + 
-						ns.getSurname().toUpperCase() + ";");
+				if(ns.getSurname() != null) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + ns.getFirstname().toUpperCase() + " " + 
+							ns.getSurname().toUpperCase() + ";");
+				}
+				else if(ns.getSurname() == null) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + ns.getFirstname().toUpperCase() + ";");
+				}
+				
 				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + ns.getSubLine()  + ";");
 				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSponsor " + "0" + ";");
 				//print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tHeader " + "DAY " + Bad_match.getMatch().getMatchId() +";");
@@ -2394,7 +2400,14 @@ public class Doad extends Scene{
 		
 		for(NameSuper ns : namesuper) {
 			if(ns.getNamesuperId() == bug_value) {
-				print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName01 " + ns.getFirstname().toUpperCase() + " " + ns.getSurname().toUpperCase() + ";");
+				if(ns.getSurname() != null) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName01 " + ns.getFirstname().toUpperCase() + " " + 
+									ns.getSurname().toUpperCase() + ";");
+				}
+				else if(ns.getSurname() == null) {
+					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tPlayerName01 " + ns.getFirstname().toUpperCase() + ";");
+				}
+				
 				if(ns.getSubLine() == null) {
 					print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tInfo1A " + " "  + ";");
 				}else {
