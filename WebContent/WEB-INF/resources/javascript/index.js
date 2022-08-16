@@ -1294,7 +1294,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 				
 				option = document.createElement('option');
 				option.value = 1;
-				option.text = 'Player of the Match';
+				option.text = 'Player of the Tie';
 				select.appendChild(option);
 				
 				option = document.createElement('option');

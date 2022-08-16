@@ -46,6 +46,7 @@ public class Doad extends Scene{
 		if (Bad_match == null) {
 			this.status = "ERROR: Match is null";
 		} else {
+			this.status = BadmintonUtil.SUCCESSFUL;	
 			int Count = 0;
 			//System.out.println("outside ="+Count);
 			if(Bad_match.getGoldenPointsPlayerId() == Bad_match.getMatch().getHomeFirstPlayerId()) {
@@ -161,15 +162,12 @@ public class Doad extends Scene{
 							}
 							
 							
-							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 1) || (st.getHomeTeamTotalScore() == 1 && st.getAwayTeamTotalScore() == 0)) {
-								processAnimation(print_writer, "Score1In", "START", selectedbroadcaster);
+							if(((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 1) || (st.getHomeTeamTotalScore() == 1 && st.getAwayTeamTotalScore() == 0))
+									|| ((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0))) {
+								this.status = BadmintonUtil.SCORES;
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "1" +";");
 							}
 							
-							if(st.getHomeTeamTotalScore() == 0 &&  st.getAwayTeamTotalScore() == 2 || st.getHomeTeamTotalScore() == 2 &&  st.getAwayTeamTotalScore() == 0) {
-								processAnimation(print_writer, "Score1In", "START", selectedbroadcaster);
-							}
-							
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "1" +";");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam1_R1 " + st.getHomeTeamTotalScore() +";");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam2_R1 " + st.getAwayTeamTotalScore() +";");
 						}
@@ -182,14 +180,12 @@ public class Doad extends Scene{
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
 							}
 							
-							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0)) {
-								processAnimation(print_writer, "Score2In", "START", selectedbroadcaster);
+							if(((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 1) || (st.getHomeTeamTotalScore() == 1 && st.getAwayTeamTotalScore() == 0))
+									|| ((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0))) {
+								this.status = BadmintonUtil.SCORES;
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "2" +";");
 							}
 							
-							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 1) || (st.getHomeTeamTotalScore() == 1 && st.getAwayTeamTotalScore() == 0)) {
-								processAnimation(print_writer, "Score2In", "START", selectedbroadcaster);
-							}
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "2" +";");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam1_R2 " + st.getHomeTeamTotalScore() +";");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam2_R2 " + st.getAwayTeamTotalScore() +";");
 						}
@@ -201,14 +197,11 @@ public class Doad extends Scene{
 								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
 							}
 							
-							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0)) {
-								processAnimation(print_writer, "Score3In", "START", selectedbroadcaster);
+							if(((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 1) || (st.getHomeTeamTotalScore() == 1 && st.getAwayTeamTotalScore() == 0))
+									|| ((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 2) || (st.getHomeTeamTotalScore() == 2 && st.getAwayTeamTotalScore() == 0))) {
+								this.status = BadmintonUtil.SCORES;
+								print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "3" +";");
 							}
-							
-							if((st.getHomeTeamTotalScore() == 0 && st.getAwayTeamTotalScore() == 1) || (st.getHomeTeamTotalScore() == 1 && st.getAwayTeamTotalScore() == 0)) {
-								processAnimation(print_writer, "Score3In", "START", selectedbroadcaster);
-							}
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "3" +";");
 
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam1_R3 " + st.getHomeTeamTotalScore() +";");
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tScoreTeam2_R3 " + st.getAwayTeamTotalScore() +";");
@@ -218,7 +211,6 @@ public class Doad extends Scene{
 			}
 			
 		}
-		this.status = BadmintonUtil.SUCCESSFUL;	
 	}
 	public void populateScoreBugStat(boolean is_this_updating,PrintWriter print_writer,String viz_sence_path,String Stats,BadmintonMatch Bad_match,List<Fixture> fix, String selectedbroadcaster) 
 	{
@@ -2439,7 +2431,7 @@ public class Doad extends Scene{
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + allteam.get(Player.get(player_id - 1).getTeamId() - 1).
 					getFullname().toUpperCase() + ";");
 		}else if(detail == 1) {
-			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER OF THE MATCH" + ";");
+			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "PLAYER OF THE TIE" + ";");
 			
 		}else {
 			print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET tSubHeader " + "FASTRACK SMART PLAY OF THE TIE" + ";");
