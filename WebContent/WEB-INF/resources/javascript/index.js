@@ -582,7 +582,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-ORDER_OF_PLAY':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam1 option:selected').val();
+			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam1 option:selected').val()  + ',' + $('#selectPlayer').val();
 			break;
 		}
 		break;
@@ -1643,6 +1643,14 @@ function addItemsToList(whatToProcess, dataToProcess)
                     select.appendChild(option);
 						
                 });
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				select = document.createElement('input');
+				select.type = "text";
+				select.id = 'selectPlayer';
+				select.value = 'Enter name of Player Of Tie';
 				
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;

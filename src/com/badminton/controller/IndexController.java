@@ -354,7 +354,10 @@ public class IndexController
 								}
 							}
 					}
-					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badminton_matches,fixture, session_match, session_selected_broadcaster);
+					//System.out.println("id-" + Integer.valueOf(valueToProcess.split(",")[1]));
+					//System.out.println("Player-" + valueToProcess.split(",")[2]);
+					this_doad.populateOrderOfPlay(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),valueToProcess.split(",")[2],badminton_matches,fixture, 
+							session_match, session_selected_broadcaster);
 					break;
 				case "POPULATE-FF_TIE_PROMO":
 					this_doad.populateFFTiePromo(print_writer, viz_scene_path ,Integer.valueOf(valueToProcess.split(",")[1]),badmintonService.getAllTeam(),
@@ -523,26 +526,8 @@ public class IndexController
 						else {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "0" +";");
 						}
-						//TimeUnit.SECONDS.sleep(2);
-						/*if(session_match.getSets().get(0).getStatus().equalsIgnoreCase("START") ||  session_match.getSets().get(0).getStatus().equalsIgnoreCase("END")) {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "1" +";");
-							this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
-						}
-						if(session_match.getSets().get(1).getStatus().equalsIgnoreCase("START") ||  session_match.getSets().get(1).getStatus().equalsIgnoreCase("END")) {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "2" +";");
-							this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
-						}
-						if(session_match.getSets().get(2).getStatus().equalsIgnoreCase("START") ||  session_match.getSets().get(2).getStatus().equalsIgnoreCase("END")) {
-							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vSet " + "3" +";");
-							this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);
-						}*/
-						/*TimeUnit.SECONDS.sleep(3);	
-						this_doad.processAnimation(print_writer, "Score1In", "START", session_selected_broadcaster);
-						this_doad.processAnimation(print_writer, "Score2In", "START", session_selected_broadcaster);
-						this_doad.processAnimation(print_writer, "Score3In", "START", session_selected_broadcaster);*/
 						
-						//TimeUnit.SECONDS.sleep(5);
-						//this_doad.processAnimation(print_writer, "TrumpOut", "START", session_selected_broadcaster);
+						
 						is_ScoreBug_on_Screen = true;
 					}
 					which_graphics_onscreen = "SCOREBUG";

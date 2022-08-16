@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>BadmintonOutput</groupId>
   <artifactId>BadmintonOutput</artifactId>
-  <version>1.2.b51</version>
+  <version>1.2.b52</version>
   <packaging>war</packaging>
   <name>BadmintonOutput</name>
   <properties>
