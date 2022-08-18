@@ -180,6 +180,31 @@ public class IndexController
 				
 				if(is_ScoreBug_on_Screen == true) {
 					this_doad.populateScoreBug(true,print_writer, viz_scene_path, session_match, session_selected_broadcaster);
+					if(session_match.getSets() == null) {
+						if(session_match.getGoldenPointsPlayerId() != 0) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
+						}
+					}else {
+						if(session_match.getGoldenPointsPlayerId() != 0  && session_match.getSets().get(session_match.getSets().size() - 1).getHomeTeamTotalScore() == 0 &&  
+								session_match.getSets().get(session_match.getSets().size() - 1).getAwayTeamTotalScore() == 0) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
+						} 
+						else if(session_match.getGoldenPointsPlayerId() == session_match.getMatch().getHomeFirstPlayerId()) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "1" +";");
+							
+						}
+						else if(session_match.getGoldenPointsPlayerId() == session_match.getMatch().getAwayFirstPlayerId()) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "2" +";");
+							
+						}
+						else if(session_match.getGoldenPointsPlayerId() == 0) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
+						}
+					}
+					
 				}
 				
 				return JSONObject.fromObject(session_match).toString();
@@ -494,6 +519,10 @@ public class IndexController
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "0" +";");
 						}
 						
+						if(session_match.getGoldenPointsPlayerId() != 0) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
+						}
+						
 						is_ScoreBug_on_Screen = true;
 					}
 					else {
@@ -544,6 +573,25 @@ public class IndexController
 						}
 						else {
 							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vTrump " + "0" +";");
+						}
+						
+						if(session_match.getGoldenPointsPlayerId() != 0  && session_match.getSets().get(session_match.getSets().size() - 1).getHomeTeamTotalScore() == 0 
+								&& session_match.getSets().get(session_match.getSets().size() - 1).getAwayTeamTotalScore() == 0) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
+						} 
+						else if(session_match.getGoldenPointsPlayerId() == session_match.getMatch().getHomeFirstPlayerId()) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "1" +";");
+							
+						}
+						else if(session_match.getGoldenPointsPlayerId() == session_match.getMatch().getAwayFirstPlayerId()) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "2" +";");
+							
+						}
+						else if(session_match.getGoldenPointsPlayerId() == 0) {
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPointOption " + "1" +";");
+							print_writer.println("LAYER1*EVEREST*TREEVIEW*Main*FUNCTION*TAG_CONTROL SET vGoldenPoint " + "0" +";");
 						}
 						
 						
