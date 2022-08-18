@@ -98,7 +98,7 @@ function processUserSelection(whichInput)
 	case 'scorebug_graphic_btn': case 'scorebugstat_graphic_btn': 
 	case 'sides_graphic_btn': case 'super_graphic_btn': case 'bug_super_graphic_btn': case 'playerprofile_graphic_btn': 
 	case 'orderofplay_graphic_btn': case 'ff_tie_graphic_btn': case 'l3_tie_graphic_btn': case 'lt_tieid_double_graphic_btn':
-	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': 
+	case 'ff_single_match_graphic_btn': case 'ff_double_match_graphic_btn': case 'l3_single_match_graphic_btn': case 'points_table_graphic_btn':
 	case 'l3_double_match_graphic_btn': case 'squads_graphic_btn': case 'namesuper_player_graphic_btn': case 'schedule_graphic_btn': case 'cancel_btn':
 	
 		$("#main_captions_div").hide();
@@ -268,6 +268,17 @@ function processUserSelection(whichInput)
 				processBadmintonProcedures('SCHEDULE_GRAPHICS-OPTIONS');
 			}
 			break;
+		case 'points_table_graphic_btn':
+			if(is_scorebug_on_screen == true){
+				alert('Score Bug is On Air');
+				$('#select_graphic_options_div').empty();
+				document.getElementById('select_graphic_options_div').style.display = 'none';
+				$("#main_captions_div").show();
+			}else{
+				processBadmintonProcedures('POINTS_TABLE_GRAPHICS-OPTIONS');
+				//processBadmintonProcedures('POPULATE-POINTS_TABLE');
+			}
+			break;
 		case 'cancel_btn':
 			processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
 			break;
@@ -275,9 +286,9 @@ function processUserSelection(whichInput)
 		break;
 	case 'populate_scorebug_btn': case 'populate_scorebugstat_btn': case 'singlel3matchid_graphic_btn': case 'singleffmatchid_graphic_btn': case 'doublel3matchid_graphic_btn': case 'cancel_btn':
 	case 'populate_sides_btn': case 'populate_super_btn': case 'populate_player_profile_btn': case 'doubleffmatchid_graphic_btn': case 'l3tieid_graphic_btn': case 'fftieid_graphic_btn':
-	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn': case 'points_table_graphic_btn':
+	case 'populate_order_of_play_btn': case 'populate_ff_tie_promo_btn': case 'populate_l3_tie_promo_btn': 
 	case 'populate_ff_single_match_promo_btn': case 'populate_ff_double_match_promo_btn': case 'populate_l3_single_match_promo_btn':
-	case 'populate_bug_super_btn': case 'populate_lt_tieId_double_btn':
+	case 'populate_bug_super_btn': case 'populate_lt_tieId_double_btn': case 'populate_point_table_btn':
 	case 'populate_l3_double_match_promo_btn': case 'populate_squads_btn': case 'populate_namesuper_player_btn': case 'teamslogo_graphic_btn': 
 	case 'supermatch_graphic_btn': case 'supermatch1_graphic_btn': case 'supermatch2_graphic_btn': case 'rules_graphic_btn': case 'populate_schedule_btn':
 		processWaitingButtonSpinner('START_WAIT_TIMER');
@@ -370,14 +381,7 @@ function processUserSelection(whichInput)
 			}
 			//addItemsToList('SUPER_MATCH2-OPTIONS',null);
 			break;
-		case 'points_table_graphic_btn':
-			if(is_scorebug_on_screen == true){
-				alert('Score Bug is On Air');
-			}else{
-				processBadmintonProcedures('POPULATE-POINTS_TABLE');
-			}
-			//addItemsToList('POINTS_TABLE-OPTIONS',null);
-			break;
+		
 		case 'populate_sides_btn':
 			if($('#selectSide1 option:selected').val() == "Select_Top_Side" && $('#selectSide2 option:selected').val() == "Select_Bottom_Side"){
 				alert("Select Side First!!");
@@ -441,6 +445,9 @@ function processUserSelection(whichInput)
 			break;
 		case 'populate_schedule_btn':
 			processBadmintonProcedures('POPULATE-SCHEDULE');
+			break;
+		case 'populate_point_table_btn':
+			processBadmintonProcedures('POPULATE-POINTS_TABLE');
 			break;
 
 		}
@@ -666,7 +673,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-POINTS_TABLE':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Points_Table.sum';
+			valueToProcess = $('#pointtableScene').val() + ',' + $('#selectGroup option:selected').val();
 			break;
 		}
 		break;
@@ -782,6 +789,10 @@ function processBadmintonProcedures(whatToProcess)
 				break;
 			case 'SCHEDULE_GRAPHICS-OPTIONS':
 				addItemsToList('SCHEDULE-OPTIONS',data);
+				match_data = data;
+				break;
+			case 'POINTS_TABLE_GRAPHICS-OPTIONS':
+				addItemsToList('POINTS_TABLE-OPTIONS',data);
 				match_data = data;
 				break;
 			case 'SUPER_MATCH1_GRAPHICS-OPTIONS':
@@ -1601,7 +1612,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 	switch (whatToProcess) {
 	
 	case 'ORDER_OF_PLAY-OPTIONS': case 'FF_TIE-OPTIONS': case 'L3_TIE-OPTIONS': case 'FF_SINGLE-OPTIONS': case 'FF_DOUBLE-OPTIONS': case 'LT_SINGLE-OPTIONS':
-	case 'LT_DOUBLE-OPTIONS': case 'SQUADS-OPTIONS': case 'SCHEDULE-OPTIONS':
+	case 'LT_DOUBLE-OPTIONS': case 'SQUADS-OPTIONS': case 'SCHEDULE-OPTIONS': case 'POINTS_TABLE-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
 
@@ -1920,7 +1931,45 @@ function addItemsToList(whatToProcess, dataToProcess)
 					
 					//select.setAttribute('onchange',"processUserSelection(this)");
 					break;
-
+			
+			case 'POINTS_TABLE-OPTIONS':
+				select = document.createElement('input');
+					select.type = "text";
+					select.id = 'pointtableScene';
+					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Points_Table.sum';
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;
+					
+					select = document.createElement('select');
+					select.id = 'selectGroup';
+					select.name = select.id;
+					
+					option = document.createElement('option');
+					option.value = 'Group A';
+					option.text = 'Group A';
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 'Group B';
+					option.text = 'Group B';
+					select.appendChild(option);
+					
+					option = document.createElement('option');
+					option.value = 'SUPER LEAGUE';
+					option.text = 'SUPER LEAGUE';
+					select.appendChild(option);
+					
+					/*option = document.createElement('option');
+					option.value = 'FINAL';
+					option.text = 'FINAL';
+					select.appendChild(option);*/
+					
+					row.insertCell(cellCount).appendChild(select);
+					cellCount = cellCount + 1;
+					
+					//select.setAttribute('onchange',"processUserSelection(this)");
+					break;
 				
 				
 			}
@@ -2133,6 +2182,30 @@ function addItemsToList(whatToProcess, dataToProcess)
 			case 'SCHEDULE-OPTIONS':
 				option.name = 'populate_schedule_btn';
 			    option.value = 'Populate Schedule';
+			    option.id = option.name;
+			    
+			    option.setAttribute('onclick',"processUserSelection(this)");
+			    
+			    div = document.createElement('div');
+			    div.append(option);
+				
+				option = document.createElement('input');
+				option.type = 'button';
+				option.name = 'cancel_graphics_btn';
+				option.id = option.name;
+				option.value = 'Cancel';
+				option.setAttribute('onclick','processUserSelection(this)');
+		
+			    div.append(option);
+			    
+			    row.insertCell(cellCount).appendChild(div);
+			    cellCount = cellCount + 1;
+			    
+				document.getElementById('select_graphic_options_div').style.display = '';
+				break;
+			case 'POINTS_TABLE-OPTIONS':
+				option.name = 'populate_point_table_btn';
+			    option.value = 'Populate Point Table';
 			    option.id = option.name;
 			    
 			    option.setAttribute('onclick',"processUserSelection(this)");
