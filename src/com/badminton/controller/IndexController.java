@@ -31,6 +31,7 @@ import com.badminton.containers.Configurations;
 import com.badminton.containers.Scene;
 import com.badminton.model.*;
 import com.badminton.service.BadmintonService;
+import com.badminton.util.BadmintonFunctions;
 import com.badminton.util.BadmintonUtil;
 
 import net.sf.json.JSONArray;
@@ -61,7 +62,6 @@ public class IndexController
 	List<BadmintonMatch> badminton_matches = new ArrayList<BadmintonMatch>();
 	List<Match> match = new ArrayList<Match>();
 	List<Team> allteams = new ArrayList<Team>();
-
 	
 	String session_selected_broadcaster,session_selected_ip,which_graphics_onscreen,viz_scene_path,stat,category_onscreen;
 	int session_selected_port ;
@@ -150,6 +150,10 @@ public class IndexController
 		
 		session_match.setMatch_file_timestamp(new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()));
 		
+//		BadmintonApi badmintonapi = BadmintonFunctions.
+//				getBasketBallDatafromJson("https://fanplaygurudevapi.azurewebsites.net/api/LeaderBoard/GetLeaderboard?teamId=155&count=5&from=2023-08-20&to=2023-08-22");
+//		System.out.println(badmintonapi.getApiData().getLeaderboard().get(0).getTeamname()); 
+//		System.out.println(badmintonapi.getApiData().getLeaderboard().get(0).getSubleaderboard().get(0).toString()); 
 		
 		model.addAttribute("session_match", session_match);
 		model.addAttribute("session_selected_broadcaster", session_selected_broadcaster);
@@ -450,7 +454,8 @@ public class IndexController
 							this_doad.processAnimation(print_writer, "OtherInfoOut", "START", session_selected_broadcaster);
 							
 							this_doad.processAnimation(print_writer, "TeamIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess, session_match,badmintonService.getFixtures(), session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess, session_match,badmintonService.getFixtures(),
+									session_selected_broadcaster);
 							
 							which_graphics_onscreen = "TEAM_NAME";
 						}
@@ -458,7 +463,8 @@ public class IndexController
 							
 							stat = valueToProcess;
 							this_doad.processAnimation(print_writer, "TeamIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(), session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(),
+									session_selected_broadcaster);
 							
 							which_graphics_onscreen = "TEAM_NAME";
 						}
@@ -469,14 +475,16 @@ public class IndexController
 							this_doad.processAnimation(print_writer, "TeamOut", "START", session_selected_broadcaster);
 							
 							this_doad.processAnimation(print_writer, "OtherInfoIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(), session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(),
+									session_selected_broadcaster);
 							
 							which_graphics_onscreen = valueToProcess.toUpperCase();
 						}
 						else {
 							stat = valueToProcess;
 							this_doad.processAnimation(print_writer, "OtherInfoIn", "START", session_selected_broadcaster);
-							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(), session_selected_broadcaster);
+							this_doad.populateScoreBugStat(false,print_writer, viz_scene_path, valueToProcess , session_match,badmintonService.getFixtures(),
+									session_selected_broadcaster);
 							
 							which_graphics_onscreen = valueToProcess.toUpperCase();
 						}
@@ -746,9 +754,6 @@ public class IndexController
 				case "ANIMATE-OUT": 
 					switch(which_graphics_onscreen) {
 					case "SCOREBUG":
-						//this_doad.processAnimation(print_writer, "Score1In", "COUNTINUE_REVERSE", session_selected_broadcaster);
-						//TimeUnit.SECONDS.sleep(1);
-						//this_doad.processAnimation(print_writer, "Out", "STOP", session_selected_broadcaster);
 						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
 						
 						which_graphics_onscreen = "";
@@ -759,7 +764,8 @@ public class IndexController
 					case "SINGLE_L3_MATCHID": case "SINGLE_FF_MATCHID": case "DOUBLE_L3_MATCHID": case "DOUBLE_FF_MATCHID": case "L3_TIEID": case "FF_TIEID":
 					case "FF_TIE_PROMO": case "L3_TIE_PROMO": case "SIDES": case "SUPER": case "PLAYER_PROFILE": case "ORDER_OF_PLAY": case "TEAMS_LOGO": 
 					case "SUPER_MATCH": case "SUPER_MATCH1": case "SUPER_MATCH2": case "FF_SINGLE_MATCH_PROMO": case "FF_DOUBLE_MATCH_PROMO": case "LT_SINGLE_MATCH_PROMO":
-					case "LT_DOUBLE_MATCH_PROMO": case "SQUADS": case "NAMESUPER_PLAYER": case "POINTS_TABLE": case "RULES": case "SCHEDULE": case "BUG_SUPER": case "TIEID_DOUBLE":
+					case "LT_DOUBLE_MATCH_PROMO": case "SQUADS": case "NAMESUPER_PLAYER": case "POINTS_TABLE": case "RULES": case "SCHEDULE": case "BUG_SUPER": 
+					case "TIEID_DOUBLE":
 						this_doad.processAnimation(print_writer, "Out", "START", session_selected_broadcaster);
 						which_graphics_onscreen = "";
 						break;

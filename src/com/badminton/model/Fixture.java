@@ -19,25 +19,25 @@ import javax.persistence.Column;
 public class Fixture {
 
   @Id
-  @Column(name = "MATCHNUMBER")
+  @Column(name = "MatchNumber")
   private int matchnumber;
   
   @Column(name = "Date")
   private String date;
   
-  @Column(name = "GROUPNAME")
+  @Column(name = "GroupName")
   private String groupname;
 
-  @Column(name = "HOMETEAM")
+  @Column(name = "HomeTeam")
   private int hometeam;
 
-  @Column(name = "AWAYTEAM")
+  @Column(name = "AwayTeam")
   private int awayteam;
   
-  @Column(name = "WINNER")
+  @Column(name = "Winner")
   private String winner;
 
-  @Column(name = "MARGIN")
+  @Column(name = "Margin")
   private String margin;
   
   @Transient

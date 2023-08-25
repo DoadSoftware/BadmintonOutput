@@ -19,18 +19,24 @@ import javax.persistence.Column;
 public class NameSuper
 {
   @Id
-  @Column(name = "NAMESUPERID")
+  @Column(name = "NameSuperID")
   private int namesuperId;
 
-  @Column(name = "FIRSTNAME")
+  @Column(name = "Prompt")
+  private String prompt;
+  
+  @Column(name = "FirstName")
   private String firstname;
 
-  @Column(name = "SURNAME")
+  @Column(name = "SurName")
   private String surname;
 
-  @Column(name = "SUBLINE")
+  @Column(name = "SubLine")
   private String subLine;
 
+  @Column(name = "Logo")
+  private String logo;
+  
   public NameSuper() {
 		super();
   }
@@ -39,13 +45,21 @@ public class NameSuper
 	super();
 	this.namesuperId = namesuperId;
   }
-  
+
 public int getNamesuperId() {
 	return namesuperId;
 }
 
 public void setNamesuperId(int namesuperId) {
 	this.namesuperId = namesuperId;
+}
+
+public String getPrompt() {
+	return prompt;
+}
+
+public void setPrompt(String prompt) {
+	this.prompt = prompt;
 }
 
 public String getFirstname() {
@@ -70,6 +84,20 @@ public String getSubLine() {
 
 public void setSubLine(String subLine) {
 	this.subLine = subLine;
+}
+
+public String getLogo() {
+	return logo;
+}
+
+public void setLogo(String logo) {
+	this.logo = logo;
+}
+
+@Override
+public String toString() {
+	return "NameSuper [namesuperId=" + namesuperId + ", prompt=" + prompt + ", firstname=" + firstname + ", surname="
+			+ surname + ", subLine=" + subLine + ", logo=" + logo + "]";
 }
 
 }

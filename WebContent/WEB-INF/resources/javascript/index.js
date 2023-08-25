@@ -13,6 +13,151 @@ function processWaitingButtonSpinner(whatToProcess)
 	}
 	
 }
+
+function processUserSelectionData(whatToProcess,dataToProcess){
+	switch (whatToProcess){
+		case 'LOGGER_FORM_KEYPRESS':
+			switch (dataToProcess){
+				case 32:
+					processBadmintonProcedures('CLEAR-ALL');
+					break;
+				case 189:
+					if(confirm('It will Also Delete Your Preview from Directory...\r\n\r\n Are You Sure To Animate Out?') == true){
+						processBadmintonProcedures('ANIMATE-OUT');
+					}
+					break;
+				
+				//ScoreBug	
+				case 112:
+					processBadmintonProcedures('POPULATE-SCOREBUG');
+					break;
+				case 73:
+					$("#main_captions_div").hide();
+					processBadmintonProcedures('SCOREBUGSTAT_GRAPHICS-OPTIONS');
+					break;
+				case 79:
+					processBadmintonProcedures('ANIMATE-OUT-STAT');
+					break;
+				
+				
+				case 113: case 114: case 115: case 116: case 117: case 118: case 119: case 120: case 121: case 122: case 123: case 80: case 82: case 83: case 84: case 68: 
+				case 70: case 71: case 90: case 88: case 67: case 81: case 87: case 69: case 65: case 72: case 74:
+								
+					if(is_scorebug_on_screen == true){
+						alert('Score Bug is On Air');
+						$('#select_graphic_options_div').empty();
+						document.getElementById('select_graphic_options_div').style.display = 'none';
+						$("#main_captions_div").show();
+					}else{
+						switch (dataToProcess){
+							case 113:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('NAMESUPER_GRAPHICS-OPTIONS');
+								break;
+							case 114:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('NAMESUPER_PLAYER_GRAPHICS-OPTIONS');
+								break;
+							case 115:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('BUGSUPER_GRAPHICS-OPTIONS');
+								break;
+							case 116:
+								processBadmintonProcedures('POPULATE-SINGLE-L3-MATCHID');
+								break;
+							case 117:
+								processBadmintonProcedures('POPULATE-SINGLE-FF-MATCHID');
+								break;
+							case 118:
+								processBadmintonProcedures('POPULATE-DOUBLE-L3_MATCHID');
+								break;
+							case 119:
+								processBadmintonProcedures('POPULATE-DOUBLE-FF-MATCHID');
+								break;
+							case 120:
+								processBadmintonProcedures('POPULATE-L3-TIEID');
+								break;
+							case 121:
+								processBadmintonProcedures('POPULATE-FF-TIEID');
+								break;
+							case 122:
+								$("#main_captions_div").hide();
+								addItemsToList('SIDES-OPTIONS',null);
+								break;
+							case 123:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('LT-TIEID-DOUBLE_GRAPHICS-OPTIONS');
+								break;
+							case 80:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('POINTS_TABLE_GRAPHICS-OPTIONS');
+								break;
+							case 82:
+								processBadmintonProcedures('POPULATE-RULES');
+								break;
+							case 83:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('SCHEDULE_GRAPHICS-OPTIONS');
+								break;
+							case 84:
+								processBadmintonProcedures('POPULATE-TEAMS_LOGO');
+								break;
+							case 68:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('SQUADS_GRAPHICS-OPTIONS');
+								break;
+							case 70:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('PLAYER_PROFILE_GRAPHICS-OPTIONS');
+								break;
+							case 71:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('ORDER_OF_PLAY_GRAPHICS-OPTIONS');
+								break;
+								
+							case 90:
+								processBadmintonProcedures('POPULATE-SUPER_MATCH');
+								break;
+							case 88:
+								processBadmintonProcedures('SUPER_MATCH1_GRAPHICS-OPTIONS');
+								break;
+							case 67:
+								processBadmintonProcedures('POPULATE-SUPER_MATCH2');
+								break;
+								
+							case 81:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('FF-SINGLE_GRAPHICS-OPTIONS');
+								break;
+							case 87:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('LT-SINGLE_GRAPHICS-OPTIONS');
+								break;
+							case 69:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('FF-DOUBLE_GRAPHICS-OPTIONS');
+								break;
+							case 65:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('LT-DOUBLE_GRAPHICS-OPTIONS');
+								break;
+							case 72:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('FF-TIE_GRAPHICS-OPTIONS');
+								break;
+							case 74:
+								$("#main_captions_div").hide();
+								processBadmintonProcedures('L3-TIE_GRAPHICS-OPTIONS');
+								break;
+						}
+						
+					}
+					break;
+			}
+			break;
+	}
+}
+
 function initialiseForm(whatToProcess,dataToProcess)
 {
 	switch (whatToProcess) {
@@ -20,8 +165,8 @@ function initialiseForm(whatToProcess,dataToProcess)
 		processUserSelection($('#select_broadcaster'));
 		break;
 	case 'UPDATE-MATCH-ON-OUTPUT-FORM': 
-			document.getElementById('home_team').innerHTML = 'Home :' + dataToProcess.match.homeTeam.fullname +'  '+ parseInt(dataToProcess.homeTeamSetsWon);
-			document.getElementById('away_team').innerHTML = parseInt(dataToProcess.awayTeamSetsWon) +" "+ dataToProcess.match.awayTeam.fullname + ': Away';
+			document.getElementById('home_team').innerHTML = 'Home :' + dataToProcess.match.homeTeam.teamName1 +'  '+ parseInt(dataToProcess.homeTeamSetsWon);
+			document.getElementById('away_team').innerHTML = parseInt(dataToProcess.awayTeamSetsWon) +" "+ dataToProcess.match.awayTeam.teamName1 + ': Away';
 			
 			if(dataToProcess.match.categoryId == 1){
 				document.getElementById('category').innerHTML = 'Category:' + " Women's Singles";
@@ -489,14 +634,13 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-SCOREBUG': 
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#scorebugScene').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Scorebug.sum';
 			break;	
 		}
 		break;
 	case 'POPULATE-SCOREBUGSTATS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			
 			valueToProcess = $('#selectscorebugStat option:selected').val() ;
 			break;
 		}
@@ -553,21 +697,23 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-SIDES':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#sidesScene').val() + ',' + $('#selectSide1 option:selected').val() + ',' + $('#selectSide2 option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Sides.sum' + ',' + $('#selectSide1 option:selected').val() + ','
+				+ $('#selectSide2 option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-SUPER':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#namesuperScene').val() + ',' + $('#selectNameSuper option:selected').val() + ',' + $('#selectSponsor option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Super.sum' + ',' + $('#selectNameSuper option:selected').val() + ',' 
+				+ $('#selectSponsor option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-BUG_SUPER':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#bugsuperScene').val() + ',' + $('#selectNameSuper option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Bug_DoubleLine.sum' + ',' + $('#selectNameSuper option:selected').val();
 			break;
 		}
 		break;
@@ -575,70 +721,72 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-NAMESUPER_PLAYER':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#namesuperplayerScene').val() + ',' + $('#selectNameSuperPlayer option:selected').val() + ',' + $('#selectNameSuperDetail option:selected').val() + ',' + $('#selectSponsor option:selected').val(); 
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Super.sum' + ',' + $('#selectNameSuperPlayer option:selected').val() + ',' 
+				+ $('#selectNameSuperDetail option:selected').val() + ',' + $('#selectSponsor option:selected').val(); 
 			break;
 		}
 		break;
 	case 'POPULATE-PLAYER_PROFILE':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#playerprofileScene').val() + ',' + $('#selectPlayer option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Player_Profile.sum' + ',' + $('#selectPlayer option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-ORDER_OF_PLAY':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#orderofplayScene').val() + ',' + $('#selectTeam1 option:selected').val()  + ',' + $('#selectPlayer').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Order_Of_Play_3.sum' + ',' + $('#selectTeam1 option:selected').val()  + ',' 
+				+ $('#selectPlayer').val();
 			break;
 		}
 		break;
 	case 'POPULATE-FF_TIE_PROMO':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#fftiepromoScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/TieId.sum' + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-L3_TIE_PROMO':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#l3tiepromoScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_TieID.sum' + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-SINGLE_MATCH_PROMO':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#ffsinglepromoScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/MatchId_Singles.sum' + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-DOUBLE_MATCH_PROMO':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#ffdoublepromoScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/MatchId_Double.sum' + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-LT_SINGLE_MATCH_PROMO':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#l3singlepromoScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_MatchID_Score_Single.sum' + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-LT_DOUBLE_MATCH_PROMO':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#l3doublepromoScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_MatchID_Score_Double.sum' + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
 	case 'POPULATE-SQUADS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#squadsScene').val() + ',' + $('#selectTeam option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Squad.sum' + ',' + $('#selectTeam option:selected').val();
 			break;
 		}
 		break;
@@ -673,7 +821,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-POINTS_TABLE':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#pointtableScene').val() + ',' + $('#selectGroup option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Points_Table.sum' + ',' + $('#selectGroup option:selected').val();
 			break;
 		}
 		break;
@@ -687,7 +835,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-SCHEDULE':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = $('#scheduleScene').val() + ',' + $('#selectGroup option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/DD_Schedule.sum' + ',' + $('#selectGroup option:selected').val();
 			break;
 		}
 		break;
@@ -715,14 +863,8 @@ function processBadmintonProcedures(whatToProcess)
 					}
 				}
 				break;
-			case 'SCOREBUG_GRAPHICS-OPTIONS':
-				addItemsToList('SCOREBUG-OPTIONS',data);
-				//addItemsToList('SCOREBUG-OPTIONS',data);
-				match_data = data;
-				break;
 			case 'SCOREBUGSTAT_GRAPHICS-OPTIONS':
 				addItemsToList('SCOREBUGSTAT-OPTIONS',data);
-				//addItemsToList('SCOREBUG-OPTIONS',data);
 				match_data = data;
 				break;
 			case 'LT-TIEID-DOUBLE_GRAPHICS-OPTIONS':
@@ -955,7 +1097,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 		//alert(dataToProcess.sets.homeTeamTotalScore);
 		
 		break;
-	case 'SCOREBUG-OPTIONS': case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
+	case 'SCOREBUGSTAT-OPTIONS': case 'SIDES-OPTIONS': case 'SUPER-OPTIONS': case 'PLAYER_PROFILE-OPTIONS': case'POINT-OPTIONS': case'MATCH_POINT-OPTIONS':
 	case 'NAMESUPER_PLAYER-OPTIONS': case 'MANUAL_GRAPHICS-OPTIONS': case 'BUGSUPER-OPTIONS': case 'LT-TIEID-DOUBLE-OPTIONS':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
@@ -1041,16 +1183,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				row.insertCell(cellCount).appendChild(select);
 				cellCount = cellCount + 1;
 				break;
-			case 'SCOREBUG-OPTIONS':
-				select = document.createElement('input');
-				select.type = "text";
-				select.id = 'scorebugScene';
-				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Scorebug.sum';
-				
-				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
-				 
-				break;
 			case 'SCOREBUGSTAT-OPTIONS':
 			
 				select = document.createElement('select');
@@ -1116,14 +1248,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 			
 			case 'SIDES-OPTIONS':
-				select = document.createElement('input');
-				select.type = "text";
-				select.id = 'sidesScene';
-				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Sides.sum';
-				
-				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
-				
 				select = document.createElement('select');
 				select.id = 'selectSide1';
 				select.name = select.id;
@@ -1171,14 +1295,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 				
 			case 'PLAYER_PROFILE-OPTIONS':
-				select = document.createElement('input');
-				select.type = "text";
-				select.id = 'playerprofileScene';
-				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Player_Profile.sum';
-				
-				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
-				
 				select = document.createElement('select');
 				select.id = 'selectPlayer';
 				select.name = select.id;
@@ -1199,14 +1315,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 				
 			case 'SUPER-OPTIONS':
-				select = document.createElement('input');
-				select.type = "text";
-				select.id = 'namesuperScene';
-				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Super.sum';
-				
-				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
-				
 				select = document.createElement('select');
 				select.style = 'width:130px';
 				select.id = 'selectNameSuper';
@@ -1243,14 +1351,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				
 				break;
 			case 'BUGSUPER-OPTIONS':
-				select = document.createElement('input');
-				select.type = "text";
-				select.id = 'bugsuperScene';
-				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Bug_DoubleLine.sum';
-				
-				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
-				
 				select = document.createElement('select');
 				select.style = 'width:130px';
 				select.id = 'selectNameSuper';
@@ -1268,15 +1368,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 				
 			case 'NAMESUPER_PLAYER-OPTIONS':
-				select = document.createElement('input');
-				select.type = "text";
-				select.id = 'namesuperplayerScene';
-				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_Super.sum';
-				
-				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
-				
-				
 				select = document.createElement('select');
 				select.style = 'width:130px';
 				select.id = 'selectNameSuperPlayer';
@@ -1342,30 +1433,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 		    
 			switch (whatToProcess) {
 			
-			case'SCOREBUG-OPTIONS':
-			    option.name = 'populate_scorebug_btn';
-			    option.value = 'Populate Scorebug';
-			    option.id = option.name;
-			    
-			    option.setAttribute('onclick',"processUserSelection(this)");
-			    
-			    div = document.createElement('div');
-			    div.append(option);
-				
-				option = document.createElement('input');
-				option.type = 'button';
-				option.name = 'cancel_graphics_btn';
-				option.id = option.name;
-				option.value = 'Cancel';
-				option.setAttribute('onclick','processUserSelection(this)');
-		
-			    div.append(option);
-			    
-			    row.insertCell(cellCount).appendChild(div);
-			    cellCount = cellCount + 1;
-			    
-				document.getElementById('select_graphic_options_div').style.display = '';
-				break;
 			case'SCOREBUGSTAT-OPTIONS':
 			    option.name = 'populate_scorebugstat_btn';
 			    option.value = 'Populate ScorebugStat';
@@ -1386,9 +1453,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 		
 			    div.append(option);
 			    
-			    row.insertCell(cellCount).appendChild(div);
-			    cellCount = cellCount + 1;
-				
 				option = document.createElement('input');
 				option.type = 'button';
 				option.name = 'cancel_graphics_btn';
@@ -1399,7 +1463,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 			    div.append(option);
 			    
 			    row.insertCell(cellCount).appendChild(div);
-			    cellCount = cellCount + 1;
 			    
 				document.getElementById('select_graphic_options_div').style.display = '';
 			    
@@ -1634,14 +1697,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 		    
 			switch (whatToProcess) {
 			case 'ORDER_OF_PLAY-OPTIONS':
-				select = document.createElement('input');
-				select.type = "text";
-				select.id = 'orderofplayScene';
-				select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Order_Of_Play.sum';
-				
-				row.insertCell(cellCount).appendChild(select);
-				cellCount = cellCount + 1;
-				
 				select = document.createElement('select');
 				select.id = 'selectTeam1';
 				select.name = select.id;
@@ -1650,7 +1705,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 						
 					option = document.createElement('option');
                     option.value = oop.matchnumber;
-                    option.text = 'TIE- ' + oop.matchnumber +" "+ oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname;
+                    option.text = 'TIE- ' + oop.matchnumber +" "+ oop.home_Team.teamName1 + ' Vs ' + oop.away_Team.teamName1;
                     select.appendChild(option);
 						
                 });
@@ -1686,14 +1741,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 				break;
 				
 				case 'FF_TIE-OPTIONS':
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'fftiepromoScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/TieId.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
@@ -1701,7 +1748,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(oop,index,arr1){	
 						option = document.createElement('option');
 	                    option.value = oop.matchnumber;
-	                    option.text = oop.matchnumber + ' - ' +oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
+	                    option.text = oop.matchnumber + ' - ' +oop.home_Team.teamName1 + ' Vs ' + oop.away_Team.teamName1 ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1713,14 +1760,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 				
 				case 'L3_TIE-OPTIONS':
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'l3tiepromoScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_TieID.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
@@ -1728,7 +1767,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(oop,index,arr1){	
 						option = document.createElement('option');
 	                    option.value = oop.matchnumber;
-	                    option.text = oop.matchnumber + ' - ' +oop.home_Team.fullname + ' Vs ' + oop.away_Team.fullname ;
+	                    option.text = oop.matchnumber + ' - ' +oop.home_Team.teamName1 + ' Vs ' + oop.away_Team.teamName1 ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1740,14 +1779,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 					
 				case 'FF_SINGLE-OPTIONS':
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'ffsinglepromoScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/MatchId_Singles.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
@@ -1767,14 +1798,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 				
 				case 'FF_DOUBLE-OPTIONS': 
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'ffdoublepromoScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/MatchId_Double.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
@@ -1794,14 +1817,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 					
 				case 'LT_SINGLE-OPTIONS':
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'l3singlepromoScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_MatchID_Score_Single.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
@@ -1821,14 +1836,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 					
 				case 'LT_DOUBLE-OPTIONS':
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'l3doublepromoScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/LT_MatchID_Score_Double.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
@@ -1848,14 +1855,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 					
 				case 'SQUADS-OPTIONS':
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'squadsScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Squad.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectTeam';
 					select.name = select.id;
@@ -1863,7 +1862,7 @@ function addItemsToList(whatToProcess, dataToProcess)
 					dataToProcess.forEach(function(team,index,arr1){	
 						option = document.createElement('option');
 						option.value = team.teamId;
-                    	option.text = team.fullname ;
+                    	option.text = team.teamName1 ;
 	                    select.appendChild(option);
 							
 	                });
@@ -1894,53 +1893,6 @@ function addItemsToList(whatToProcess, dataToProcess)
 					break;
 					
 				case 'SCHEDULE-OPTIONS':
-					select = document.createElement('input');
-					select.type = "text";
-					select.id = 'scheduleScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/DD_Schedule.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
-					select = document.createElement('select');
-					select.id = 'selectGroup';
-					select.name = select.id;
-					
-					option = document.createElement('option');
-					option.value = 'Group A';
-					option.text = 'Group A';
-					select.appendChild(option);
-					
-					option = document.createElement('option');
-					option.value = 'Group B';
-					option.text = 'Group B';
-					select.appendChild(option);
-					
-					option = document.createElement('option');
-					option.value = 'SUPER LEAGUE';
-					option.text = 'SUPER LEAGUE';
-					select.appendChild(option);
-					
-					option = document.createElement('option');
-					option.value = 'FINAL';
-					option.text = 'FINAL';
-					select.appendChild(option);
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
-					//select.setAttribute('onchange',"processUserSelection(this)");
-					break;
-			
-			case 'POINTS_TABLE-OPTIONS':
-				select = document.createElement('input');
-					select.type = "text";
-					select.id = 'pointtableScene';
-					select.value = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/Points_Table.sum';
-					
-					row.insertCell(cellCount).appendChild(select);
-					cellCount = cellCount + 1;
-					
 					select = document.createElement('select');
 					select.id = 'selectGroup';
 					select.name = select.id;
@@ -1970,8 +1922,37 @@ function addItemsToList(whatToProcess, dataToProcess)
 					
 					//select.setAttribute('onchange',"processUserSelection(this)");
 					break;
+			
+			case 'POINTS_TABLE-OPTIONS':
+				select = document.createElement('select');
+				select.id = 'selectGroup';
+				select.name = select.id;
 				
+				option = document.createElement('option');
+				option.value = 'Group A';
+				option.text = 'Group A';
+				select.appendChild(option);
 				
+				option = document.createElement('option');
+				option.value = 'Group B';
+				option.text = 'Group B';
+				select.appendChild(option);
+				
+				option = document.createElement('option');
+				option.value = 'SUPER LEAGUE';
+				option.text = 'SUPER LEAGUE';
+				select.appendChild(option);
+				
+				/*option = document.createElement('option');
+				option.value = 'FINAL';
+				option.text = 'FINAL';
+				select.appendChild(option);*/
+				
+				row.insertCell(cellCount).appendChild(select);
+				cellCount = cellCount + 1;
+				
+				//select.setAttribute('onchange',"processUserSelection(this)");
+				break;
 			}
 			option = document.createElement('input');
 		    option.type = 'button';

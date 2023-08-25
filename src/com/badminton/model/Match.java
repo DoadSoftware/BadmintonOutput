@@ -15,25 +15,25 @@ import javax.persistence.Column;
 public class Match {
 
   @Id
-  @Column(name = "matchId")
+  @Column(name = "MatchID")
   private Integer matchId;
   
-  @Column(name = "MATCHDATE")
+  @Column(name = "MatchDate")
   private String matchDate;
   
-  @Column(name = "MATCHIDENT")
+  @Column(name = "MatchIdent")
   private String matchIdent;
   
-  @Column(name = "MATCHNUMBER")
+  @Column(name = "MatchNumber")
   private Integer matchnumber;
   
-  @Column(name = "GROUPNAME")
+  @Column(name = "GroupName")
   private String groupname;
 	
-  @Column(name = "homeFirstPlayerId")
+  @Column(name = "HomeFirstPlayerId")
   private Integer homeFirstPlayerId ;
   
-  @Column(name = "homeSecondPlayerId")
+  @Column(name = "HomeSecondPlayerId")
   private Integer homeSecondPlayerId ;
 
   @Column(name = "homeThirdPlayerId")
@@ -50,6 +50,9 @@ public class Match {
   
   @Column(name = "numberOfSets")
   private Integer numberOfSets;
+  
+  @Column(name = "NumberOfPoints")
+  private Integer numberOfPoints;
   
   @Column(name = "categoryId")
   private Integer categoryId;
@@ -225,6 +228,14 @@ public Integer getNumberOfSets() {
 
 public void setNumberOfSets(Integer numberOfSets) {
 	this.numberOfSets = numberOfSets;
+}
+
+public Integer getNumberOfPoints() {
+	return numberOfPoints;
+}
+
+public void setNumberOfPoints(Integer numberOfPoints) {
+	this.numberOfPoints = numberOfPoints;
 }
 
 public Integer getCategoryId() {

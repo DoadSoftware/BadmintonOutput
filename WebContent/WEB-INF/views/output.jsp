@@ -15,6 +15,14 @@
   <link rel="stylesheet" href="<c:url value="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"/>"/>  
   <link href="<c:url value="/webjars/font-awesome/6.0.0/css/all.css"/>" rel="stylesheet">
   <script type="text/javascript">
+  $(document).on("keydown", function(e){
+		if (e.which >= 112 && e.which <= 123) { // Suppress default behaviour of F1 to F12
+			e.preventDefault();
+		}else if (e.which == 32) {
+			e.preventDefault();
+		}
+		processUserSelectionData('LOGGER_FORM_KEYPRESS',e.which);
+	});
   setInterval(() => {
 	  processBadmintonProcedures('READ-MATCH-AND-POPULATE');
 	}, 1000);
@@ -44,8 +52,8 @@
 			    <label id="category" class="col-sm-4 col-form-label text-left" >Category: ${session_match.match.categoryId}</label>
 				<label class="col-sm-4 col-form-label text-left"> ${session_match.match.groupname} </label>
 			  </div>
-			    <label id="home_team" class="col-sm-4 col-form-label text-left" >Home : ${session_match.match.homeTeam.fullname}  ${session_match.homeTeamSetsWon} </label>
-			    <label id="away_team" class="col-sm-4 col-form-label text-right" >${session_match.awayTeamSetsWon} ${session_match.match.awayTeam.fullname} : Away   </label>
+			    <label id="home_team" class="col-sm-4 col-form-label text-left" >Home : ${session_match.match.homeTeam.teamName1}  ${session_match.homeTeamSetsWon} </label>
+			    <label id="away_team" class="col-sm-4 col-form-label text-right" >${session_match.awayTeamSetsWon} ${session_match.match.awayTeam.teamName1} : Away   </label>
 			    <div id="caption_div" class="left" style="margin-bottom:5px;">
 					<c:forEach var="homeplayers" begin = "0" end = "2" items="${session_match.match.homePlayers}">
 						<label id="home_player" class="col-sm-4 col-form-label text-left">Home player: ${homeplayers.ticker_name}</label>
@@ -69,7 +77,7 @@
 						
 					</c:forEach>
 				</div>
-				<div class="form-group row row-bottom-margin ml-2" style="margin-bottom:5px;">
+				<!--  <div class="form-group row row-bottom-margin ml-2" style="margin-bottom:5px;">
 			    <label for="previous_xml_data" class="col-sm-4 col-form-label text-left">Previous Manual Data </label>
 			    <div class="col-sm-6 col-md-6">
 			      <select id="previous_xml_data" name="previous_xml_data" 
@@ -79,97 +87,97 @@
 						</c:forEach>
 			      </select>
 			    </div>
-			  </div>
+			  </div>-->
 			<div class="left">
 			<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="scorebug_graphic_btn" id="scorebug_graphic_btn" onclick="processUserSelection(this)"> Scorebug </button>
+		  		name="populate_scorebug_btn" id="populate_scorebug_btn" onclick="processUserSelection(this)"> Scorebug (F1)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="scorebugstat_graphic_btn" id="scorebugstat_graphic_btn" onclick="processUserSelection(this)"> Scorebug Stats </button>
+		  		name="scorebugstat_graphic_btn" id="scorebugstat_graphic_btn" onclick="processUserSelection(this)"> Scorebug Stats (I)</button>
 		  	
 		  	</div>
 		  	<div class="left">
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="singlel3matchid_graphic_btn" id="singlel3matchid_graphic_btn" onclick="processUserSelection(this)"> SingleL3MatchId  </button>
+		  		name="singlel3matchid_graphic_btn" id="singlel3matchid_graphic_btn" onclick="processUserSelection(this)"> SingleL3MatchId (F5)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="singleffmatchid_graphic_btn" id="singleffmatchid_graphic_btn" onclick="processUserSelection(this)"> SingleFFMatchId  </button>
+		  		name="singleffmatchid_graphic_btn" id="singleffmatchid_graphic_btn" onclick="processUserSelection(this)"> SingleFFMatchId (F6)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="ff_single_match_graphic_btn" id="ff_single_match_graphic_btn" onclick="processUserSelection(this)"> FF-Single-Match Promo  </button>
+		  		name="ff_single_match_graphic_btn" id="ff_single_match_graphic_btn" onclick="processUserSelection(this)"> FF-Single-Match Promo (Q)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="l3_single_match_graphic_btn" id="l3_single_match_graphic_btn" onclick="processUserSelection(this)"> LT-Single-Match Promo  </button>	
+		  		name="l3_single_match_graphic_btn" id="l3_single_match_graphic_btn" onclick="processUserSelection(this)"> LT-Single-Match Promo (W)</button>	
 		  	
 		  	</div>
 		  	<div class="left">
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="doublel3matchid_graphic_btn" id="doublel3matchid_graphic_btn" onclick="processUserSelection(this)"> Double L3 MatchId  </button>
+		  		name="doublel3matchid_graphic_btn" id="doublel3matchid_graphic_btn" onclick="processUserSelection(this)"> Double L3 MatchId (F7)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="doubleffmatchid_graphic_btn" id="doubleffmatchid_graphic_btn" onclick="processUserSelection(this)"> Double FF MatchId  </button>
+		  		name="doubleffmatchid_graphic_btn" id="doubleffmatchid_graphic_btn" onclick="processUserSelection(this)"> Double FF MatchId (F8)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="ff_double_match_graphic_btn" id="ff_double_match_graphic_btn" onclick="processUserSelection(this)"> FF-Double-Match Promo  </button>
+		  		name="ff_double_match_graphic_btn" id="ff_double_match_graphic_btn" onclick="processUserSelection(this)"> FF-Double-Match Promo (E)</button>
 		  	
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="l3_double_match_graphic_btn" id="l3_double_match_graphic_btn" onclick="processUserSelection(this)"> LT-Double-Match Promo  </button>
+		  		name="l3_double_match_graphic_btn" id="l3_double_match_graphic_btn" onclick="processUserSelection(this)"> LT-Double-Match Promo (A)</button>
 		  	
 		  	</div>
 		  	<div class="left">
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="l3tieid_graphic_btn" id="l3tieid_graphic_btn" onclick="processUserSelection(this)"> L3-TieId  </button>
+		  		name="l3tieid_graphic_btn" id="l3tieid_graphic_btn" onclick="processUserSelection(this)"> L3-TieId (F9)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="fftieid_graphic_btn" id="fftieid_graphic_btn" onclick="processUserSelection(this)"> FF-TieId  </button>
+		  		name="fftieid_graphic_btn" id="fftieid_graphic_btn" onclick="processUserSelection(this)"> FF-TieId (F10)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="ff_tie_graphic_btn" id="ff_tie_graphic_btn" onclick="processUserSelection(this)"> FFTiePromo  </button>
+		  		name="ff_tie_graphic_btn" id="ff_tie_graphic_btn" onclick="processUserSelection(this)"> FFTiePromo (H)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="l3_tie_graphic_btn" id="l3_tie_graphic_btn" onclick="processUserSelection(this)"> LTTiePromo  </button>
+		  		name="l3_tie_graphic_btn" id="l3_tie_graphic_btn" onclick="processUserSelection(this)"> LTTiePromo (J)</button>
 		  	
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="sides_graphic_btn" id="sides_graphic_btn" onclick="processUserSelection(this)"> Sides  </button>
+		  		name="sides_graphic_btn" id="sides_graphic_btn" onclick="processUserSelection(this)"> Sides (F11)</button>
 		  	
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="super_graphic_btn" id="super_graphic_btn" onclick="processUserSelection(this)"> Name Super  </button>
+		  		name="super_graphic_btn" id="super_graphic_btn" onclick="processUserSelection(this)"> Name Super (F2)</button>
 		  		
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="bug_super_graphic_btn" id="bug_super_graphic_btn" onclick="processUserSelection(this)"> Bug Super  </button>
+		  		name="bug_super_graphic_btn" id="bug_super_graphic_btn" onclick="processUserSelection(this)"> Bug Super (F4)</button>
 		  		
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="namesuper_player_graphic_btn" id="namesuper_player_graphic_btn" onclick="processUserSelection(this)"> NameSuper-Player  </button>
+		  		name="namesuper_player_graphic_btn" id="namesuper_player_graphic_btn" onclick="processUserSelection(this)"> NameSuper-Player (F3)</button>
 		  		
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> Player Profile  </button>
+		  		name="playerprofile_graphic_btn" id="playerprofile_graphic_btn" onclick="processUserSelection(this)"> Player Profile (F)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="orderofplay_graphic_btn" id="orderofplay_graphic_btn" onclick="processUserSelection(this)"> Order Of Play  </button>
+		  		name="orderofplay_graphic_btn" id="orderofplay_graphic_btn" onclick="processUserSelection(this)"> Order Of Play (G)</button>
 		  	
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="squads_graphic_btn" id="squads_graphic_btn" onclick="processUserSelection(this)"> Squad  </button>
+		  		name="squads_graphic_btn" id="squads_graphic_btn" onclick="processUserSelection(this)"> Squad (D)</button>
 		  	
 			<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="teamslogo_graphic_btn" id="teamslogo_graphic_btn" onclick="processUserSelection(this)"> Teams Logos </button>
+		  		name="teamslogo_graphic_btn" id="teamslogo_graphic_btn" onclick="processUserSelection(this)"> Teams Logos (T)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="supermatch_graphic_btn" id="supermatch_graphic_btn" onclick="processUserSelection(this)"> Super MatchFF  </button>
+		  		name="supermatch_graphic_btn" id="supermatch_graphic_btn" onclick="processUserSelection(this)"> Super MatchFF (Z)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="supermatch1_graphic_btn" id="supermatch1_graphic_btn" onclick="processUserSelection(this)"> Super Match1  </button>
+		  		name="supermatch1_graphic_btn" id="supermatch1_graphic_btn" onclick="processUserSelection(this)"> Super Match1 (X)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="supermatch2_graphic_btn" id="supermatch2_graphic_btn" onclick="processUserSelection(this)"> Super Match2  </button>
+		  		name="supermatch2_graphic_btn" id="supermatch2_graphic_btn" onclick="processUserSelection(this)"> Super Match2 (C)</button>
 		  		
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="points_table_graphic_btn" id="points_table_graphic_btn" onclick="processUserSelection(this)"> Points Table  </button>
+		  		name="points_table_graphic_btn" id="points_table_graphic_btn" onclick="processUserSelection(this)"> Points Table (P)</button>
 
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="rules_graphic_btn" id="rules_graphic_btn" onclick="processUserSelection(this)"> Rules  </button>
+		  		name="rules_graphic_btn" id="rules_graphic_btn" onclick="processUserSelection(this)"> Rules (R)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="schedule_graphic_btn" id="schedule_graphic_btn" onclick="processUserSelection(this)"> Schedule  </button>	
+		  		name="schedule_graphic_btn" id="schedule_graphic_btn" onclick="processUserSelection(this)"> Schedule (S)</button>	
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
-		  		name="lt_tieid_double_graphic_btn" id="lt_tieid_double_graphic_btn" onclick="processUserSelection(this)"> LT TieID Double  </button>
+		  		name="lt_tieid_double_graphic_btn" id="lt_tieid_double_graphic_btn" onclick="processUserSelection(this)"> LT TieID Double (F12)</button>
 
 		  	</div>
 		  	<div class="left">
 		  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
-		  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut </button>
+		  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut (-)</button>
 		  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
-		  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All </button>
+		  		name="clearall_graphic_btn" id="clearall_graphic_btn" onclick="processUserSelection(this)"> Clear All (SpaceBar)</button>
 		  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
-		  		name="animateout_category_graphic_btn" id="animateout_category_graphic_btn" onclick="processUserSelection(this)"> AnimateOut Category </button>
+		  		name="animateout_category_graphic_btn" id="animateout_category_graphic_btn" onclick="processUserSelection(this)"> AnimateOut Category (O)</button>
 		  	
-		  <button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
-		  		name="manualgraphics_graphic_btn" id="manualgraphics_graphic_btn" onclick="processUserSelection(this)"> Animate In Manual </button>
+		  <!--  <button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
+		  		name="manualgraphics_graphic_btn" id="manualgraphics_graphic_btn" onclick="processUserSelection(this)"> Animate In Manual </button>-->
 		  </div>
 			  </div>
 	      </div>
