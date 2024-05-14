@@ -15,14 +15,77 @@
   <link rel="stylesheet" href="<c:url value="/webjars/bootstrap/5.1.3/css/bootstrap.min.css"/>"/>  
   <link href="<c:url value="/webjars/font-awesome/6.0.0/css/all.css"/>" rel="stylesheet">
   <script type="text/javascript">
+	
   $(document).on("keydown", function(e){
-		if (e.which >= 112 && e.which <= 123) { // Suppress default behaviour of F1 to F12
-			e.preventDefault();
-		}else if (e.which == 32) {
-			e.preventDefault();
-		}
-		processUserSelectionData('LOGGER_FORM_KEYPRESS',e.which);
-	});
+	  
+	  if($('#waiting_modal').hasClass('show')) {
+		  e.cancelBubble = true;
+		  e.stopImmediatePropagation();
+    	  e.preventDefault();
+		  return false;
+	  }
+	  
+      var evtobj = window.event? event : e;
+      
+      switch(e.target.tagName.toLowerCase())
+      {
+      case "input": case "textarea":
+    	 break;
+      default:
+    	  e.preventDefault();
+	      var whichKey = '';
+		  var validKeyFound = false;
+	    
+	      if(evtobj.ctrlKey) {
+	    	  whichKey = 'Control';
+	      }
+	      if(evtobj.altKey) {
+	    	  if(whichKey) {
+	        	  whichKey = whichKey + '_Alt';
+	    	  } else {
+	        	  whichKey = 'Alt';
+	    	  }
+	      }
+	      if(evtobj.shiftKey) {
+	    	  if(whichKey) {
+	        	  whichKey = whichKey + '_Shift';
+	    	  } else {
+	        	  whichKey = 'Shift';
+	    	  }
+	      }
+	      
+		  if(evtobj.keyCode) {
+	    	  if(whichKey) {
+	    		  if(!whichKey.includes(evtobj.key)) {
+	            	  whichKey = whichKey + '_' + evtobj.key;
+	    		  }
+	    	  } else {
+	        	  whichKey = evtobj.key;
+	    	  }
+		  }
+		  validKeyFound = false;
+		  if (whichKey.includes('_')) {
+			  whichKey.split("_").forEach(function (this_key) {
+				  switch (this_key) {
+				  case 'Control': case 'Shift': case 'Alt':
+					break;
+				  default:
+					validKeyFound = true;
+					break;
+				  }
+			  });
+		   } else {
+			  if(whichKey != 'Control' && whichKey != 'Alt' && whichKey != 'Shift') {
+				  validKeyFound = true;
+			  }
+		   }
+			  
+		   if(validKeyFound == true) {
+			   console.log('whichKey = ' + whichKey);
+			   processUserSelectionData('LOGGER_FORM_KEYPRESS',whichKey);
+		   }
+	      }
+	  });
   setInterval(() => {
 	  processBadmintonProcedures('READ-MATCH-AND-POPULATE');
 	}, 1000);
