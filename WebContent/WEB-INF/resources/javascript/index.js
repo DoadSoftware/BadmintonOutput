@@ -833,7 +833,7 @@ function processBadmintonProcedures(whatToProcess)
 	case 'POPULATE-SCHEDULE':
 		switch ($('#select_broadcaster').val()) {
 		case 'DOAD_In_House_Everest':
-			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/DD_Schedule.sum' + ',' + $('#selectGroup option:selected').val();
+			valueToProcess = 'D:/DOAD_In_House_Everest/Everest_Sports/Everest_GBPL/Scenes/DD_Schedule02.sum' + ',' + $('#selectGroup option:selected').val();
 			break;
 		}
 		break;

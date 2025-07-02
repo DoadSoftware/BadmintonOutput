@@ -31,7 +31,6 @@ import com.badminton.containers.Configurations;
 import com.badminton.containers.Scene;
 import com.badminton.model.*;
 import com.badminton.service.BadmintonService;
-import com.badminton.util.BadmintonFunctions;
 import com.badminton.util.BadmintonUtil;
 
 import net.sf.json.JSONArray;
@@ -260,7 +259,7 @@ public class IndexController
 			List<Match> current_date_match = new ArrayList<Match>(); 
 			match = badmintonService.getAllMatches();
 			for(Match mtch : match) {
-				//System.out.println(mtch.getMatchDate());
+				System.out.println(mtch.getMatchDate());
 				if(mtch.getMatchDate().equalsIgnoreCase(new SimpleDateFormat("dd-MM-yyyy").format(new Date()))) {
 					current_date_match.add(mtch);
 				}
