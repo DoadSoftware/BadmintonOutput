@@ -151,7 +151,7 @@
 			      </select>
 			    </div>
 			  </div>-->
-			<div class="left">
+			<!-- <div class="left">
 			<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  		name="populate_scorebug_btn" id="populate_scorebug_btn" onclick="processUserSelection(this)"> Scorebug (F1)</button>
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
@@ -230,7 +230,7 @@
 		  	<button style="background-color:#2E008B;color:#FEFEFE;" class="btn btn-sm" type="button"
 		  		name="lt_tieid_double_graphic_btn" id="lt_tieid_double_graphic_btn" onclick="processUserSelection(this)"> LT TieID Double (F12)</button>
 
-		  	</div>
+		  	</div> -->
 		  	<div class="left">
 		  	<button style="background-color:#f44336;color:#FEFEFE;;" class="btn btn-sm" type="button"
 		  		name="animateout_graphic_btn" id="animateout_graphic_btn" onclick="processUserSelection(this)"> AnimateOut (-)</button>
